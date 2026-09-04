@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewPulse Console · Groww Product Intelligence</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary": "#003827",
+            "on-secondary-container": "#006348",
+            "inverse-surface": "#e2e2e7",
+            "surface-tint": "#2fe0aa",
+            "on-primary": "#003828",
+            "on-tertiary-container": "#5d4500",
+            "primary-fixed-dim": "#2fe0aa",
+            "secondary-fixed-dim": "#00e1a8",
+            "on-surface": "#e2e2e7",
+            "surface-container-high": "#282a2e",
+            "surface-variant": "#333538",
+            "on-primary-container": "#00533c",
+            "surface": "#111417",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-primary": "#006c4f",
+            "tertiary": "#fecc59",
+            "on-primary-fixed-variant": "#00513b",
+            "tertiary-fixed": "#ffdf9d",
+            "on-secondary-fixed": "#002116",
+            "surface-container-lowest": "#0c0e11",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#e0b140",
+            "on-tertiary": "#3f2e00",
+            "secondary-container": "#07e7ad",
+            "on-background": "#e2e2e7",
+            "surface-container": "#1e2023",
+            "on-primary-fixed": "#002116",
+            "secondary": "#82ffce",
+            "surface-dim": "#111417",
+            "surface-container-low": "#1a1c1f",
+            "primary-fixed": "#59fdc5",
+            "surface-container-highest": "#333538",
+            "surface-bright": "#37393d",
+            "on-tertiary-fixed": "#251a00",
+            "on-error": "#690005",
+            "tertiary-fixed-dim": "#f0c04d",
+            "on-secondary-fixed-variant": "#00513b",
+            "outline": "#85948c",
+            "outline-variant": "#3c4a43",
+            "inverse-on-surface": "#2e3034",
+            "error-container": "#93000a",
+            "primary": "#44edb7",
+            "secondary-fixed": "#42ffc3",
+            "error": "#ffb4ab",
+            "primary-container": "#00d09c",
+            "background": "#111417",
+            "on-surface-variant": "#bacac1"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "grid-gutter-desktop": "1rem",
+            "container-pad": "1.25rem",
+            "grid-gutter-mobile": "0.75rem",
+            "density-compact": "0.25rem",
+            "density-cozy": "0.5rem",
+            "grid-margin-mobile": "1rem",
+            "grid-margin-desktop": "1.5rem",
+            "density-spacious": "1rem"
+          },
+          "fontFamily": {
+            "tabular-sm": ["JetBrains Mono"],
+            "editorial-title": ["Newsreader"],
+            "body-md": ["Geist"],
+            "label-caps": ["JetBrains Mono"],
+            "tabular-lg": ["JetBrains Mono"],
+            "tabular-md": ["JetBrains Mono"],
+            "editorial-quote": ["Newsreader"],
+            "headline-md": ["Geist"],
+            "headline-sm": ["Geist"],
+            "body-lg": ["Geist"],
+            "headline-lg": ["Geist"],
+            "body-sm": ["Geist"],
+            "editorial-display": ["Newsreader"]
+          },
+          "fontSize": {
+            "tabular-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "editorial-title": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "tabular-lg": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "tabular-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "editorial-quote": ["1.125rem", { "lineHeight": "1.75rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "editorial-display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+    /* Institutional scanlines subtle texture */
+    .bg-grid-subtle {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(60, 74, 67, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(60, 74, 67, 0.12) 1px, transparent 1px);
+    }
+    /* Tabular numeric alignment */
+    .nums {
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+  </style>
+</head>
+<body class="bg-[#07090C] text-[#F4F7FA] font-body-md text-body-md antialiased min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-surface-container-lowest">
+<!-- ======================= SIDEBAR (Shared Component: SideNavBar) ======================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 flex flex-col justify-between p-4 bg-surface-container-lowest border-r border-outline-variant z-40">
+<!-- Header / Brand -->
+<div class="space-y-6">
+<div class="flex items-center justify-between pb-4 border-b border-outline-variant">
+<div class="flex items-center gap-2.5">
+<div class="relative flex items-center justify-center w-6 h-6 rounded bg-[#161C25] border border-[#243041]">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="absolute w-3.5 h-3.5 rounded-full bg-primary animate-ping opacity-40"></span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">ReviewPulse</div>
+<div class="font-label-caps text-label-caps text-outline">Groww · Play Store</div>
+</div>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#161C25] text-primary border border-outline-variant">LIVE</span>
+</div>
+<!-- Main Navigation Cluster -->
+<nav class="space-y-1">
+<!-- Weekly Pulse (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary border-l-2 border-primary font-body-md text-body-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined fill text-primary" data-icon="pulse">switch_account</span>
+<span class="font-medium text-primary">Weekly Pulse</span>
+</a>
+<!-- Themes -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="category">category</span>
+<span>Themes</span>
+</a>
+<!-- Reviews -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="rate_review">rate_review</span>
+<span>Reviews</span>
+</a>
+<!-- Pipeline -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="account_tree">account_tree</span>
+<span>Pipeline</span>
+</a>
+<!-- Runs -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="history">history</span>
+<span>Runs</span>
+</a>
+<!-- Publish -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="publish">publish</span>
+<span>Publish</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Telemetry Footer -->
+<div class="pt-4 border-t border-outline-variant space-y-2">
+<div class="p-2.5 rounded bg-[#10151C] border border-[#243041] space-y-1.5">
+<div class="flex items-center justify-between font-label-caps text-label-caps text-[#6B7A8D]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="calendar_today">calendar_today</span>
+            CYCLE
+          </span>
+<span class="font-tabular-sm text-tabular-sm text-[#F4F7FA]">ISO 2026-W36</span>
+</div>
+<div class="flex items-center justify-between font-label-caps text-label-caps text-[#6B7A8D]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+            LAST RUN
+          </span>
+<span class="font-tabular-sm text-tabular-sm text-primary">Just now</span>
+</div>
+<div class="text-[11px] font-tabular-sm text-[#6B7A8D] pt-1 border-t border-[#243041]/60">
+          Sync: 4 Sep 16:04 IST
+        </div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-[#6B7A8D] px-1">
+<span>Groww Core · v4.28</span>
+<span class="flex items-center gap-1 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          STABLE
+        </span>
+</div>
+</div>
+</aside>
+<!-- ======================= TOP BAR (Shared Component: TopNavBar) ======================= -->
+<header class="sticky top-0 right-0 z-30 ml-60 flex justify-between items-center px-6 py-3 w-[calc(100%-15rem)] border-b border-outline-variant bg-[#0B0F14]/95 backdrop-blur-md">
+<!-- Left Headline & Meta Badges -->
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-semibold text-on-surface tracking-tight">Weekly Pulse</h1>
+<!-- Date Scope Chip -->
+<div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#10151C] border border-[#243041] text-[#9AA8B8]">
+<span class="material-symbols-outlined text-[15px] text-[#6B7A8D]" data-icon="date_range">date_range</span>
+<span class="font-tabular-sm text-tabular-sm text-[#9AA8B8]">12 weeks · 12 Jun – 4 Sep 2026</span>
+</div>
+<!-- MCP Status Chip -->
+<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-[#10151C] border border-[#243041]">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-caps text-label-caps text-primary tracking-wide">MCP STATUS: CONNECTED</span>
+</div>
+</div>
+<!-- Right Global Operational Triggers -->
+<div class="flex items-center gap-3">
+<!-- Sync Icon Action -->
+<button class="w-8 h-8 flex items-center justify-center rounded bg-[#10151C] border border-[#243041] text-on-surface-variant hover:text-on-surface hover:border-[#9AA8B8] transition-colors duration-150" title="Resync review pipeline">
+<span class="material-symbols-outlined text-[16px]" data-icon="sync">sync</span>
+</button>
+<!-- Notifications Icon Action -->
+<button class="relative w-8 h-8 flex items-center justify-center rounded bg-[#10151C] border border-[#243041] text-on-surface-variant hover:text-on-surface hover:border-[#9AA8B8] transition-colors duration-150" title="Notifications">
+<span class="material-symbols-outlined text-[16px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-error"></span>
+</button>
+<div class="h-4 w-px bg-[#243041] mx-1"></div>
+<!-- Secondary Trigger: Export Brief -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#161C25] border border-[#243041] text-[#F4F7FA] font-body-md text-body-sm font-medium hover:bg-surface-container-high hover:border-[#9AA8B8] transition-all duration-150 active:scale-98">
+<span class="material-symbols-outlined text-[16px] text-[#9AA8B8]" data-icon="file_download">file_download</span>
+<span>Export Brief</span>
+</button>
+<!-- Primary Action: Run Pipeline -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#00D09C] text-[#07090C] font-body-md text-body-sm font-semibold hover:bg-[#00E6AC] transition-all duration-150 active:scale-98">
+<span class="material-symbols-outlined text-[16px]" data-icon="play_arrow">play_arrow</span>
+<span>Run Pipeline</span>
+</button>
+<!-- User Avatar Pill -->
+<div class="w-8 h-8 rounded bg-[#161C25] border border-[#243041] text-primary flex items-center justify-center font-tabular-sm text-tabular-sm font-bold tracking-tight select-none" title="Operator MK (Product Lead)">
+        MK
+      </div>
+</div>
+</header>
+<!-- ======================= MAIN CANVAS ======================= -->
+<main class="ml-60 p-6 space-y-6 max-w-[1440px] bg-grid-subtle">
+<!-- 1. EXECUTIVE INTELLIGENCE BANNER (Editorial Pulse Note) -->
+<section class="rounded-xl bg-[#10151C] border border-[#243041] p-5 shadow-2xl relative overflow-hidden">
+<!-- Ambient background accent -->
+<div class="absolute top-0 right-0 w-96 h-full bg-gradient-to-l from-primary-container/5 via-transparent to-transparent pointer-events-none"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[#243041]">
+<div class="flex items-center gap-2.5">
+<span class="px-2 py-0.5 rounded-[8px] bg-primary/10 border border-primary/40 text-primary font-label-caps text-label-caps tracking-wider">
+            EXECUTIVE PULSE NOTE · W36
+          </span>
+<span class="text-[#6B7A8D] text-xs font-tabular-sm">|</span>
+<span class="text-[#9AA8B8] font-label-caps text-label-caps flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="auto_awesome">auto_awesome</span>
+            PUBLISHED BY PROD-INTEL AI
+          </span>
+</div>
+<div class="flex items-center gap-2 font-tabular-sm text-tabular-sm text-[#6B7A8D]">
+<span>Confidence: <strong class="text-[#F4F7FA] font-medium">98.4%</strong></span>
+<span>·</span>
+<span>Sample: <strong class="text-[#F4F7FA] font-medium">14,820</strong> reviews</span>
+</div>
+</div>
+<!-- Editorial Synthesis Quote -->
+<div class="my-4 pl-4 border-l-2 border-primary-container bg-[#161C25]/70 py-3 pr-4 rounded-r">
+<p class="font-editorial-quote text-editorial-quote text-[#F4F7FA] leading-relaxed italic">
+          “Overall app sentiment dipped by <span class="font-medium text-error not-italic font-tabular-md">0.18★</span> this week driven by a <span class="text-error font-medium not-italic font-tabular-md">42%</span> spike in IPO UPI mandate approval timeouts during the Bajaj Housing IPO rush. Mutual Fund SIP processing sentiment remains exceptionally resilient at <span class="text-primary font-medium not-italic font-tabular-md">4.6★</span> (+0.04★). F&O broker terminal crash reports on Aug 30 market open created an acute 1-star cluster (<span class="text-[#F4F7FA] font-medium not-italic font-tabular-md">342 reviews</span>).”
+        </p>
+</div>
+<!-- Quick Operator Validation Bar -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-[#6B7A8D] uppercase tracking-wider">Operator Validation:</span>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#161C25] border border-outline-variant hover:border-primary text-xs font-medium text-[#F4F7FA] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="check_circle">check_circle</span>
+            Validate Analysis
+          </button>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#161C25] border border-outline-variant hover:border-[#FF5A6A] text-xs font-medium text-[#F4F7FA] hover:text-[#FF5A6A] transition-colors">
+<span class="material-symbols-outlined text-[14px] text-[#FF5A6A]" data-icon="flag">flag</span>
+            Flag Anomaly
+          </button>
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#161C25] border border-outline-variant hover:border-[#9AA8B8] text-xs font-medium text-[#F4F7FA] hover:text-[#00D09C] transition-colors">
+<span class="material-symbols-outlined text-[14px] text-[#F5C451]" data-icon="travel_explore">travel_explore</span>
+            Inspect 342 Reviews
+          </button>
+</div>
+<div class="flex items-center gap-2 text-xs text-[#9AA8B8] font-tabular-sm">
+<span>Signal Drift: <span class="text-primary">Low (0.03)</span></span>
+<span>·</span>
+<span>Lead Sign-off: <span class="text-[#F5B942]">Pending</span></span>
+</div>
+</div>
+</section>
+<!-- 2. METRIC KPI CARDS STRIP (4 Columns) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Play Store Rating -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Play Store Rating</span>
+<span class="material-symbols-outlined text-[#F5C451]" data-icon="star">star</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-2xl font-bold tracking-tight text-[#F4F7FA] nums">4.26★</span>
+<!-- Stars row -->
+<div class="flex items-center text-[#F5C451]">
+<span class="material-symbols-outlined text-[15px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] text-[#243041]" data-icon="star">star</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-[8px] text-[11px] font-label-caps font-semibold bg-[#FF5A6A]/10 border border-[#FF5A6A]/40 text-[#FF5A6A]">
+              -0.18★ vs W35
+            </span>
+<span class="text-xs text-[#6B7A8D] font-tabular-sm">Prior: 4.44★</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span>48,290 ratings this cycle</span>
+<span class="text-[#00D09C]">Verified</span>
+</div>
+</div>
+<!-- Card 2: Processed Reviews -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Processed Reviews</span>
+<span class="material-symbols-outlined text-primary" data-icon="forum">forum</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-2xl font-bold tracking-tight text-[#F4F7FA] nums">14,820</span>
+<span class="text-xs font-tabular-sm text-[#6B7A8D]">text reviews</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-[8px] text-[11px] font-label-caps font-semibold bg-[#00D09C]/10 border border-[#00D09C]/40 text-[#00D09C]">
+              +18.4% WoW Spike
+            </span>
+<span class="text-xs text-[#6B7A8D]">High load</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span>99.4% classified by pipeline</span>
+<span class="text-[#6B7A8D]">88 unparsed</span>
+</div>
+</div>
+<!-- Card 3: Negative Severity Cluster -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Negative Severity (P0/P1)</span>
+<span class="material-symbols-outlined text-[#FF5A6A]" data-icon="warning">warning</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-2xl font-bold tracking-tight text-[#FF5A6A] nums">894 P0/P1</span>
+<span class="text-xs font-tabular-sm text-[#6B7A8D]">tickets</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-[8px] text-[11px] font-label-caps font-semibold bg-[#FF5A6A]/10 border border-[#FF5A6A]/40 text-[#FF5A6A]">
+              +31% delta
+            </span>
+<span class="text-xs text-[#9AA8B8] truncate">Primary: IPO UPI Mandate</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span>Broker Terminal: 342 P0</span>
+<span class="text-[#FF5A6A] font-semibold">Action req.</span>
+</div>
+</div>
+<!-- Card 4: Pipeline Health -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Pipeline Telemetry</span>
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-2xl font-bold tracking-tight text-primary nums">99.82%</span>
+<span class="text-xs font-tabular-sm text-[#6B7A8D]">uptime</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-[8px] text-[11px] font-label-caps font-semibold bg-[#161C25] border border-[#243041] text-[#9AA8B8]">
+              Latency 1.4s/batch
+            </span>
+<span class="text-xs text-[#6B7A8D]">Avg 120 rev/s</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span class="truncate">Model: DeepPulse-v3</span>
+<span class="text-[#6B7A8D]">Run #824</span>
+</div>
+</div>
+</section>
+<!-- 3. SPLIT INTELLIGENCE GRID (7 Cols Themes / 5 Cols Operators) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT COLUMN: Theme Radar & Critical Drivers (7 Cols) -->
+<section class="lg:col-span-7 space-y-4">
+<div class="rounded-xl bg-[#10151C] border border-[#243041] overflow-hidden">
+<!-- Card Header -->
+<div class="px-5 py-3.5 border-b border-[#243041] flex items-center justify-between bg-[#0B0F14]/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">Top Emerging Themes & Issue Clusters</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-[#6B7A8D]">SORTED BY IMPACT</span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#00D09C]"></span>
+</div>
+</div>
+<!-- Structured Theme Items List -->
+<div class="divide-y divide-[#243041]">
+<!-- Theme 1: P0 CRITICAL IPO UPI Mandate -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-[8px] text-[10px] font-label-caps font-semibold bg-[#FF5A6A]/10 border border-[#FF5A6A]/50 text-[#FF5A6A]">
+                    P0 CRITICAL
+                  </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                    IPO UPI Mandate Pending State
+                  </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">1,842</strong></span>
+<span class="text-[11px] text-[#FF5A6A] font-semibold">↑ 124%</span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#FF5A6A]/10 text-[#FF5A6A] font-bold">1.2★</span>
+</div>
+</div>
+<!-- Context Pill & Metadata -->
+<div class="flex items-center gap-3 text-xs text-[#6B7A8D]">
+<span>Affecting: <strong class="text-[#9AA8B8]">Groww Pay / IPO Module</strong></span>
+<span>•</span>
+<span>Bank Cluster: SBI, HDFC, Axis</span>
+<span>•</span>
+<span>Anomaly Spike: Bajaj Housing IPO</span>
+</div>
+<!-- Editorial Quote Excerpt -->
+<div class="text-sm font-editorial-quote italic text-[#F4F7FA]/90 bg-[#07090C]/60 p-2.5 rounded border border-[#243041]">
+                “Money debited from SBI account via UPI mandate but Groww application status stuck on pending for 6 hours. Lost allocation window.”
+              </div>
+<div class="flex items-center justify-between pt-1 text-[11px] font-tabular-sm text-[#6B7A8D]">
+<span>Engineered Action: Escalate to Core Payment Gateway team (Jira GROWW-8942)</span>
+<a class="text-primary hover:underline inline-flex items-center gap-0.5" href="#">
+                  View cluster (1,842) <span class="material-symbols-outlined text-[13px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Theme 2: P1 HIGH F&O Terminal Lag -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-[8px] text-[10px] font-label-caps font-semibold bg-[#F5B942]/10 border border-[#F5B942]/50 text-[#F5B942]">
+                    P1 HIGH
+                  </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                    F&O Terminal Lag at 09:15 IST
+                  </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">720</strong></span>
+<span class="text-[11px] text-[#FF5A6A] font-semibold">↑ 45%</span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#FF5A6A]/10 text-[#FF5A6A] font-bold">1.4★</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-xs text-[#6B7A8D]">
+<span>Affecting: <strong class="text-[#9AA8B8]">Trading / Real-time Orders</strong></span>
+<span>•</span>
+<span>Incidence: 30 Aug Market Open</span>
+<span>•</span>
+<span>Affected: Android WebSocket Client</span>
+</div>
+<div class="text-sm font-editorial-quote italic text-[#F4F7FA]/90 bg-[#07090C]/60 p-2.5 rounded border border-[#243041]">
+                “Nifty options chart freezed right at market open, order book wouldn't refresh and SL failed to execute. Lost money due to terminal timeout.”
+              </div>
+<div class="flex items-center justify-between pt-1 text-[11px] font-tabular-sm text-[#6B7A8D]">
+<span>Engineered Action: WebSocket heartbeat threshold patch deployed in v4.28.1</span>
+<a class="text-primary hover:underline inline-flex items-center gap-0.5" href="#">
+                  View cluster (720) <span class="material-symbols-outlined text-[13px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Theme 3: P2 MEDIUM KYC Digilocker Verification Loop -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-[8px] text-[10px] font-label-caps font-semibold bg-[#161C25] border border-[#243041] text-[#9AA8B8]">
+                    P2 MEDIUM
+                  </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                    KYC Digilocker Verification Loop
+                  </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">410</strong></span>
+<span class="text-[11px] text-[#00D09C] font-semibold">↓ 12%</span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#F5B942]/10 text-[#F5B942] font-bold">2.1★</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-xs text-[#6B7A8D]">
+<span>Affecting: <strong class="text-[#9AA8B8]">Onboarding / Compliance</strong></span>
+<span>•</span>
+<span>Source: UIDAI OTP Latency</span>
+<span>•</span>
+<span>Trend: Stabilizing after partner patch</span>
+</div>
+<div class="text-sm font-editorial-quote italic text-[#F4F7FA]/90 bg-[#07090C]/60 p-2.5 rounded border border-[#243041]">
+                “Aadhaar verification OTP loop redirects back to start without error code. Had to try 5 times.”
+              </div>
+</div>
+<!-- Theme 4: POSITIVE Instant Mutual Fund Withdrawal -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2 bg-[#00D09C]/[0.02]">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-[8px] text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 border border-[#00D09C]/40 text-[#00D09C]">
+                    POSITIVE STRENGTH
+                  </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                    Instant Mutual Fund Withdrawal (SIP/Lumpsum)
+                  </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">2,130</strong></span>
+<span class="text-[11px] text-[#00D09C] font-semibold">↑ 18%</span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#00D09C]/10 text-[#00D09C] font-bold">4.8★</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-xs text-[#6B7A8D]">
+<span>Affecting: <strong class="text-[#9AA8B8]">Mutual Funds / Redemption</strong></span>
+<span>•</span>
+<span>Feature: 30-minute instant payout</span>
+<span>•</span>
+<span>Organic NPS Catalyst</span>
+</div>
+<div class="text-sm font-editorial-quote italic text-[#F4F7FA]/90 bg-[#07090C]/60 p-2.5 rounded border border-[#243041]">
+                “Liquid fund redemption credited to ICICI in under 15 minutes seamlessly. Groww is unmatched for mutual fund tracking and quick access.”
+              </div>
+</div>
+</div>
+<!-- Bottom Footer Bar -->
+<div class="px-5 py-2.5 border-t border-[#243041] bg-[#0B0F14]/50 flex items-center justify-between text-xs text-[#6B7A8D] font-tabular-sm">
+<span>Showing 4 of 38 classified themes</span>
+<button class="text-primary hover:underline font-medium inline-flex items-center gap-1">
+              Explore All Themes in Radar <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Operator Control & Telemetry Stream (5 Cols) -->
+<section class="lg:col-span-5 space-y-4">
+<!-- OPERATOR CONTROL & PUBLISH GATE -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] overflow-hidden">
+<div class="px-4 py-3 border-b border-[#243041] bg-[#0B0F14]/50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">Operator Gate & Broadcast</h3>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps bg-[#161C25] border border-[#243041] text-[#9AA8B8]">
+              STAGE 4 / 4
+            </span>
+</div>
+<div class="p-4 space-y-3">
+<!-- Pipeline Checklist Steps -->
+<div class="space-y-2">
+<!-- Step 1 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-[#161C25] border border-[#243041]">
+<div class="flex items-center gap-2.5">
+<span class="w-5 h-5 rounded-full bg-[#00D09C]/10 text-primary border border-primary/30 flex items-center justify-center font-bold text-[11px]">✓</span>
+<div>
+<div class="text-xs font-medium text-[#F4F7FA]">Step 1: Raw Review Ingestion</div>
+<div class="text-[11px] font-tabular-sm text-[#6B7A8D]">14,820 / 14,820 rows ingested</div>
+</div>
+</div>
+<span class="font-label-caps text-[10px] text-primary bg-[#00D09C]/10 px-2 py-0.5 rounded border border-[#00D09C]/30 font-semibold">VERIFIED</span>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-[#161C25] border border-[#243041]">
+<div class="flex items-center gap-2.5">
+<span class="w-5 h-5 rounded-full bg-[#00D09C]/10 text-primary border border-primary/30 flex items-center justify-center font-bold text-[11px]">✓</span>
+<div>
+<div class="text-xs font-medium text-[#F4F7FA]">Step 2: Semantic Clustering</div>
+<div class="text-[11px] font-tabular-sm text-[#6B7A8D]">42 clusters identified (0.92 silhouette)</div>
+</div>
+</div>
+<span class="font-label-caps text-[10px] text-primary bg-[#00D09C]/10 px-2 py-0.5 rounded border border-[#00D09C]/30 font-semibold">VERIFIED</span>
+</div>
+<!-- Step 3 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-[#161C25] border border-[#243041]">
+<div class="flex items-center gap-2.5">
+<span class="w-5 h-5 rounded-full bg-[#00D09C]/10 text-primary border border-primary/30 flex items-center justify-center font-bold text-[11px]">✓</span>
+<div>
+<div class="text-xs font-medium text-[#F4F7FA]">Step 3: Anomaly & Bot Pruning</div>
+<div class="text-[11px] font-tabular-sm text-[#6B7A8D]">18 fake review clusters pruned</div>
+</div>
+</div>
+<span class="font-label-caps text-[10px] text-primary bg-[#00D09C]/10 px-2 py-0.5 rounded border border-[#00D09C]/30 font-semibold">VERIFIED</span>
+</div>
+<!-- Step 4 -->
+<div class="flex items-center justify-between p-2.5 rounded bg-[#161C25] border border-primary/40">
+<div class="flex items-center gap-2.5">
+<span class="w-5 h-5 rounded-full bg-[#F5B942]/20 text-[#F5B942] border border-[#F5B942]/50 flex items-center justify-center font-bold text-[11px] animate-pulse">!</span>
+<div>
+<div class="text-xs font-medium text-[#F4F7FA]">Step 4: Executive Brief Synthesis</div>
+<div class="text-[11px] font-tabular-sm text-[#9AA8B8]">Awaiting PM verification & dispatch</div>
+</div>
+</div>
+<span class="font-label-caps text-[10px] text-[#F5B942] bg-[#F5B942]/10 px-2 py-0.5 rounded border border-[#F5B942]/30 font-semibold">READY</span>
+</div>
+</div>
+<!-- Publish Action Button -->
+<div class="pt-2">
+<button class="w-full py-2.5 px-4 rounded bg-[#00D09C] hover:bg-[#00E6AC] text-[#07090C] font-semibold text-xs tracking-tight transition-all shadow-md active:scale-98 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="send">send</span>
+<span>Approve & Broadcast to Slack #groww-product-pulse</span>
+</button>
+<div class="flex items-center justify-between text-[10px] text-[#6B7A8D] font-tabular-sm mt-2 px-1">
+<span>Auto-archives run to BigQuery</span>
+<span>Target: Leadership & Brokerage Infra</span>
+</div>
+</div>
+</div>
+</div>
+<!-- LIVE REVIEW TELEMETRY STREAM (3 Raw Reviews) -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] overflow-hidden">
+<div class="px-4 py-3 border-b border-[#243041] bg-[#0B0F14]/50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#F5C451]" data-icon="stream">stream</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">Live Telemetry Stream</h3>
+</div>
+<span class="flex items-center gap-1 font-label-caps text-label-caps text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              INGESTING
+            </span>
+</div>
+<div class="divide-y divide-[#243041] text-xs">
+<!-- Raw Review 1 -->
+<div class="p-3.5 space-y-1.5 hover:bg-[#161C25]/60 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-medium text-[#F4F7FA]">Rahul S.</span>
+<span class="text-[10px] font-tabular-sm px-1.5 py-0.2 rounded bg-[#161C25] border border-[#243041] text-[#9AA8B8]">Pixel 8 · Android 14</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="flex text-[#FF5A6A]">
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+</div>
+<span class="font-tabular-sm text-[11px] text-[#6B7A8D]">14:28:10</span>
+</div>
+</div>
+<p class="text-[#bacac1] leading-relaxed">
+                "Applied for Bajaj IPO, amount deducted via Mandate but application not shown in app. Very nervous!"
+              </p>
+<div class="flex items-center gap-2 pt-0.5">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#FF5A6A]/10 text-[#FF5A6A] border border-[#FF5A6A]/30">IPO Pending</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#161C25] text-[#9AA8B8] border border-[#243041]">Groww Pay</span>
+</div>
+</div>
+<!-- Raw Review 2 -->
+<div class="p-3.5 space-y-1.5 hover:bg-[#161C25]/60 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-medium text-[#F4F7FA]">Ananya Sen</span>
+<span class="text-[10px] font-tabular-sm px-1.5 py-0.2 rounded bg-[#161C25] border border-[#243041] text-[#9AA8B8]">Galaxy S24 · OneUI 6</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="flex text-[#F5C451]">
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+</div>
+<span class="font-tabular-sm text-[11px] text-[#6B7A8D]">14:26:44</span>
+</div>
+</div>
+<p class="text-[#bacac1] leading-relaxed">
+                "Monthly SIP autopay with ICICI mandate executed with no delay. Clean UI for tracking NAV returns."
+              </p>
+<div class="flex items-center gap-2 pt-0.5">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-primary/10 text-primary border border-primary/30">SIP Autopay</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#161C25] text-[#9AA8B8] border border-[#243041]">Mutual Funds</span>
+</div>
+</div>
+<!-- Raw Review 3 -->
+<div class="p-3.5 space-y-1.5 hover:bg-[#161C25]/60 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-medium text-[#F4F7FA]">Vikram Patel</span>
+<span class="text-[10px] font-tabular-sm px-1.5 py-0.2 rounded bg-[#161C25] border border-[#243041] text-[#9AA8B8]">Redmi Note 12 · MIUI</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="flex text-[#FF5A6A]">
+<span class="material-symbols-outlined text-[12px] fill" data-icon="star">star</span>
+</div>
+<span class="font-tabular-sm text-[11px] text-[#6B7A8D]">14:24:02</span>
+</div>
+</div>
+<p class="text-[#bacac1] leading-relaxed">
+                "Options strike chart took 40 seconds to open right at 9:20. Please fix the terminal performance."
+              </p>
+<div class="flex items-center gap-2 pt-0.5">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#F5B942]/10 text-[#F5B942] border border-[#F5B942]/30">Terminal Lag</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-[#161C25] text-[#9AA8B8] border border-[#243041]">F&O Trading</span>
+</div>
+</div>
+</div>
+<div class="px-4 py-2 border-t border-[#243041] bg-[#0B0F14]/40 flex items-center justify-between text-[11px] text-[#6B7A8D] font-tabular-sm">
+<span>Buffer depth: 100 items</span>
+<a class="text-[#F4F7FA] hover:text-primary transition-colors inline-flex items-center gap-1" href="#">
+              Open Raw Feed <span class="material-symbols-outlined text-[13px]" data-icon="open_in_new">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+<!-- 4. SYSTEM TELEMETRY STRIP (Footer Bar for Analytical Workspace) -->
+<section class="p-3 rounded-lg bg-[#0B0F14] border border-[#243041] flex flex-wrap items-center justify-between gap-4 text-xs font-tabular-sm text-[#6B7A8D]">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+          Ingestion Gateway: 100% Healthy
+        </span>
+<span>·</span>
+<span>NLP Engine: RoBERTa-FinDense-Groww-v3</span>
+<span>·</span>
+<span>Vector Store: Qdrant Cluster (1.2M vectors)</span>
+</div>
+<div class="flex items-center gap-3">
+<span>Latency P95: <strong class="text-[#F4F7FA]">410ms</strong></span>
+<span>Error Budget Remaining: <strong class="text-primary">99.98%</strong></span>
+<span class="px-2 py-0.5 rounded bg-[#161C25] border border-[#243041] text-[#9AA8B8]">Console v2.14-prod</span>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets & local config
+.env
+config/settings.toml
+
+# Runtime data
+data/raw/*
+!data/raw/.gitkeep
+data/exports/
+data/reviews.db
+data/cache/
+data/publish-state.json
+runs/
+data/schedule.lock
+
+# Node / Next.js console
+web/node_modules/
+web/.next/
+web/out/
+web/.env.local
+web/test-results/
+web/playwright-report/
+web/tsconfig.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

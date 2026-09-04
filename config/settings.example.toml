@@ -1,0 +1,131 @@
+# Copy to config/settings.toml and adjust for your environment.
+
+[app]
+package_id = "com.nextbillion.groww"
+default_window_weeks = 12
+min_reviews = 15
+k_max = 5
+cluster_size_floor = 3
+
+[fetch]
+# Public Play Store review download (no credentials required).
+lang = "en"
+country = "in"
+
+[ingest]
+# Quality filters applied before storage.
+min_words = 8        # drop reviews shorter than this many words
+english_only = true  # drop non-English reviews (incl. romanized Hindi)
+
+# Optional column mapping when Play export headers differ from defaults.
+# [ingest.columns]
+# text = "Review Text"
+# title = "Review Title"
+# rating = "Star Rating"
+# date = "Review Date"
+# external_id = "Review ID"
+
+[gmail]
+recipient_alias = "you@example.com"
+
+# Hosted Gmail + Google Docs MCP (Phase 5).
+# Server: https://github.com/manojkr-ai-labs/mcp-gmail-google-docs-connect
+# Railway listens on PORT (8080) behind HTTPS; clients use this URL, not :8080.
+# Transport: Streamable HTTP. Auth: Authorization: Bearer ${MCP_AUTH_TOKEN}.
+# Tools: draft_email, send_email, append_to_google_doc.
+# Interactive `reviewpulse run` calls draft_email + append_to_google_doc.
+# `reviewpulse run --send` and `reviewpulse schedule` also call send_email.
+[mcp]
+url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
+auth_token = "${MCP_AUTH_TOKEN}"
+
+[mcp.gdocs]
+# Required: the server cannot create a Doc. Paste the ID from
+# https://docs.google.com/document/d/{id}/edit (the authorized Google account
+# must be able to edit it). A full URL is accepted.
+document_id = ""
+tools.append = "append_to_google_doc"
+
+[mcp.gmail]
+tools.create_draft = "draft_email"
+tools.send = "send_email"     # Phase 6 / --send only; never used as create_draft
+
+[schedule]
+# Weekly unattended run (Phase 6). The job is `reviewpulse schedule --once`.
+weekday = "monday"            # monday … sunday
+hour = 9                      # local to `timezone`
+minute = 0
+timezone = "Asia/Kolkata"     # IANA; UTC also fine
+window_weeks = 12             # rolling analysis window (not this week only)
+send_email = true             # true → MCP send_email; false → draft_email
+skip_if_no_new = false        # true → exit 0 when ingest inserted nothing
+lock_timeout_minutes = 120
+
+[console]
+# Phase 7 operator console. Local `reviewpulse serve` uses this host/port.
+# Railway overrides with PORT and REVIEWPULSE_BIND_ALL=1 (0.0.0.0).
+api_host = "127.0.0.1"
+api_port = 8000
+operator_initials = "MK"
+
+# Local stdio servers (Phase 4) still work if [mcp].url is left empty and you
+# fill command/args instead:
+# [mcp.gdocs]
+# command = "npx"
+# args = ["-y", "<docs-mcp-server>"]
+# tools.create = "create_document"
+# tools.append = "insert_text"
+
+
+[llm]
+# Phase 2 theme labeling. Groq free tier for openai/gpt-oss-120b
+# (console.groq.com/settings/limits). The API key itself lives in .env, not here.
+# Phase 3 composition has its own provider block under [pulse.llm].
+provider = "groq"             # groq | gemini
+model = "openai/gpt-oss-120b"
+reasoning_effort = "low"      # reasoning tokens count against tokens_per_minute
+samples_per_theme = 6         # sample reviews sent per theme — most of the prompt
+requests_per_minute = 30
+requests_per_day = 1000
+tokens_per_minute = 8000
+tokens_per_day = 200000
+tokens_per_request = 2500     # cost estimate for one labeling call; sets the pace
+
+[clustering]
+# embedding | keyword_fallback
+mode = "embedding"
+embedding_model = "sentence-transformers/all-MiniLM-L6-v2"
+# Ward, not cosine/average: average linkage put 98.7% of the real corpus in one
+# cluster at every k from 2 to 8 (implementation-plan.md §4.2 F1).
+linkage = "ward"
+random_seed = 42            # label sampling + KMeans fallback only; ward is deterministic
+max_cluster_share = 0.60    # balance guard: reject a partition with a mega-cluster
+signal_min_words = 20       # keep short reviews only when rating <= signal_max_rating
+signal_max_rating = 3
+rank_by = "priority"        # priority = size * neg_share | size
+trend_split_weeks = 4       # last N weeks count as the "late" half for trend
+emerging_trend_ratio = 1.5  # late/early ratio at which a theme is flagged emerging
+label_llm = true            # false = deterministic keyword labels, no LLM calls
+
+[pulse]
+max_words = 250         # hard ceiling, gated on the rendered note not the LLM output
+top_themes = 3
+quote_count = 3
+quote_min_words = 8     # shorter than this and a quote names no surface
+quote_max_words = 26    # three quotes still have to leave room for the rest of the note
+compose_llm = true      # false = deterministic prose frame, no LLM calls
+
+[pulse.llm]
+# Phase 3 composition runs on Gemini, independently of the Groq block above:
+# either stage can be live while the other is offline for want of a key.
+# Free key: aistudio.google.com/apikey — set GEMINI_API_KEY in .env.
+# Google's published free-tier ceilings vary by model, region and account age;
+# these are the conservative end, and erring low only makes the pacer wait.
+# Composition spends at most two calls a run, so it never approaches them.
+provider = "gemini"
+model = "gemini-3.6-flash"
+requests_per_minute = 10
+requests_per_day = 250
+tokens_per_minute = 250000
+tokens_per_day = 1000000
+tokens_per_request = 2500   # cost estimate for one compose call; sets the pace

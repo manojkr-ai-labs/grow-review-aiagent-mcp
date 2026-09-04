@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Groww • Weekly Pulse (W12/25 &amp; W36/26)</title>
+<!-- Google Fonts: Geist, Newsreader, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-lowest": "#0c0e11",
+            "surface-container-low": "#1a1c1f",
+            "surface-container": "#1e2023",
+            "surface-container-high": "#282a2e",
+            "surface-container-highest": "#333538",
+            "surface": "#111417",
+            "surface-bright": "#37393d",
+            "surface-dim": "#111417",
+            "surface-variant": "#333538",
+            "surface-tint": "#2fe0aa",
+            "background": "#111417",
+            "primary": "#44edb7",
+            "primary-container": "#00d09c",
+            "primary-fixed": "#59fdc5",
+            "primary-fixed-dim": "#2fe0aa",
+            "on-primary": "#003828",
+            "on-primary-container": "#00533c",
+            "on-primary-fixed": "#002116",
+            "on-primary-fixed-variant": "#00513b",
+            "secondary": "#82ffce",
+            "secondary-container": "#07e7ad",
+            "secondary-fixed": "#42ffc3",
+            "secondary-fixed-dim": "#00e1a8",
+            "on-secondary": "#003827",
+            "on-secondary-container": "#006348",
+            "on-secondary-fixed": "#002116",
+            "on-secondary-fixed-variant": "#00513b",
+            "tertiary": "#fecc59",
+            "tertiary-container": "#e0b140",
+            "tertiary-fixed": "#ffdf9d",
+            "tertiary-fixed-dim": "#f0c04d",
+            "on-tertiary": "#3f2e00",
+            "on-tertiary-container": "#5d4500",
+            "on-tertiary-fixed": "#251a00",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+            "on-error": "#690005",
+            "on-error-container": "#ffdad6",
+            "outline": "#85948c",
+            "outline-variant": "#3c4a43",
+            "on-surface": "#e2e2e7",
+            "on-surface-variant": "#bacac1",
+            "inverse-surface": "#e2e2e7",
+            "inverse-on-surface": "#2e3034",
+            "inverse-primary": "#006c4f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "density-spacious": "1rem",
+            "grid-margin-desktop": "1.5rem",
+            "density-compact": "0.25rem",
+            "grid-gutter-desktop": "1rem",
+            "container-pad": "1.25rem",
+            "density-cozy": "0.5rem",
+            "grid-margin-mobile": "1rem",
+            "grid-gutter-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "tabular-lg": ["JetBrains Mono"],
+            "tabular-md": ["JetBrains Mono"],
+            "tabular-sm": ["JetBrains Mono"],
+            "label-caps": ["JetBrains Mono"],
+            "body-sm": ["Geist"],
+            "body-md": ["Geist"],
+            "body-lg": ["Geist"],
+            "headline-sm": ["Geist"],
+            "headline-md": ["Geist"],
+            "headline-lg": ["Geist"],
+            "editorial-title": ["Newsreader"],
+            "editorial-quote": ["Newsreader"],
+            "editorial-display": ["Newsreader"]
+          },
+          "fontSize": {
+            "tabular-lg": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "tabular-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "tabular-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "editorial-title": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "editorial-quote": ["1.0625rem", { "lineHeight": "1.625rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "editorial-display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    body {
+      background-color: #0c0e11;
+      color: #e2e2e7;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom scrollbar suppression for high density console feel */
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="w-full max-w-[390px] mx-auto min-h-[844px] bg-surface-container-lowest text-on-surface relative pb-28 select-none flex flex-col justify-start">
+<!-- TOP APP BAR (Shared Component JSON Blueprint Compliant) -->
+<header class="sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant w-full px-grid-margin-mobile py-density-cozy flex justify-between items-center transition-all">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">insights</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface leading-tight">
+          Groww • W12/25
+        </div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          com.nextbillion.groww · Play Store
+        </div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center font-label-caps text-label-caps font-bold text-primary">
+        MK
+      </div>
+</div>
+</header>
+<!-- MAIN SCROLLABLE BODY -->
+<main class="w-full px-grid-margin-mobile pt-3.5 space-y-4">
+<!-- SUB-HEADER / BANNER CONTEXT -->
+<div class="flex flex-col gap-1.5 pb-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps uppercase text-primary tracking-widest px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant">
+            ISO 2026-W36
+          </span>
+<span class="font-label-caps text-label-caps uppercase px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-primary"></span>
+            MCP Connected
+          </span>
+</div>
+<span class="font-label-caps text-[10px] text-outline">v4.28.3 Telemetry</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+          Weekly Review Pulse
+        </h1>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Window: 12 weeks · 12 Jun → 4 Sep 2026
+      </p>
+</div>
+<!-- 2. KPI SUMMARY (2x2 Ultra-Dense Analytical Grid) -->
+<section class="grid grid-cols-2 gap-2.5">
+<!-- KPI 1: Reviews Analysed -->
+<div class="bg-surface rounded-xl p-3 border border-outline-variant flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-[10px] uppercase text-on-surface-variant tracking-wider">Reviews Analysed</span>
+<span class="material-symbols-outlined text-outline text-[16px]">query_stats</span>
+</div>
+<div class="mt-2">
+<div class="font-tabular-lg text-tabular-lg text-on-surface font-semibold">1,225</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant mt-0.5 leading-tight">
+            9.2% rate <span class="text-outline">·</span> 13.1k dl
+          </div>
+</div>
+<div class="mt-2 pt-1.5 border-t border-outline-variant/60 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>Praise drop</span>
+<span class="text-on-surface font-mono font-medium">653</span>
+</div>
+</div>
+<!-- KPI 2: Average Rating -->
+<div class="bg-surface rounded-xl p-3 border border-outline-variant flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 right-0 w-12 h-12 bg-error/5 rounded-bl-full pointer-events-none"></div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-[10px] uppercase text-error tracking-wider font-bold">Severe Decline</span>
+<span class="material-symbols-outlined text-error text-[16px]">trending_down</span>
+</div>
+<div class="mt-2">
+<div class="flex items-center gap-1.5">
+<span class="font-tabular-lg text-tabular-lg text-on-surface font-semibold">2.13</span>
+<span class="text-tertiary text-sm leading-none">★</span>
+</div>
+<div class="font-label-caps text-[10px] text-error font-medium mt-0.5 leading-tight">
+            +42.8% WoW spikes
+          </div>
+</div>
+<div class="mt-2 pt-1.5 border-t border-outline-variant/60 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>Run Baseline</span>
+<span class="text-on-surface-variant font-mono">3.85★</span>
+</div>
+</div>
+<!-- KPI 3: Top Theme Share -->
+<div class="bg-surface rounded-xl p-3 border border-outline-variant flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-[10px] uppercase text-on-surface-variant tracking-wider">Top Theme Share</span>
+<span class="font-label-caps text-[10px] px-1 py-0.2 bg-error/10 text-error border border-error/30 rounded">R01</span>
+</div>
+<div class="mt-2">
+<div class="font-tabular-lg text-tabular-lg text-primary font-semibold">40%</div>
+<div class="font-body-sm text-[11px] text-on-surface line-clamp-1 mt-0.5 font-medium">
+            App crashes after update
+          </div>
+</div>
+<div class="mt-2 pt-1.5 border-t border-outline-variant/60 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>491 reviews</span>
+<span class="text-error font-mono font-medium">1.67★</span>
+</div>
+</div>
+<!-- KPI 4: Editorial Synthesis Budget -->
+<div class="bg-surface rounded-xl p-3 border border-outline-variant flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-[10px] uppercase text-on-surface-variant tracking-wider">Word Budget</span>
+<span class="material-symbols-outlined text-primary text-[16px]">psychology</span>
+</div>
+<div class="mt-2">
+<div class="flex items-baseline gap-1">
+<span class="font-tabular-lg text-tabular-lg text-on-surface font-semibold">208</span>
+<span class="font-tabular-sm text-tabular-sm text-outline">/ 250</span>
+</div>
+<div class="font-label-caps text-[10px] text-primary mt-0.5 leading-tight">
+            83% · 1-Pass Det.
+          </div>
+</div>
+<div class="mt-2 pt-1.5 border-t border-outline-variant/60 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>Model</span>
+<span class="text-on-surface-variant font-mono">Gemini 3.6F</span>
+</div>
+</div>
+</section>
+<!-- 3. TOP 3 THEMES (Stacked Vertical Diagnostic Cards) -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-0.5">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Top 3 Critical Themes</h2>
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">80% Total Vol</span>
+</div>
+<!-- Theme Card 1 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-4 space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] font-bold px-1.5 py-0.5 rounded bg-error/15 text-error border border-error/40 uppercase">
+              Rank 01 · CRITICAL
+            </span>
+<span class="font-label-caps text-label-caps text-on-surface-variant font-semibold">40% SHARE</span>
+</div>
+<div class="flex items-center gap-1 text-[11px] font-mono font-medium text-error">
+<span>1.67</span>
+<span class="text-tertiary">★</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">
+            App crashes after update
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Immediate crash on launch after latest v4.28 release locking out active intraday &amp; F&amp;O traders during peak morning hours.
+          </p>
+</div>
+<!-- Sentiment Bar -->
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-label-caps">
+<span class="text-error font-medium">79% Negative Sentiment</span>
+<span class="text-outline">491 Verified Reviews</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden flex">
+<div class="bg-error h-full" style="width: 79%;"></div>
+<div class="bg-tertiary h-full" style="width: 14%;"></div>
+<div class="bg-primary h-full" style="width: 7%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Impact: P0 Core Client Infra</span>
+<button class="font-label-caps text-[11px] font-semibold text-primary hover:text-primary-fixed flex items-center gap-0.5 min-h-[32px]">
+            View theme <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Theme Card 2 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-4 space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] font-bold px-1.5 py-0.5 rounded bg-tertiary/15 text-tertiary border border-tertiary/40 uppercase">
+              Rank 02 · HIGH
+            </span>
+<span class="font-label-caps text-label-caps text-on-surface-variant font-semibold">21% SHARE</span>
+</div>
+<div class="flex items-center gap-1 text-[11px] font-mono font-medium text-tertiary">
+<span>2.26</span>
+<span class="text-tertiary">★</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">
+            Missing market data and features
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Delayed live market feeds, missing candlestick options data on mobile chart views, and erratic strike prices.
+          </p>
+</div>
+<!-- Sentiment Bar -->
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-label-caps">
+<span class="text-tertiary font-medium">61% Negative Sentiment</span>
+<span class="text-outline">253 Verified Reviews</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden flex">
+<div class="bg-error h-full" style="width: 61%;"></div>
+<div class="bg-tertiary h-full" style="width: 25%;"></div>
+<div class="bg-primary h-full" style="width: 14%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Impact: P1 Trading Data</span>
+<button class="font-label-caps text-[11px] font-semibold text-primary hover:text-primary-fixed flex items-center gap-0.5 min-h-[32px]">
+            View theme <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Theme Card 3 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-4 space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] font-bold px-1.5 py-0.5 rounded bg-tertiary/15 text-tertiary border border-tertiary/40 uppercase">
+              Rank 03 · HIGH
+            </span>
+<span class="font-label-caps text-label-caps text-on-surface-variant font-semibold">19% SHARE</span>
+</div>
+<div class="flex items-center gap-1 text-[11px] font-mono font-medium text-tertiary">
+<span>2.51</span>
+<span class="text-tertiary">★</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">
+            High brokerage charges and fund blocking
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Unexplained fund holds during IPO UPI mandate approval and recurring 5 rupee minimum ledger charges per small transaction.
+          </p>
+</div>
+<!-- Sentiment Bar -->
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-label-caps">
+<span class="text-tertiary font-medium">58% Negative Sentiment</span>
+<span class="text-outline">237 Verified Reviews</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full overflow-hidden flex">
+<div class="bg-error h-full" style="width: 58%;"></div>
+<div class="bg-tertiary h-full" style="width: 24%;"></div>
+<div class="bg-primary h-full" style="width: 18%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">Impact: P1 Payments &amp; Ledger</span>
+<button class="font-label-caps text-[11px] font-semibold text-primary hover:text-primary-fixed flex items-center gap-0.5 min-h-[32px]">
+            View theme <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 4. WHAT USERS SAID (Verbatim Evidence · Editorial Serif Callout) -->
+<section class="space-y-3 pt-1">
+<div class="flex items-center justify-between px-0.5">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">What Users Said</h2>
+<span class="font-label-caps text-[10px] text-outline uppercase">Verbatim Signals</span>
+</div>
+<span class="font-label-caps text-[10px] px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface-variant">3 Selected</span>
+</div>
+<div class="space-y-2.5">
+<!-- Verbatim Quote 1 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-4 relative overflow-hidden pl-4">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-[11px] text-error font-semibold">1.0★</span>
+<span class="font-label-caps text-[10px] text-outline">Ref #R-8841</span>
+</div>
+<span class="font-label-caps text-[9px] uppercase px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">
+              Theme 1: App crashes
+            </span>
+</div>
+<p class="font-editorial-quote text-editorial-quote text-on-surface italic leading-relaxed">
+            “The customer care service is very poor i have asked for a status update on the IPO I had no reply and all is automated.”
+          </p>
+<div class="mt-2.5 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>Play Store Verified User</span>
+<span>2 days ago</span>
+</div>
+</div>
+<!-- Verbatim Quote 2 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-4 relative overflow-hidden pl-4">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-[11px] text-tertiary font-semibold">2.0★</span>
+<span class="font-label-caps text-[10px] text-outline">Ref #R-4109</span>
+</div>
+<span class="font-label-caps text-[9px] uppercase px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant">
+              Theme 2: Missing Data
+            </span>
+</div>
+<p class="font-editorial-quote text-editorial-quote text-on-surface italic leading-relaxed">
+            “brokerage charges are high as 5 rupees if we are buying a single ITC stock also.”
+          </p>
+<div class="mt-2.5 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>Retail Equity Account</span>
+<span>5 days ago</span>
+</div>
+</div>
+<!-- Verbatim Quote 3 (Praise Baseline) -->
+<div class="bg-surface rounded-xl border border-outline-variant p-4 relative overflow-hidden pl-4">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-[11px] text-primary font-semibold">3.0★</span>
+<span class="font-label-caps text-[10px] text-outline">Ref #R-1022</span>
+</div>
+<span class="font-label-caps text-[9px] uppercase px-1.5 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">
+              Retention Baseline
+            </span>
+</div>
+<p class="font-editorial-quote text-editorial-quote text-on-surface italic leading-relaxed">
+            “I really love using the Groww app. The interface is simple, smooth, and one of the best investing platforms I've used.”
+          </p>
+<div class="mt-2.5 flex items-center justify-between text-[10px] font-label-caps text-outline">
+<span>SIP Active Investor</span>
+<span>Aug 29</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. THREE THINGS TO DO NEXT (Actionable Engineering Directives) -->
+<section class="space-y-3 pt-1">
+<div class="flex items-center justify-between px-0.5">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Three Things To Do Next</h2>
+</div>
+<span class="font-label-caps text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/30 uppercase tracking-wide">
+          SPRINT 2026-W37
+        </span>
+</div>
+<div class="bg-surface rounded-xl border border-outline-variant p-3.5 space-y-3">
+<!-- Item 01 -->
+<div class="flex items-start gap-3 pb-3 border-b border-outline-variant">
+<span class="w-6 h-6 rounded bg-surface-container-high text-primary font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+            01
+          </span>
+<div class="space-y-1">
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              Fix post-update crash causes and streamline automated customer support workflows
+            </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+<span class="font-label-caps text-[9px] font-bold px-1.5 py-0.2 rounded bg-error/15 text-error border border-error/30">P0 CRITICAL</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Core Client Infra</span>
+<span class="text-outline text-[10px]">·</span>
+<span class="font-label-caps text-[10px] text-outline">Theme 1</span>
+</div>
+</div>
+</div>
+<!-- Item 02 -->
+<div class="flex items-start gap-3 pb-3 border-b border-outline-variant">
+<span class="w-6 h-6 rounded bg-surface-container-high text-primary font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+            02
+          </span>
+<div class="space-y-1">
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              Restore missing market data and review brokerage charge structures for stock transactions
+            </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+<span class="font-label-caps text-[9px] font-bold px-1.5 py-0.2 rounded bg-tertiary/15 text-tertiary border border-tertiary/30">P1 HIGH</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Trading Data Team</span>
+<span class="text-outline text-[10px]">·</span>
+<span class="font-label-caps text-[10px] text-outline">Theme 2</span>
+</div>
+</div>
+</div>
+<!-- Item 03 -->
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded bg-surface-container-high text-primary font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+            03
+          </span>
+<div class="space-y-1">
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              Resolve fund blocking errors and refine the mutual fund investment interface options
+            </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+<span class="font-label-caps text-[9px] font-bold px-1.5 py-0.2 rounded bg-tertiary/15 text-tertiary border border-tertiary/30">P1 HIGH</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Payments &amp; Ledger</span>
+<span class="text-outline text-[10px]">·</span>
+<span class="font-label-caps text-[10px] text-outline">Theme 3</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. PULSE HEALTH (Validation Gates · Quality Audit) -->
+<section class="space-y-2 pt-1">
+<div class="bg-surface rounded-xl border border-outline-variant p-3.5 space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="font-headline-sm text-[13px] font-semibold text-on-surface">Pulse Health Validation</span>
+</div>
+<span class="font-label-caps text-[10px] font-bold text-primary px-1.5 py-0.5 rounded bg-primary/10 border border-primary/20">
+            7/7 GATES PASSED (100%)
+          </span>
+</div>
+<div class="grid grid-cols-2 gap-x-2 gap-y-1.5 pt-1 text-[11px] font-mono">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-primary font-bold">✓</span> themes_capped
+          </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-primary font-bold">✓</span> quotes_verbatim
+          </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-primary font-bold">✓</span> quotes_count
+          </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-primary font-bold">✓</span> actions_grounded
+          </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-primary font-bold">✓</span> word_count (208/250)
+          </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-primary font-bold">✓</span> no_pii_detected
+          </div>
+<div class="flex items-center gap-1.5 text-on-surface-variant col-span-2">
+<span class="text-primary font-bold">✓</span> window_declared (12wks)
+          </div>
+</div>
+</div>
+</section>
+<!-- 7. DELIVERY & DISPATCH CARD -->
+<section class="space-y-2 pt-1">
+<div class="bg-surface rounded-xl border border-outline-variant p-3.5 space-y-3">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">mark_email_read</span>
+<span class="font-label-caps text-[11px] font-semibold uppercase text-on-surface">Dispatch Target</span>
+</div>
+<span class="font-label-caps text-[9px] px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant">
+            DRY-RUN READY
+          </span>
+</div>
+<div class="space-y-1 font-mono text-[11px]">
+<div class="flex items-center justify-between text-on-surface">
+<span class="text-outline">Target Doc:</span>
+<span class="truncate max-w-[210px] text-right">Groww Pulse [2026-W36]</span>
+</div>
+<div class="flex items-center justify-between text-on-surface">
+<span class="text-outline">Recipient:</span>
+<span class="text-primary font-medium truncate max-w-[210px]">manojkr6637@gmail.com</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-1">
+<button class="h-9 px-2 rounded-lg bg-surface-container-low border border-outline-variant text-[11px] font-medium text-on-surface hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Open
+          </button>
+<button class="h-9 px-2 rounded-lg bg-surface-container-low border border-outline-variant text-[11px] font-medium text-on-surface hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">send</span> Publish
+          </button>
+<button class="h-9 px-2 rounded-lg bg-surface-container-low border border-outline-variant text-[11px] font-medium text-primary hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">mail</span> Dispatch
+          </button>
+</div>
+</div>
+</section>
+<!-- 8. RUN THIS WEEK ACTION CTA -->
+<section class="pt-1 pb-4">
+<button class="w-full h-11 rounded-lg bg-primary text-on-primary font-headline-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/10 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span>Run This Week's Pipeline</span>
+</button>
+<div class="text-center mt-2">
+<span class="font-label-caps text-[10px] text-outline">Deterministic run · Auto-syncs to Google Docs &amp; Slack</span>
+</div>
+</section>
+</main>
+<!-- 9. BOTTOM NAV BAR (Shared Component JSON Blueprint Compliant) -->
+<!-- Strict active item: 'Pulse' based on page intent hierarchy -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-grid-margin-mobile pt-density-compact pb-density-cozy bg-surface-container-lowest border-t border-outline-variant max-w-[390px] mx-auto right-0">
+<!-- Item 1: Pulse (Active) -->
+<a class="flex flex-col items-center justify-center text-primary py-1 px-2 border-t-2 border-primary -mt-[1px] min-w-[54px] min-h-[44px] active:scale-95 transition-transform duration-100 ease-out" href="#pulse">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider mt-1 font-semibold">Pulse</span>
+</a>
+<!-- Item 2: Themes (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface py-1 px-2 min-w-[54px] min-h-[44px] active:scale-95 transition-transform duration-100 ease-out" href="#themes">
+<span class="material-symbols-outlined text-[20px]">category</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider mt-1">Themes</span>
+</a>
+<!-- Item 3: Reviews (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface py-1 px-2 min-w-[54px] min-h-[44px] active:scale-95 transition-transform duration-100 ease-out" href="#reviews">
+<span class="material-symbols-outlined text-[20px]">rate_review</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider mt-1">Reviews</span>
+</a>
+<!-- Item 4: Pipeline (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface py-1 px-2 min-w-[54px] min-h-[44px] active:scale-95 transition-transform duration-100 ease-out" href="#pipeline">
+<span class="material-symbols-outlined text-[20px]">timeline</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider mt-1">Pipeline</span>
+</a>
+<!-- Item 5: Runs (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface py-1 px-2 min-w-[54px] min-h-[44px] active:scale-95 transition-transform duration-100 ease-out" href="#runs">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider mt-1">Runs</span>
+</a>
+</nav>
+</body></html>

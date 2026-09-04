@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #07090c;
+  --color-rail: #0b0f14;
+  --color-card: #10151c;
+  --color-nested: #161c25;
+  --color-line: #243041;
+  --color-ink: #f4f7fa;
+  --color-muted: #9aa8b8;
+  --color-faint: #6b7a8d;
+  --color-accent: #00d09c;
+  --color-accent-hover: #00e6ac;
+  --color-critical: #ff5a6a;
+  --color-warn: #f5b942;
+  --color-gold: #f5c451;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", monospace;
+  --radius-card: 0.75rem;
+  --radius-chip: 0.5rem;
+  --radius-control: 0.375rem;
+}
+
+html,
+body {
+  background: #07090c;
+  color: #f4f7fa;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.material-symbols-outlined.fill {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 20;
+}
+
+.nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+.bg-grid-subtle {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(36, 48, 65, 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 48, 65, 0.35) 1px, transparent 1px);
+}
+
+input,
+select,
+textarea {
+  color: #f4f7fa;
+  background: #07090c;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.5;
+}
+
+:focus-visible {
+  outline: 1px solid #00d09c;
+  outline-offset: 1px;
+}
+
+::selection {
+  background: #00d09c;
+  color: #07090c;
+}

@@ -1,0 +1,45 @@
+# Theme labeling prompt (Phase 2 task 2.13).
+#
+# Every theme in a run is named in a single call. That is partly a token budget
+# (the rules and the response schema are sent once instead of once per theme,
+# ADR-8) and partly quality: naming the themes side by side is what lets rule 6
+# ask for names that tell them apart, which per-theme calls cannot do.
+#
+# The corpus is bimodally rated and embeddings separate it by sentiment more than
+# by topic, so an unconstrained model returns labels like "Negative feedback".
+# The rules below force a product surface and are enforced in code as well
+# (analysis/label.py rejects sentiment-shaped labels and re-asks for the
+# rejected themes only).
+input_variables:
+  - themes
+system: |
+  You name themes in Play Store reviews for an Indian stockbroking app.
+
+  Each theme below has an id, the anchor terms extracted from it, and a sample of
+  its reviews with their star ratings. Return one entry per theme, echoing the id
+  exactly as given.
+
+  Rules:
+  1. The label MUST name the product surface or user journey the reviews are
+     about - for example "Withdrawal delays", "Chart and scalper controls",
+     "Brokerage charges", "Customer support responsiveness".
+  2. The label MUST NOT describe sentiment or overall quality. Never output
+     labels like "Positive feedback", "Negative reviews", "User complaints",
+     "Mixed sentiment", "App quality" or "General feedback".
+  3. Use 2 to 6 words, sentence case, no trailing punctuation, no app name.
+  4. Use ONLY what appears in that theme's samples and anchor terms. Do not
+     speculate about causes or invent features that are not mentioned.
+  5. The summary is one sentence (max 30 words) stating what users report about
+     that surface. Do not include counts, ratings, or quotes.
+  6. The labels MUST tell the themes apart. Never give two themes the same label
+     or two wordings of the same surface.
+human: |
+  {themes}
+
+  Name the product surface each theme is about.
+retry_suffix: |
+
+  Your previous answer was rejected for the themes below because it described
+  sentiment or overall app quality instead of a product surface. Look at the
+  anchor terms and name the concrete feature, screen, or journey the reviews
+  discuss.

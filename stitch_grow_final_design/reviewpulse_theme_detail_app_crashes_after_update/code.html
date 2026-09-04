@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewPulse — Theme Detail: App crashes after update</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary": "#003828",
+            "outline": "#85948c",
+            "inverse-on-surface": "#2e3034",
+            "on-tertiary-container": "#5d4500",
+            "inverse-surface": "#e2e2e7",
+            "tertiary-fixed": "#ffdf9d",
+            "secondary-fixed-dim": "#00e1a8",
+            "on-error-container": "#ffdad6",
+            "error-container": "#93000a",
+            "on-primary-fixed": "#002116",
+            "on-surface": "#e2e2e7",
+            "on-surface-variant": "#bacac1",
+            "inverse-primary": "#006c4f",
+            "on-tertiary-fixed": "#251a00",
+            "on-secondary-fixed-variant": "#00513b",
+            "surface-container-low": "#1a1c1f",
+            "secondary-fixed": "#42ffc3",
+            "on-secondary": "#003827",
+            "surface-container-highest": "#333538",
+            "outline-variant": "#3c4a43",
+            "on-error": "#690005",
+            "on-primary-container": "#00533c",
+            "tertiary-container": "#e0b140",
+            "primary": "#44edb7",
+            "primary-fixed": "#59fdc5",
+            "on-tertiary": "#3f2e00",
+            "background": "#111417",
+            "tertiary": "#fecc59",
+            "on-secondary-fixed": "#002116",
+            "surface-bright": "#37393d",
+            "surface-variant": "#333538",
+            "on-background": "#e2e2e7",
+            "surface-tint": "#2fe0aa",
+            "surface-container": "#1e2023",
+            "surface-dim": "#111417",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "secondary": "#82ffce",
+            "primary-fixed-dim": "#2fe0aa",
+            "on-secondary-container": "#006348",
+            "on-primary-fixed-variant": "#00513b",
+            "surface-container-high": "#282a2e",
+            "error": "#ffb4ab",
+            "secondary-container": "#07e7ad",
+            "surface": "#111417",
+            "tertiary-fixed-dim": "#f0c04d",
+            "primary-container": "#00d09c",
+            "surface-container-lowest": "#0c0e11"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "container-pad": "1.25rem",
+            "density-spacious": "1rem",
+            "grid-margin-desktop": "1.5rem",
+            "density-cozy": "0.5rem",
+            "grid-margin-mobile": "1rem",
+            "grid-gutter-desktop": "1rem",
+            "density-compact": "0.25rem",
+            "grid-gutter-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "tabular-sm": ["JetBrains Mono"],
+            "editorial-title": ["Newsreader"],
+            "tabular-md": ["JetBrains Mono"],
+            "headline-md": ["Geist"],
+            "headline-sm": ["Geist"],
+            "tabular-lg": ["JetBrains Mono"],
+            "editorial-display": ["Newsreader"],
+            "label-caps": ["JetBrains Mono"],
+            "body-sm": ["Geist"],
+            "editorial-quote": ["Newsreader"],
+            "body-lg": ["Geist"],
+            "headline-lg": ["Geist"],
+            "body-md": ["Geist"]
+          },
+          "fontSize": {
+            "tabular-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "editorial-title": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "tabular-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "tabular-lg": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "editorial-display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "editorial-quote": ["1.125rem", { "lineHeight": "1.75rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Custom scrollbar for high density terminal */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0c0e11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3c4a43;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #85948c;
+    }
+  </style>
+</head>
+<body class="bg-[#07090C] text-on-surface antialiased selection:bg-primary-container selection:text-on-primary">
+<!-- ==================== SHARED COMPONENT: SideNavBar ==================== -->
+<!-- Context Match: Screen 3 is Theme Detail -> "Themes" is active tab -->
+<aside class="fixed top-0 left-0 h-screen w-60 flex flex-col justify-between p-4 bg-surface-container-lowest border-r border-outline-variant z-40">
+<div class="flex flex-col gap-6">
+<!-- Brand & Source Workspace -->
+<div class="px-2 pt-1 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-container"></span>
+</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight leading-none">ReviewPulse</span>
+<span class="font-label-caps text-label-caps text-outline mt-1 leading-none">Groww · Play Store</span>
+</div>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-tabular-sm text-primary border border-outline-variant bg-surface-container-low">LIVE</span>
+</div>
+<!-- Navigation Tabs (Themes Active) -->
+<nav class="flex flex-col space-y-1">
+<!-- 0: Weekly Pulse -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">switch_account</span>
+<span>Weekly Pulse</span>
+</a>
+<!-- 1: Themes (ACTIVE STATE LOGIC) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary border-l-2 border-primary font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">category</span>
+<span class="font-semibold text-on-surface">Themes</span>
+<span class="ml-auto font-tabular-sm text-[10px] bg-error-container text-error px-1.5 py-0.2 rounded font-medium">P0 Alert</span>
+</a>
+<!-- 2: Reviews -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">rate_review</span>
+<span>Reviews</span>
+</a>
+<!-- 3: Pipeline -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+<span>Pipeline</span>
+</a>
+<!-- 4: Runs -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Runs</span>
+</a>
+<!-- 5: Publish -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+<span>Publish</span>
+</a>
+<!-- 6: Settings -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Footer -->
+<div class="pt-4 border-t border-outline-variant flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline px-2 font-tabular-sm text-tabular-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>ISO 2026-W36</span>
+</div>
+<span class="text-[10px] text-primary border border-outline-variant px-1 rounded">PROD</span>
+</div>
+<div class="flex items-center gap-2 text-outline px-2 font-tabular-sm text-tabular-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span class="text-on-surface-variant">Last Run: 4 Sep 16:04 IST</span>
+</div>
+</div>
+</aside>
+<!-- ==================== MAIN VIEWPORT (Offset by 240px Sidebar) ==================== -->
+<div class="ml-60 min-h-screen flex flex-col bg-[#07090C]">
+<!-- ==================== SHARED COMPONENT: TopNavBar ==================== -->
+<header class="sticky top-0 right-0 z-30 flex justify-between items-center px-6 py-2.5 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur">
+<!-- Breadcrumb Hierarchy & Scope -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-body-sm px-2 py-1 rounded bg-surface-container-low border border-outline-variant" href="#">
+<span class="material-symbols-outlined text-[15px]">arrow_back</span>
+<span>Back to Themes</span>
+</a>
+<span class="text-outline-variant">/</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">App crashes after update</span>
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-surface-container text-on-surface-variant border border-outline-variant">
+            THEME-ID #GROWW-01
+          </span>
+</div>
+</div>
+<!-- Telemetry Status & Global Action Bar -->
+<div class="flex items-center gap-3">
+<!-- Window Scope Badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant rounded font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">date_range</span>
+<span>12 weeks · 12 Jun – 4 Sep 2026</span>
+</div>
+<!-- MCP Bridge Status -->
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface-container-low border border-outline-variant rounded font-label-caps text-label-caps text-primary">
+<span class="h-1.5 w-1.5 rounded-full bg-primary inline-block"></span>
+<span>MCP: Connected</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<!-- Secondary: Export Theme CSV -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-body-sm font-body-sm text-on-surface bg-[#10151C] hover:bg-[#161C25] border border-outline-variant hover:border-outline transition-colors rounded">
+<span class="material-symbols-outlined text-[15px]">download</span>
+<span>Export Theme CSV</span>
+</button>
+<!-- Primary Execution: Run Pipeline -->
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 text-body-sm font-headline-sm font-semibold text-on-primary bg-primary-container hover:bg-[#00E6AC] active:scale-[0.98] transition-all rounded">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Run Pipeline</span>
+</button>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<!-- Notifications & User Avatar -->
+<button class="w-8 h-8 flex items-center justify-center rounded bg-[#10151C] border border-outline-variant text-on-surface-variant hover:text-on-surface transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[17px]">notifications</span>
+</button>
+<div class="w-8 h-8 rounded bg-[#161C25] border border-outline-variant flex items-center justify-center font-label-caps text-label-caps text-primary font-semibold" title="User MK">
+          MK
+        </div>
+</div>
+</header>
+<!-- ==================== MAIN OPERATIONAL CANVAS ==================== -->
+<main class="flex-1 p-6 space-y-6 max-w-[1520px] w-full mx-auto">
+<!-- ==================== SECTION: THEME DETAIL HEADER ==================== -->
+<section class="bg-[#10151C] border border-[#243041] rounded-[12px] p-6 space-y-5">
+<!-- Navigation Link & Badges Row -->
+<div class="flex flex-wrap items-center justify-between gap-3">
+<a class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_left_alt</span>
+<span>← Back to Themes &amp; Issue Priority</span>
+</a>
+<!-- Pill Clusters -->
+<div class="flex flex-wrap items-center gap-2">
+<!-- Rank & Classification P0 -->
+<span class="font-label-caps text-label-caps px-2.5 py-1 rounded bg-[#FF5A6A]/10 border border-[#FF5A6A]/40 text-[#FF5A6A] flex items-center gap-1.5">
+<span class="h-1.5 w-1.5 rounded-full bg-[#FF5A6A]"></span>
+              RANK 01 · CRITICAL (P0)
+            </span>
+<!-- In Weekly Note -->
+<span class="font-label-caps text-label-caps px-2.5 py-1 rounded bg-primary/10 border border-primary/40 text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+              IN WEEKLY NOTE
+            </span>
+<!-- Domain Taxonomy -->
+<span class="font-label-caps text-label-caps px-2.5 py-1 rounded bg-[#161C25] border border-[#243041] text-on-surface-variant">
+              STABILITY &amp; SUPPORT
+            </span>
+<!-- Persistence Metric -->
+<span class="font-label-caps text-label-caps px-2.5 py-1 rounded bg-[#F5B942]/10 border border-[#F5B942]/40 text-[#F5B942]">
+              STATUS: PERSISTENT BASELINE (NOT EMERGING)
+            </span>
+</div>
+</div>
+<!-- Headline & Editorial Subtitle -->
+<div class="space-y-1.5 pt-1">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+            App crashes after update
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl leading-relaxed">
+            Immediate crash on launch after latest v4.28 release, locking out active traders and failing automated customer care support triage.
+          </p>
+</div>
+<!-- ==================== STATS ROW / KPI TELEMETRY CARDS ==================== -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 pt-2">
+<!-- KPI 1: Review Volume -->
+<div class="bg-[#161C25] border border-[#243041] rounded-[8px] p-3.5 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Review Volume</span>
+<div class="mt-2">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg font-bold text-on-surface">491</span>
+<span class="font-tabular-sm text-tabular-sm text-[#FF5A6A] font-medium">+14.2%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">40% total negative share</span>
+</div>
+</div>
+<!-- KPI 2: Average Rating -->
+<div class="bg-[#161C25] border border-[#243041] rounded-[8px] p-3.5 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Average Rating</span>
+<div class="mt-2">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg font-bold text-[#FF5A6A]">1.67★</span>
+<span class="font-tabular-sm text-tabular-sm text-outline">/ 5.00</span>
+</div>
+<span class="font-body-sm text-body-sm text-[#FF5A6A] block mt-0.5 font-medium">Severe Decline · P0 Alert</span>
+</div>
+</div>
+<!-- KPI 3: Negative Sentiment -->
+<div class="bg-[#161C25] border border-[#243041] rounded-[8px] p-3.5 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Negative Sentiment</span>
+<div class="mt-2">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg font-bold text-[#FF5A6A]">79%</span>
+<span class="font-label-caps text-label-caps text-outline">INDEX 8.9</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">High Friction Index</span>
+</div>
+</div>
+<!-- KPI 4: Trend Velocity -->
+<div class="bg-[#161C25] border border-[#243041] rounded-[8px] p-3.5 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Trend Velocity</span>
+<div class="mt-2">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg font-bold text-on-surface">0.79</span>
+<span class="font-tabular-sm text-tabular-sm text-[#F5B942]">Baseline</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">Steady over 12-week window</span>
+</div>
+</div>
+<!-- KPI 5: LLM Grounding -->
+<div class="bg-[#161C25] border border-[#243041] rounded-[8px] p-3.5 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">LLM Grounding</span>
+<div class="mt-2">
+<div class="flex items-baseline gap-1.5">
+<span class="font-tabular-lg text-tabular-lg font-bold text-primary">99.4%</span>
+<span class="font-label-caps text-label-caps text-outline">CONF.</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">Gemini 3.6 Flash Cluster</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== TWO-COLUMN ANALYSIS AREA ==================== -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- ==================== LEFT COLUMN: HISTOGRAM & KEYWORDS (7 COLS) ==================== -->
+<div class="lg:col-span-7 space-y-6">
+<!-- 1. Rating Distribution Histogram -->
+<div class="bg-[#10151C] border border-[#243041] rounded-[12px] p-5 space-y-4">
+<div class="flex items-center justify-between border-b border-[#243041] pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">bar_chart</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Rating Distribution</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-outline">AGGREGATE:</span>
+<div class="flex items-center gap-1 bg-[#161C25] px-2 py-0.5 rounded border border-[#243041]">
+<span class="font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A]">1.67★</span>
+<div class="flex text-[#F5C451]">
+<span class="material-symbols-outlined fill-icon text-[13px]">star</span>
+<span class="material-symbols-outlined text-[13px]">star</span>
+<span class="material-symbols-outlined text-[13px]">star</span>
+<span class="material-symbols-outlined text-[13px]">star</span>
+<span class="material-symbols-outlined text-[13px]">star</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Histogram Bars -->
+<div class="space-y-2.5 pt-1">
+<!-- 1 Star: 382 reviews (77.8%) Dominant Heavy Bar -->
+<div class="grid grid-cols-12 items-center gap-3 text-body-sm font-body-sm">
+<div class="col-span-2 flex items-center justify-end gap-1 font-tabular-sm text-tabular-sm text-on-surface font-medium">
+<span>1</span>
+<span class="material-symbols-outlined fill-icon text-[12px] text-[#F5C451]">star</span>
+</div>
+<div class="col-span-8 bg-[#161C25] h-5 rounded overflow-hidden p-0.5 flex items-center">
+<div class="bg-[#FF5A6A] h-full rounded transition-all duration-500" style="width: 77.8%"></div>
+</div>
+<div class="col-span-2 text-right font-tabular-sm text-tabular-sm text-on-surface">
+<span class="font-bold text-[#FF5A6A]">382</span>
+<span class="text-outline text-[11px] ml-1">(77.8%)</span>
+</div>
+</div>
+<!-- 2 Star: 54 reviews (11.0%) -->
+<div class="grid grid-cols-12 items-center gap-3 text-body-sm font-body-sm">
+<div class="col-span-2 flex items-center justify-end gap-1 font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>2</span>
+<span class="material-symbols-outlined fill-icon text-[12px] text-[#F5C451]">star</span>
+</div>
+<div class="col-span-8 bg-[#161C25] h-4 rounded overflow-hidden p-0.5 flex items-center">
+<div class="bg-[#F5B942] h-full rounded transition-all duration-500" style="width: 11.0%"></div>
+</div>
+<div class="col-span-2 text-right font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>54</span>
+<span class="text-outline text-[11px] ml-1">(11.0%)</span>
+</div>
+</div>
+<!-- 3 Star: 31 reviews (6.3%) -->
+<div class="grid grid-cols-12 items-center gap-3 text-body-sm font-body-sm">
+<div class="col-span-2 flex items-center justify-end gap-1 font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>3</span>
+<span class="material-symbols-outlined fill-icon text-[12px] text-[#F5C451]">star</span>
+</div>
+<div class="col-span-8 bg-[#161C25] h-4 rounded overflow-hidden p-0.5 flex items-center">
+<div class="bg-outline h-full rounded transition-all duration-500" style="width: 6.3%"></div>
+</div>
+<div class="col-span-2 text-right font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>31</span>
+<span class="text-outline text-[11px] ml-1">(6.3%)</span>
+</div>
+</div>
+<!-- 4 Star: 14 reviews (2.9%) -->
+<div class="grid grid-cols-12 items-center gap-3 text-body-sm font-body-sm">
+<div class="col-span-2 flex items-center justify-end gap-1 font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>4</span>
+<span class="material-symbols-outlined fill-icon text-[12px] text-[#F5C451]">star</span>
+</div>
+<div class="col-span-8 bg-[#161C25] h-4 rounded overflow-hidden p-0.5 flex items-center">
+<div class="bg-outline-variant h-full rounded transition-all duration-500" style="width: 2.9%"></div>
+</div>
+<div class="col-span-2 text-right font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>14</span>
+<span class="text-outline text-[11px] ml-1">(2.9%)</span>
+</div>
+</div>
+<!-- 5 Star: 10 reviews (2.0%) -->
+<div class="grid grid-cols-12 items-center gap-3 text-body-sm font-body-sm">
+<div class="col-span-2 flex items-center justify-end gap-1 font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>5</span>
+<span class="material-symbols-outlined fill-icon text-[12px] text-[#F5C451]">star</span>
+</div>
+<div class="col-span-8 bg-[#161C25] h-4 rounded overflow-hidden p-0.5 flex items-center">
+<div class="bg-primary-container/60 h-full rounded transition-all duration-500" style="width: 2.0%"></div>
+</div>
+<div class="col-span-2 text-right font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>10</span>
+<span class="text-outline text-[11px] ml-1">(2.0%)</span>
+</div>
+</div>
+</div>
+<!-- Quantitative Footnote -->
+<div class="pt-2 text-[11px] font-tabular-sm text-outline border-t border-[#243041] flex items-center justify-between">
+<span>CRITICAL DEFECT RATIO: 88.8% IN 1★ &amp; 2★ BANDS</span>
+<span class="text-primary font-medium">CONFIRMED POST-v4.28 INGESTION</span>
+</div>
+</div>
+<!-- 2. Extracted Keyword / Cluster Chips -->
+<div class="bg-[#10151C] border border-[#243041] rounded-[12px] p-5 space-y-3">
+<div class="flex items-center justify-between border-b border-[#243041] pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">tag</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Salient Theme Keywords &amp; Co-occurrences</h2>
+</div>
+<span class="font-label-caps text-label-caps text-outline">N-GRAM FREQ</span>
+</div>
+<div class="flex flex-wrap gap-2 pt-1">
+<!-- crashes (412 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#FF5A6A]/40 text-[#FF5A6A] font-body-sm text-body-sm">
+<span class="font-medium">crashes</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#FF5A6A]/10 px-1.5 py-0.5 rounded text-[#FF5A6A] font-bold">412</span>
+</div>
+<!-- update (389 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#FF5A6A]/40 text-[#FF5A6A] font-body-sm text-body-sm">
+<span class="font-medium">update</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#FF5A6A]/10 px-1.5 py-0.5 rounded text-[#FF5A6A] font-bold">389</span>
+</div>
+<!-- customer care (194 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#F5B942]/40 text-[#F5B942] font-body-sm text-body-sm">
+<span class="font-medium">customer care</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#F5B942]/10 px-1.5 py-0.5 rounded text-[#F5B942] font-bold">194</span>
+</div>
+<!-- glitch (142 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#243041] text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm">
+<span>glitch</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#0c0e11] px-1.5 py-0.5 rounded text-outline font-medium">142</span>
+</div>
+<!-- order (118 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#243041] text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm">
+<span>order</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#0c0e11] px-1.5 py-0.5 rounded text-outline font-medium">118</span>
+</div>
+<!-- timeout (87 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#243041] text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm">
+<span>timeout</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#0c0e11] px-1.5 py-0.5 rounded text-outline font-medium">87</span>
+</div>
+<!-- v4.28 (64 mentions) -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-[#161C25] border border-[#243041] text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm">
+<span>v4.28</span>
+<span class="font-tabular-sm text-tabular-sm bg-[#0c0e11] px-1.5 py-0.5 rounded text-outline font-medium">64</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== RIGHT COLUMN: VERBATIM & ACTION CARD (5 COLS) ==================== -->
+<div class="lg:col-span-5 space-y-6">
+<!-- 1. Selected Verbatim Quote Callout (Evidence block) -->
+<div class="bg-[#10151C] border border-[#243041] rounded-[12px] p-5 space-y-4 relative overflow-hidden">
+<div class="flex items-center justify-between border-b border-[#243041] pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">format_quote</span>
+<span class="font-label-caps text-label-caps text-primary tracking-wider">SELECTED VERBATIM EVIDENCE</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="font-tabular-sm text-tabular-sm font-semibold text-on-surface">1.0★</span>
+<span class="material-symbols-outlined fill-icon text-[13px] text-[#F5C451]">star</span>
+</div>
+</div>
+<!-- Editorial Callout Block -->
+<div class="bg-[#161C25] border-l-2 border-primary-container p-4 rounded-r-[8px] space-y-3">
+<div class="text-[#00D09C] opacity-40 font-editorial-display text-3xl leading-none">“</div>
+<p class="font-editorial-quote text-editorial-quote text-on-surface italic -mt-2.5 leading-relaxed">
+                The customer care service is very poor i have asked for a status update on the IPO I had no reply and all is automated.
+              </p>
+<div class="pt-2 border-t border-[#243041]/60 flex items-center justify-between text-[11px] font-tabular-sm text-outline">
+<span>INGESTION #R-8841</span>
+<span class="text-primary font-medium">PINNED IN WEEKLY NOTE W36</span>
+</div>
+</div>
+<!-- Verification & Privacy Badge -->
+<div class="flex items-center justify-between pt-1">
+<span class="inline-flex items-center gap-1.5 text-[11px] font-tabular-sm text-outline">
+<span class="material-symbols-outlined text-[14px] text-primary">security</span>
+                Zero PII detected · Character-accurate
+              </span>
+<button class="font-body-sm text-body-sm text-primary hover:underline inline-flex items-center gap-1">
+<span>View Raw Log</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- 2. Action Idea Card -->
+<div class="bg-[#10151C] border border-[#243041] rounded-[12px] p-5 space-y-4">
+<div class="flex items-center justify-between border-b border-[#243041] pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#F5B942] text-[18px]">bolt</span>
+<span class="font-label-caps text-label-caps text-on-surface font-semibold tracking-wider">
+                  GROUNDED ACTION TARGET
+                </span>
+</div>
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-[#FF5A6A]/10 border border-[#FF5A6A]/40 text-[#FF5A6A]">
+                RANK 1 BACKLOG
+              </span>
+</div>
+<!-- Action Summary -->
+<div class="space-y-2">
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">
+                Fix post-update crash causes and streamline automated customer support workflows
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+                Direct root cause triage across Google Play ANR reports. Decouple automated bot escalation loops for failed orders during market open hours.
+              </p>
+</div>
+<!-- Metadata Meta Well -->
+<div class="bg-[#161C25] border border-[#243041] rounded-[8px] p-3 grid grid-cols-2 gap-3 text-[11px] font-tabular-sm">
+<div>
+<span class="text-outline uppercase block">Assigned Team</span>
+<span class="text-on-surface font-medium mt-0.5 block">Core Client Infra &amp; Support Ops</span>
+</div>
+<div>
+<span class="text-outline uppercase block">Priority / Ticket</span>
+<span class="text-[#FF5A6A] font-bold mt-0.5 block">P0 Critical · GROWW-18492</span>
+</div>
+</div>
+<!-- Operations Execution Triggers -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 bg-primary-container hover:bg-[#00E6AC] text-on-primary font-headline-sm text-body-sm font-semibold rounded-[6px] transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">add_task</span>
+<span>Create Jira Ticket</span>
+</button>
+<button class="flex-1 py-2 px-3 bg-[#161C25] hover:bg-[#1e2430] border border-[#243041] hover:border-outline text-on-surface font-headline-sm text-body-sm font-medium rounded-[6px] transition-colors flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">playlist_add</span>
+<span>Add to Sprint 2026-W37</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== BELOW: MEMBER REVIEWS LIST (HIGH-DENSITY TABULAR FEED) ==================== -->
+<section class="bg-[#10151C] border border-[#243041] rounded-[12px] overflow-hidden">
+<!-- Feed Toolbar Header -->
+<div class="p-5 border-b border-[#243041] space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-2.5">
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Member Reviews</h2>
+<span class="font-tabular-sm text-tabular-sm px-2 py-0.5 rounded bg-[#161C25] border border-[#243041] text-on-surface-variant font-medium">
+                  491 Classified Items
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-0.5">
+                Strict PII-sanitized customer telemetry feed. Tokenized pseudonyms and hardware signatures.
+              </p>
+</div>
+<!-- Export Slice Button -->
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#161C25] hover:bg-[#1e2430] border border-[#243041] text-body-sm font-body-sm text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[15px]">ios_share</span>
+<span>Export Slice (.CSV)</span>
+</button>
+</div>
+</div>
+<!-- Controls Filter Bar -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+<!-- Global Query Input within Theme -->
+<div class="relative min-w-[280px] flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[16px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-[#07090C] border border-[#243041] focus:border-primary focus:ring-0 rounded-[6px] text-body-sm font-body-sm text-on-surface placeholder-outline transition-colors" placeholder="Search within theme reviews (e.g. crash, IPO, v4.28)..." type="text"/>
+</div>
+<!-- Rating Filter Pills -->
+<div class="flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded bg-[#161C25] border border-primary text-primary font-tabular-sm text-tabular-sm font-medium">
+                All (491)
+              </button>
+<button class="px-2.5 py-1 rounded bg-[#161C25] border border-[#243041] hover:border-outline text-on-surface-variant font-tabular-sm text-tabular-sm">
+                1★ Only (382)
+              </button>
+<button class="px-2.5 py-1 rounded bg-[#161C25] border border-[#243041] hover:border-outline text-on-surface-variant font-tabular-sm text-tabular-sm">
+                2★ (54)
+              </button>
+<button class="px-2.5 py-1 rounded bg-[#161C25] border border-[#243041] hover:border-outline text-on-surface-variant font-tabular-sm text-tabular-sm">
+                3★ (31)
+              </button>
+</div>
+<!-- Sort Select -->
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-outline">SORT:</span>
+<select class="bg-[#07090C] border border-[#243041] rounded-[6px] py-1 px-2.5 text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-0">
+<option selected="">Newest First</option>
+<option>Impact / Length</option>
+<option>Lowest Rating</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Tabular Feed List (10 High Density Rows) -->
+<div class="divide-y divide-[#243041]">
+<!-- ROW 1: VERBATIM MATCH (Pinned Evidence) -->
+<div class="p-4 bg-[#161C25]/60 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3 border-l-2 border-primary-container">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<!-- Star Rating -->
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<!-- Pseudonym ID Token -->
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8841</span>
+<!-- Device & App Metadata -->
+<span class="font-tabular-sm text-[11px] text-outline">· Pixel 8 · Android 14 · v4.28.1</span>
+<!-- Match Badge -->
+<span class="font-label-caps text-[10px] px-2 py-0.2 rounded bg-primary/15 text-primary border border-primary/40 font-semibold uppercase">
+                  Pinned Verbatim
+                </span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.2 rounded bg-[#10151C] text-outline border border-[#243041]">
+                  Grounding Source
+                </span>
+</div>
+<!-- 2-Line Truncated Review Content -->
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+                “The customer care service is very poor i have asked for a status update on the IPO I had no reply and all is automated.”
+              </p>
+</div>
+<!-- Date & Audit ID -->
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">04 Sep 2026</span>
+<span class="text-[11px]">14:22 IST · verified</span>
+</div>
+</div>
+<!-- ROW 2 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8839</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Galaxy S23 · Android 14 · v4.28.1</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                App keeps shutting down immediately when I tap on F&amp;O positions. Lost money on options trade today because it crashed 4 times in a row!
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">04 Sep 2026</span>
+<span class="text-[11px]">11:08 IST</span>
+</div>
+</div>
+<!-- ROW 3 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8822</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Redmi Note 12 · Android 13 · v4.28.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                After the recent update the application won't even open beyond the green splash screen. Cleared cache, reinstalled twice, still crashes.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">03 Sep 2026</span>
+<span class="text-[11px]">21:45 IST</span>
+</div>
+</div>
+<!-- ROW 4 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8815</span>
+<span class="font-tabular-sm text-[11px] text-outline">· OnePlus 11R · Android 14 · v4.28.1</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Terrible customer support bot loop. Raised query for order timeout during Bajaj Housing IPO bid and bot simply gave generic links and closed the ticket.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">03 Sep 2026</span>
+<span class="text-[11px]">17:30 IST</span>
+</div>
+</div>
+<!-- ROW 5 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#F5B942] bg-[#F5B942]/10 px-2 py-0.5 rounded border border-[#F5B942]/30">
+<span>2.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8798</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Vivo V29 · Android 13 · v4.28.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Used to be super smooth. New update broke mutual fund SIP mandate verification and biometric login freeze. Please roll back v4.28 immediately.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">03 Sep 2026</span>
+<span class="text-[11px]">09:12 IST</span>
+</div>
+</div>
+<!-- ROW 6 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8774</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Moto Edge 40 · Android 14 · v4.28.1</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Worst experience. Continuous crash report popup every 30 seconds. Helpdesk does not connect to human representative. Fix this.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">02 Sep 2026</span>
+<span class="text-[11px]">19:40 IST</span>
+</div>
+</div>
+<!-- ROW 7 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8761</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Galaxy M34 · Android 13 · v4.28.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Glitch on order execution page. Market order rejected stating 'timeout' yet wallet balance got deducted! Automated care gave no real answer.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">02 Sep 2026</span>
+<span class="text-[11px]">15:15 IST</span>
+</div>
+</div>
+<!-- ROW 8 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#FF5A6A] bg-[#FF5A6A]/10 px-2 py-0.5 rounded border border-[#FF5A6A]/30">
+<span>1.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8745</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Realme GT 2 · Android 14 · v4.28.1</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Whenever I navigate to IPO allotment result screen, the entire app freezes and crashes out to android home screen. Unusable for retail investors.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">01 Sep 2026</span>
+<span class="text-[11px]">18:04 IST</span>
+</div>
+</div>
+<!-- ROW 9 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-[#F5B942] bg-[#F5B942]/10 px-2 py-0.5 rounded border border-[#F5B942]/30">
+<span>2.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8729</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Poco X5 Pro · Android 13 · v4.28.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Chart refresh latency has drastically worsened. Now with recent update, placing stoploss triggers sudden crash. Needs emergency hotfix.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">31 Aug 2026</span>
+<span class="text-[11px]">10:49 IST</span>
+</div>
+</div>
+<!-- ROW 10 -->
+<div class="p-4 hover:bg-[#161C25] transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+<div class="space-y-1 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-1 font-tabular-sm text-tabular-sm font-bold text-outline bg-[#161C25] px-2 py-0.5 rounded border border-[#243041]">
+<span>3.0★</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface font-semibold">Reviewer #R-8702</span>
+<span class="font-tabular-sm text-[11px] text-outline">· Pixel 7a · Android 14 · v4.28.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+                Groww is normally reliable for index investing, but v4.28 stability is sub-par. Random crashes during portfolio view after notification clicks.
+              </p>
+</div>
+<div class="text-right whitespace-nowrap self-end md:self-center font-tabular-sm text-tabular-sm text-outline">
+<span class="block text-on-surface-variant font-medium">30 Aug 2026</span>
+<span class="text-[11px]">13:20 IST</span>
+</div>
+</div>
+</div>
+<!-- Feed Pagination & Diagnostic Footer -->
+<div class="p-4 bg-[#0c0e11] border-t border-[#243041] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-tabular-sm text-outline">
+<div class="flex items-center gap-2">
+<span>SHOWING 10 OF 491 CLASSIFIED ENTRIES</span>
+<span>·</span>
+<span class="text-on-surface-variant">BATCH CLUSTERING VERIFIED VIA GEMINI 3.6 FLASH</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-[#10151C] border border-[#243041] text-on-surface-variant disabled:opacity-40" disabled="">
+              Previous
+            </button>
+<span class="px-2 text-on-surface font-semibold">Page 1 of 50</span>
+<button class="px-2.5 py-1 rounded bg-[#10151C] border border-[#243041] hover:border-outline text-on-surface transition-colors">
+              Next
+            </button>
+</div>
+</div>
+</section>
+<!-- Substrate Telemetry Footer -->
+<footer class="pt-2 pb-6 flex items-center justify-between text-[11px] font-tabular-sm text-outline border-t border-[#243041]/40">
+<div class="flex items-center gap-3">
+<span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
+<span>ReviewPulse Intelligence Engine · Operational Node Mumbai-01</span>
+</div>
+<div class="flex items-center gap-4">
+<span>PII Compliance: Strict Tokenization Enforced</span>
+<span>Latency: 42ms</span>
+<span>Release Tag: v4.28.1 Post-Mortem Slice</span>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

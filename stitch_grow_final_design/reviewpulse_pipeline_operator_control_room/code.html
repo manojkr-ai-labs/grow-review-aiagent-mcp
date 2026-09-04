@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewPulse - Pipeline Control Room</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#e2e2e7",
+            "primary-fixed": "#59fdc5",
+            "inverse-primary": "#006c4f",
+            "surface": "#111417",
+            "on-secondary": "#003827",
+            "on-secondary-fixed": "#002116",
+            "error-container": "#93000a",
+            "primary-fixed-dim": "#2fe0aa",
+            "on-tertiary-fixed": "#251a00",
+            "surface-dim": "#111417",
+            "surface-tint": "#2fe0aa",
+            "outline": "#85948c",
+            "on-primary": "#003828",
+            "primary": "#44edb7",
+            "secondary": "#82ffce",
+            "tertiary": "#fecc59",
+            "on-primary-fixed": "#002116",
+            "tertiary-fixed-dim": "#f0c04d",
+            "on-secondary-fixed-variant": "#00513b",
+            "tertiary-fixed": "#ffdf9d",
+            "tertiary-container": "#e0b140",
+            "background": "#111417",
+            "surface-container-lowest": "#0c0e11",
+            "inverse-surface": "#e2e2e7",
+            "surface-container-high": "#282a2e",
+            "primary-container": "#00d09c",
+            "inverse-on-surface": "#2e3034",
+            "surface-container-highest": "#333538",
+            "surface-bright": "#37393d",
+            "on-surface": "#e2e2e7",
+            "on-error": "#690005",
+            "on-surface-variant": "#bacac1",
+            "secondary-fixed-dim": "#00e1a8",
+            "on-secondary-container": "#006348",
+            "surface-variant": "#333538",
+            "outline-variant": "#3c4a43",
+            "secondary-container": "#07e7ad",
+            "surface-container-low": "#1a1c1f",
+            "error": "#ffb4ab",
+            "surface-container": "#1e2023",
+            "secondary-fixed": "#42ffc3",
+            "on-primary-container": "#00533c",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "on-tertiary": "#3f2e00",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-container": "#5d4500",
+            "on-primary-fixed-variant": "#00513b"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "grid-gutter-desktop": "1rem",
+            "density-cozy": "0.5rem",
+            "grid-margin-mobile": "1rem",
+            "density-spacious": "1rem",
+            "grid-margin-desktop": "1.5rem",
+            "grid-gutter-mobile": "0.75rem",
+            "container-pad": "1.25rem",
+            "density-compact": "0.25rem"
+          },
+          "fontFamily": {
+            "editorial-title": ["Newsreader"],
+            "headline-md": ["Geist"],
+            "headline-lg": ["Geist"],
+            "headline-sm": ["Geist"],
+            "label-caps": ["JetBrains Mono"],
+            "tabular-sm": ["JetBrains Mono"],
+            "body-sm": ["Geist"],
+            "body-md": ["Geist"],
+            "tabular-md": ["JetBrains Mono"],
+            "body-lg": ["Geist"],
+            "tabular-lg": ["JetBrains Mono"],
+            "editorial-quote": ["Newsreader"],
+            "editorial-display": ["Newsreader"]
+          },
+          "fontSize": {
+            "editorial-title": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "tabular-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "tabular-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "tabular-lg": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "editorial-quote": ["1.125rem", { "lineHeight": "1.75rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "editorial-display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+    /* Custom scrollbar for technical logs */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0c0e11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #243041;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3c4a43;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- ========================================================================= -->
+<!-- 1. LEFT NAVIGATION SIDEBAR (Shared Component: SideNavBar)                -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 flex flex-col justify-between p-4 bg-surface-container-lowest border-r border-outline-variant z-40">
+<!-- Header / Brand -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2 pt-1">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-primary relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_tree">account_tree</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight leading-tight">ReviewPulse</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant leading-none mt-0.5">Groww · Play Store</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<!-- 1: Weekly Pulse -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="pulse">switch_account</span>
+<span>Weekly Pulse</span>
+</a>
+<!-- 2: Themes -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="category">category</span>
+<span>Themes</span>
+</a>
+<!-- 3: Reviews -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="rate_review">rate_review</span>
+<span>Reviews</span>
+</a>
+<!-- 4: Pipeline (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary border-l-2 border-primary font-body-md text-body-md rounded-r-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="account_tree">account_tree</span>
+<span class="font-medium text-on-surface">Pipeline</span>
+</a>
+<!-- 5: Runs -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="history">history</span>
+<span>Runs</span>
+</a>
+<!-- 6: Publish -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="publish">publish</span>
+<span>Publish</span>
+</a>
+<!-- 7: Settings -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Footer Stats / Meta -->
+<div class="border-t border-outline-variant pt-3 flex flex-col gap-2">
+<div class="flex items-center justify-between px-2 text-on-surface-variant">
+<div class="flex items-center gap-2 font-tabular-sm text-tabular-sm">
+<span class="material-symbols-outlined text-[15px]" data-icon="calendar_today">calendar_today</span>
+<span>ISO 2026-W36</span>
+</div>
+<span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<div class="flex items-center gap-2 px-2 text-on-surface-variant font-tabular-sm text-tabular-sm">
+<span class="material-symbols-outlined text-[15px]" data-icon="schedule">schedule</span>
+<span>Last Run: Just now</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN OPERATOR CANVAS                                                      -->
+<!-- ========================================================================= -->
+<div class="ml-60 flex-1 flex flex-col min-w-0 bg-surface min-h-screen">
+<!-- Top Command Bar (Shared Component Header + Context Breadcrumbs) -->
+<header class="sticky top-0 z-30 flex items-center justify-between px-6 py-3 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-4">
+<!-- Breadcrumb & Product Identity -->
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Pipeline</span>
+<span class="text-outline text-xs">/</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Data &amp; Synthesis Pipeline Control</span>
+</div>
+<!-- Technical Telemetry Context Badges -->
+<div class="flex items-center gap-2 ml-3">
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface-variant font-label-caps text-label-caps">
+            com.nextbillion.groww
+          </span>
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-low border border-outline-variant text-on-surface font-label-caps text-label-caps">
+            ISO 2026-W36
+          </span>
+<span class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-surface-container-low border border-outline-variant font-label-caps text-label-caps text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            MCP Connected
+          </span>
+</div>
+</div>
+<!-- Right Global Actions (Shared TopNavBar trailing elements) -->
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Sync Status">
+<span class="material-symbols-outlined text-[18px]" data-icon="sync">sync</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors relative" title="Notifications">
+<span class="material-symbols-outlined text-[18px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+</button>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-2.5 pl-1">
+<div class="w-7 h-7 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center font-label-caps text-label-caps text-primary font-bold">
+            MK
+          </div>
+<span class="font-body-sm text-body-sm font-medium text-on-surface">User MK</span>
+</div>
+</div>
+</header>
+<!-- Global Pipeline Controls & Operator Toolbar -->
+<div class="border-b border-outline-variant bg-surface-container-lowest px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-5 flex-wrap">
+<!-- Window Selector -->
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">WINDOW:</span>
+<div class="inline-flex rounded-lg border border-outline-variant bg-surface-container-low p-0.5">
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps rounded transition-colors">4w</button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps rounded transition-colors">8w</button>
+<button class="px-2.5 py-1 bg-surface text-primary border border-outline-variant font-label-caps text-label-caps rounded shadow-sm font-semibold">12 weeks</button>
+</div>
+</div>
+<div class="h-5 w-px bg-outline-variant"></div>
+<!-- Dry-Run Mode Toggle -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface font-medium">DRY-RUN:</span>
+<!-- Toggle Switch ON -->
+<button class="w-9 h-5 rounded-full bg-primary-container p-0.5 transition-colors relative flex items-center justify-end">
+<span class="w-4 h-4 rounded-full bg-surface-container-lowest shadow"></span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-tertiary/30 text-tertiary">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+<span class="font-body-sm text-body-sm text-xs font-normal">
+              Dry-run Active: live Google Doc draft &amp; Gmail draft created, live email dispatch suppressed
+            </span>
+</div>
+</div>
+</div>
+<!-- Execution Actions & Telemetry Status -->
+<div class="flex items-center gap-3">
+<!-- Telemetry Status Pill -->
+<div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Pipeline Status: <strong class="text-on-surface font-medium">IDLE / READY</strong></span>
+<span class="text-outline">·</span>
+<span>Last Run: 4 Sep 16:04 IST</span>
+<span class="text-outline">·</span>
+<span>Execution Time: <strong class="text-primary font-medium">48.6s</strong></span>
+</div>
+<!-- Primary Trigger -->
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed-dim font-headline-sm text-headline-sm text-xs font-semibold tracking-tight transition-all active:scale-98 shadow-sm">
+<span class="material-symbols-outlined text-[17px]" data-icon="sync">sync</span>
+<span>Run Full Pipeline</span>
+</button>
+<!-- Secondary Disabled Trigger -->
+<div class="relative group">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/60 text-on-surface-variant/40 font-headline-sm text-headline-sm text-xs font-semibold cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[16px]" data-icon="lock">lock</span>
+<span>Run with Send</span>
+</button>
+<!-- Tooltip -->
+<div class="absolute right-0 top-full mt-1.5 hidden group-hover:block z-50 whitespace-nowrap px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant font-label-caps text-label-caps text-on-surface shadow-xl">
+            Disabled while Dry-run is ON
+          </div>
+</div>
+</div>
+</div>
+<!-- ======================================================================= -->
+<!-- OPERATOR CONTROL ROOM TWO-COLUMN GRID                                    -->
+<!-- ======================================================================= -->
+<div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT COLUMN: Vertical Pipeline Stepper & Step Inspector Cards (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="low_priority">low_priority</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Execution Stages &amp; Inspector</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">6 STAGES CONFIGURED · STRICT GATING</span>
+</div>
+<!-- Vertical Stepper Container -->
+<div class="relative flex flex-col gap-3.5 before:absolute before:top-4 before:bottom-4 before:left-[19px] before:w-[2px] before:bg-outline-variant/60">
+<!-- STAGE 1: Fetch Play Reviews -->
+<div class="relative pl-10">
+<!-- Step Badge Anchor on Timeline -->
+<div class="absolute left-2.5 top-4 -translate-x-1/2 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[13px] font-bold" data-icon="check">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all hover:border-outline">
+<div class="flex items-start justify-between gap-2 border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2.5">
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-bold">01</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Fetch Play reviews</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Google Play Scraper extraction &amp; raw dump ingestion</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-tabular-sm text-tabular-sm text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">14.2s</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm text-xs transition-colors">
+<span class="material-symbols-outlined text-[13px]" data-icon="play_arrow">play_arrow</span>
+<span>Run step</span>
+</button>
+</div>
+</div>
+<div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+<div class="space-y-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant block">RUNTIME PARAMETERS</span>
+<div class="flex flex-wrap gap-1">
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface">Window: 12 weeks</span>
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface">Lang: en</span>
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface">Country: IN</span>
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface">com.nextbillion.groww</span>
+</div>
+</div>
+<div class="space-y-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant block">LAST OUTPUT TELEMETRY</span>
+<div class="text-on-surface font-tabular-sm text-tabular-sm flex items-center justify-between">
+<span>Result: <strong class="text-primary font-medium">13,192 downloaded</strong></span>
+<span class="text-on-surface-variant">Batch 132/132</span>
+</div>
+<div class="font-body-sm text-body-sm text-xs text-on-surface-variant flex items-center gap-1.5">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Google Play scraper v2.4 · 0 rate limits
+                  </div>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 2: Ingest & Cleanse -->
+<div class="relative pl-10">
+<div class="absolute left-2.5 top-4 -translate-x-1/2 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[13px] font-bold" data-icon="check">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all hover:border-outline">
+<div class="flex items-start justify-between gap-2 border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2.5">
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-bold">02</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Ingest &amp; Cleanse</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Language identification, spam strip, deduplication, PII tokenizing</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-tabular-sm text-tabular-sm text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">4.8s</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm text-xs transition-colors">
+<span class="material-symbols-outlined text-[13px]" data-icon="play_arrow">play_arrow</span>
+<span>Run step</span>
+</button>
+</div>
+</div>
+<div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">PIPELINE CRITERIA</span>
+<div class="flex flex-wrap gap-1">
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface">Min 8 words</span>
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface">English only</span>
+<span class="font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container-low border border-primary/30 text-primary">PII Tokenizer: Active</span>
+</div>
+<div class="mt-1.5 font-tabular-sm text-tabular-sm text-on-surface-variant">
+                    Storage: <span class="text-on-surface">DuckDB / Parquet</span> (310 rev/sec)
+                  </div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">TRIAGE PARTITIONING</span>
+<div class="space-y-1 font-tabular-sm text-tabular-sm">
+<div class="flex justify-between text-on-surface">
+<span>Inserted (new):</span>
+<span class="text-primary font-medium">425</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Deduped (present):</span>
+<span>1,444</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Short praise filtered:</span>
+<span>653</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 3: Cluster -->
+<div class="relative pl-10">
+<div class="absolute left-2.5 top-4 -translate-x-1/2 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[13px] font-bold" data-icon="check">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all hover:border-outline">
+<div class="flex items-start justify-between gap-2 border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2.5">
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-bold">03</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Cluster</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dense vector embeddings &amp; hierarchical agglomerative clustering</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-tabular-sm text-tabular-sm text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">18.1s</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm text-xs transition-colors">
+<span class="material-symbols-outlined text-[13px]" data-icon="play_arrow">play_arrow</span>
+<span>Run step</span>
+</button>
+</div>
+</div>
+<div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">CLUSTERING ENGINE</span>
+<div class="space-y-1 font-tabular-sm text-tabular-sm text-on-surface">
+<div>Embeddings: <span class="text-on-surface-variant">all-MiniLM-L6-v2 (384-d)</span></div>
+<div>Linkage: <span class="text-on-surface-variant">Ward hierarchical (k_max: 5)</span></div>
+<div>Labeling: <span class="text-on-surface-variant">Groq / Llama-3-70b</span></div>
+</div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">PARTITION METRICS</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong class="text-primary font-semibold">1,225</strong> high-friction reviews clustered into <strong class="text-on-surface">5 strategic themes</strong>.
+                  </p>
+<!-- Visual Gauge -->
+<div class="mt-2 space-y-1">
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
+<span>VECTOR SPACE COVERAGE</span>
+<span class="text-primary">100% INDEXED</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="bg-primary h-full w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 4: Pulse Synthesis -->
+<div class="relative pl-10">
+<div class="absolute left-2.5 top-4 -translate-x-1/2 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[13px] font-bold" data-icon="check">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all hover:border-outline">
+<div class="flex items-start justify-between gap-2 border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2.5">
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-bold">04</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pulse Synthesis</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Executive editorial composition via deterministic structured generation</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-tabular-sm text-tabular-sm text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">6.2s</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm text-xs transition-colors">
+<span class="material-symbols-outlined text-[13px]" data-icon="play_arrow">play_arrow</span>
+<span>Run step</span>
+</button>
+</div>
+</div>
+<div class="mt-3 space-y-2">
+<div class="flex flex-wrap items-center gap-2 text-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">MODEL:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant text-on-surface font-tabular-sm text-tabular-sm">Gemini 3.6 Flash</span>
+<span class="text-outline">·</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">CONSTRAINTS:</span>
+<span class="font-tabular-sm text-tabular-sm text-on-surface">Exactly 3 quotes, 3 grounded actions, ≤250 words</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant font-body-sm text-body-sm text-on-surface-variant flex items-center justify-between">
+<span>Composed <strong class="text-on-surface">208-word</strong> executive note in 1 attempt.</span>
+<span class="font-label-caps text-label-caps text-primary">DETERMINISTIC · 0 RETRIES</span>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 5: Validate (Deterministic Gate Checks) -->
+<div class="relative pl-10">
+<div class="absolute left-2.5 top-4 -translate-x-1/2 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[13px] font-bold" data-icon="check">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all hover:border-outline">
+<div class="flex items-start justify-between gap-2 border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2.5">
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-bold">05</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Validate (Deterministic Gate Checks)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Multi-gate compliance, integrity, hallucination &amp; PII audit</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-tabular-sm text-tabular-sm text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">1.1s</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm text-xs transition-colors">
+<span class="material-symbols-outlined text-[13px]" data-icon="play_arrow">play_arrow</span>
+<span>Run step</span>
+</button>
+</div>
+</div>
+<!-- Mini Checklist showing 7 verification tags -->
+<div class="mt-3 space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">7 QUALITY &amp; COMPLIANCE GATES</span>
+<span class="font-label-caps text-label-caps text-primary font-bold">7/7 PASSED (100% STRICT SIGN-OFF)</span>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    themes_capped <span class="text-xs">✓</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    quotes_verbatim <span class="text-xs">✓</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    quotes_count <span class="text-xs">✓</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    actions_grounded <span class="text-xs">✓</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    word_count (208/250) <span class="text-xs">✓</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    no_pii (0 leaks) <span class="text-xs">✓</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-label-caps text-label-caps">
+                    window_declared <span class="text-xs">✓</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 6: Publish & Dispatch -->
+<div class="relative pl-10">
+<div class="absolute left-2.5 top-4 -translate-x-1/2 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center text-primary z-10">
+<span class="material-symbols-outlined text-[13px] font-bold" data-icon="check">check</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all hover:border-outline">
+<div class="flex items-start justify-between gap-2 border-b border-outline-variant pb-2.5">
+<div class="flex items-center gap-2.5">
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-bold">06</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Publish &amp; Dispatch</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">MCP connector execution for Google Docs sync and Gmail draft staging</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-tabular-sm text-tabular-sm text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">4.2s</span>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-body-sm text-body-sm text-xs transition-colors">
+<span class="material-symbols-outlined text-[13px]" data-icon="play_arrow">play_arrow</span>
+<span>Run step</span>
+</button>
+</div>
+</div>
+<div class="mt-3 space-y-2 text-xs">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="font-label-caps text-label-caps">MCP SERVER:</span>
+<span class="text-on-surface font-medium font-tabular-sm text-tabular-sm">Google Workspace MCP</span>
+<span class="text-outline">·</span>
+<span class="font-label-caps text-label-caps">TARGET:</span>
+<span class="text-on-surface font-tabular-sm text-tabular-sm">Google Doc append + Gmail draft</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant space-y-1 font-tabular-sm text-tabular-sm">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="description">description</span>
+<span>Doc appended: "Groww Weekly Review Pulse [groww:2026-W36]"</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="mail">mail</span>
+<span>Draft created for manojkr6637@gmail.com</span>
+</div>
+<div class="flex items-center gap-1.5 text-tertiary">
+<span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span>
+<span>Live send: SKIPPED (Dry-run active)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Live Execution Log Terminal & Diagnostics (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-4 sticky top-16">
+<!-- Terminal Window Header -->
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="terminal">terminal</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Live Monospace Execution Log</h2>
+</div>
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+</div>
+<!-- Terminal Shell Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-2xl flex flex-col">
+<!-- Terminal Title Bar -->
+<div class="flex items-center justify-between px-3.5 py-2.5 bg-surface-container-low border-b border-outline-variant">
+<!-- Window Dots -->
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-[#FF5A6A]/80 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary/80 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary/80 inline-block"></span>
+<span class="ml-2 font-tabular-sm text-tabular-sm text-on-surface-variant">runtime.log · stdout stream (PID 48291)</span>
+</div>
+<!-- Terminal Controls -->
+<div class="flex items-center gap-2">
+<button class="px-1.5 py-0.5 rounded bg-surface border border-outline-variant text-[10px] font-label-caps text-label-caps text-primary hover:bg-surface-container-high transition-colors">
+                AUTO-SCROLL: ON
+              </button>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Clear Console">
+<span class="material-symbols-outlined text-[14px]" data-icon="clear_all">clear_all</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Copy Log">
+<span class="material-symbols-outlined text-[14px]" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+</div>
+<!-- Log Content (Exact lines required) -->
+<div class="p-4 font-tabular-sm text-tabular-sm overflow-x-auto space-y-1.5 max-h-[510px] overflow-y-auto leading-relaxed text-[11.5px] bg-[#07090C]">
+<div class="text-on-surface-variant">
+<span class="text-outline">[2026-09-04 16:03:12]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> <span class="text-primary font-bold">[INFO]</span> Pipeline started for package: <span class="text-primary">com.nextbillion.groww</span> (window: 12w, dry_run=true)
+            </div>
+<div class="text-on-surface-variant">
+<span class="text-outline">[2026-09-04 16:03:26]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> Downloaded <strong class="text-on-surface font-bold">13192</strong> reviews for Groww Stocks, Mutual Fund, IPO
+            </div>
+<div class="text-on-surface-variant">
+<span class="text-outline">[2026-09-04 16:03:31]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> Stored <strong class="text-primary">425 new</strong>, 1444 already present
+            </div>
+<div class="text-on-surface-variant">
+<span class="text-outline">[2026-09-04 16:03:49]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> Clustered 1225 reviews into <strong class="text-on-surface">5 themes</strong> via ward
+            </div>
+<div class="text-on-surface-variant">
+<span class="text-outline">[2026-09-04 16:04:01]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> Composed a <strong class="text-on-surface">208-word</strong> note (llm, 1 attempt)
+            </div>
+<!-- Gate Check Ok Lines -->
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> themes_capped
+            </div>
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> quotes_verbatim
+            </div>
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> quotes_count
+            </div>
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> actions_grounded
+            </div>
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> word_count (208 &lt;= 250)
+            </div>
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> no_pii
+            </div>
+<div class="text-primary">
+<span class="text-outline">[2026-09-04 16:04:02]</span> <span class="text-primary-container font-bold">[ok]</span> window_declared
+            </div>
+<!-- MCP Output Lines -->
+<div class="text-on-surface">
+<span class="text-outline">[2026-09-04 16:04:03]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> <span class="text-secondary-fixed font-bold">[MCP]</span> Appended section to Google Doc: <span class="text-on-surface underline decoration-outline-variant">Groww Weekly Review Pulse [groww:2026-W36]</span>
+</div>
+<div class="text-on-surface">
+<span class="text-outline">[2026-09-04 16:04:04]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> <span class="text-secondary-fixed font-bold">[MCP]</span> Created Gmail draft to <span class="text-primary">manojkr6637@gmail.com</span>
+</div>
+<div class="text-tertiary">
+<span class="text-outline">[2026-09-04 16:04:04]</span> <span class="text-on-surface font-semibold">[reviewpulse]</span> <span class="text-tertiary font-bold">[WARN]</span> Live dispatch skipped: DRY_RUN=ON
+            </div>
+<div class="text-primary font-semibold pt-1 border-t border-outline-variant/40">
+<span class="text-outline">[2026-09-04 16:04:05]</span> [reviewpulse] [SUCCESS] Pipeline cycle complete in 48.6s (exit code 0)
+            </div>
+<div class="text-outline animate-pulse">
+              _ ready for next run instruction
+            </div>
+</div>
+</div>
+<!-- Diagnostics & MCP Server Health Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2.5 mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="monitor_heart">monitor_heart</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Diagnostics &amp; MCP Health</h3>
+</div>
+<span class="inline-flex items-center gap-1 font-label-caps text-label-caps text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              ALL ENGINES OPTIMAL
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Metric 1: MCP Latency -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant">MCP LATENCY</div>
+<div class="mt-1 flex items-baseline justify-between">
+<span class="font-tabular-lg text-tabular-lg font-bold text-on-surface">42<span class="text-xs font-normal text-on-surface-variant">ms</span></span>
+<span class="font-label-caps text-label-caps text-primary">LOW</span>
+</div>
+</div>
+<!-- Metric 2: Gemini API Quota -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant">GEMINI API QUOTA</div>
+<div class="mt-1 flex items-baseline justify-between">
+<span class="font-tabular-lg text-tabular-lg font-bold text-on-surface">88%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">REMAINING</span>
+</div>
+</div>
+<!-- Metric 3: Groq QPS -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant">GROQ QPS</div>
+<div class="mt-1 flex items-baseline justify-between">
+<span class="font-tabular-lg text-tabular-lg font-bold text-on-surface">12.4</span>
+<span class="font-label-caps text-label-caps text-primary">STEADY</span>
+</div>
+</div>
+<!-- Metric 4: DuckDB Memory -->
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant">DUCKDB MEMORY</div>
+<div class="mt-1 flex items-baseline justify-between">
+<span class="font-tabular-lg text-tabular-lg font-bold text-on-surface">142<span class="text-xs font-normal text-on-surface-variant">MB</span></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">HEAP PASS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

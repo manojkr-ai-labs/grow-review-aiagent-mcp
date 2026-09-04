@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewPulse Console — Settings &amp; Runtime Configuration</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts: Geist, JetBrains Mono, Newsreader -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with form and container plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#006c4f",
+            "surface": "#111417",
+            "on-surface": "#e2e2e7",
+            "on-secondary": "#003827",
+            "primary-fixed-dim": "#2fe0aa",
+            "tertiary-fixed-dim": "#f0c04d",
+            "on-error-container": "#ffdad6",
+            "surface-tint": "#2fe0aa",
+            "surface-container-highest": "#333538",
+            "surface-container": "#1e2023",
+            "surface-bright": "#37393d",
+            "surface-container-lowest": "#0c0e11",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-surface": "#e2e2e7",
+            "on-primary-fixed-variant": "#00513b",
+            "on-tertiary-container": "#5d4500",
+            "on-tertiary-fixed": "#251a00",
+            "on-tertiary": "#3f2e00",
+            "secondary-fixed-dim": "#00e1a8",
+            "primary-container": "#00d09c",
+            "on-background": "#e2e2e7",
+            "tertiary-fixed": "#ffdf9d",
+            "primary": "#44edb7",
+            "on-error": "#690005",
+            "surface-container-low": "#1a1c1f",
+            "error-container": "#93000a",
+            "on-secondary-fixed": "#002116",
+            "background": "#111417",
+            "outline": "#85948c",
+            "surface-dim": "#111417",
+            "secondary-container": "#07e7ad",
+            "on-surface-variant": "#bacac1",
+            "tertiary": "#fecc59",
+            "on-primary": "#003828",
+            "on-secondary-fixed-variant": "#00513b",
+            "on-primary-fixed": "#002116",
+            "secondary-fixed": "#42ffc3",
+            "outline-variant": "#3c4a43",
+            "surface-variant": "#333538",
+            "surface-container-high": "#282a2e",
+            "primary-fixed": "#59fdc5",
+            "on-secondary-container": "#006348",
+            "error": "#ffb4ab",
+            "inverse-on-surface": "#2e3034",
+            "secondary": "#82ffce",
+            "tertiary-container": "#e0b140",
+            "on-primary-container": "#00533c"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "grid-margin-mobile": "1rem",
+            "density-compact": "0.25rem",
+            "grid-gutter-mobile": "0.75rem",
+            "grid-margin-desktop": "1.5rem",
+            "container-pad": "1.25rem",
+            "density-spacious": "1rem",
+            "grid-gutter-desktop": "1rem",
+            "density-cozy": "0.5rem"
+          },
+          "fontFamily": {
+            "body-md": ["Geist", "sans-serif"],
+            "editorial-title": ["Newsreader", "serif"],
+            "tabular-md": ["JetBrains Mono", "monospace"],
+            "editorial-display": ["Newsreader", "serif"],
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "editorial-quote": ["Newsreader", "serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "tabular-sm": ["JetBrains Mono", "monospace"],
+            "headline-sm": ["Geist", "sans-serif"],
+            "tabular-lg": ["JetBrains Mono", "monospace"],
+            "body-lg": ["Geist", "sans-serif"],
+            "headline-md": ["Geist", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"]
+          },
+          "fontSize": {
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "editorial-title": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "tabular-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "editorial-display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "editorial-quote": ["1.125rem", { "lineHeight": "1.75rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "tabular-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "tabular-lg": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased font-body-md selection:bg-primary-container selection:text-on-primary">
+<!-- ========================================================================= -->
+<!-- SHARED COMPONENT: SideNavBar                                              -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 flex flex-col justify-between p-4 bg-surface-container-lowest border-r border-outline-variant z-40">
+<div class="flex flex-col gap-6">
+<!-- Header / Brand -->
+<div class="px-2 pt-1 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="relative flex items-center justify-center w-6 h-6 rounded-lg bg-surface-container border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse" title="ReviewPulse Live Signal"></span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight leading-none">ReviewPulse</div>
+<div class="font-tabular-sm text-tabular-sm text-on-surface-variant mt-1 leading-none">Groww · Play Store</div>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<!-- 1. Weekly Pulse (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">switch_account</span>
+<span>Weekly Pulse</span>
+</a>
+<!-- 2. Themes (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">category</span>
+<span>Themes</span>
+</a>
+<!-- 3. Reviews (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">rate_review</span>
+<span>Reviews</span>
+</a>
+<!-- 4. Pipeline (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+<span>Pipeline</span>
+</a>
+<!-- 5. Runs (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Runs</span>
+</a>
+<!-- 6. Publish (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+<span>Publish</span>
+</a>
+<!-- 7. Settings (ACTIVE strictly matching style_active_navigation) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary border-l-2 border-primary font-body-md text-body-md rounded-r-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-medium text-on-surface">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Footer Telemetry -->
+<div class="pt-3 border-t border-outline-variant/60 flex flex-col gap-2">
+<div class="flex items-center gap-2 px-2 text-on-surface-variant font-tabular-sm text-tabular-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">calendar_today</span>
+<span>ISO 2026-W36</span>
+</div>
+<div class="flex items-center gap-2 px-2 text-on-surface-variant font-tabular-sm text-tabular-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">schedule</span>
+<span>Last Run: Just now</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE LAYOUT (Sticky Top Context Rail + Structured Canvas)       -->
+<!-- ========================================================================= -->
+<div class="ml-60 min-h-screen flex flex-col bg-surface-container-lowest">
+<!-- Top Context Navigation Bar -->
+<header class="sticky top-0 z-30 flex justify-between items-center px-6 py-3 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-sm">
+<!-- Breadcrumbs & Signal Telemetry Pills -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-md text-body-md">
+<span class="font-medium text-on-surface">Settings</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface-variant">System &amp; Pipeline Configuration</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant mx-1"></div>
+<!-- Telemetry Pills -->
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container border border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+            com.nextbillion.groww
+          </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container border border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+            ISO 2026-W36
+          </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-low border border-primary/40 font-label-caps text-label-caps text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            MCP CONNECTED
+          </span>
+</div>
+</div>
+<!-- Right Operator Controls -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant text-on-surface-variant font-tabular-sm text-tabular-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">check_circle</span>
+<span>Changes Saved Automatically</span>
+</div>
+<div class="flex items-center gap-2 pl-2 border-l border-outline-variant">
+<div class="w-7 h-7 rounded bg-surface-container border border-outline-variant flex items-center justify-center font-label-caps text-label-caps text-on-surface font-semibold tracking-normal" title="User MK avatar">
+            MK
+          </div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-6 max-w-7xl w-full mx-auto flex flex-col gap-6">
+<!-- Header Area -->
+<div class="flex flex-col gap-1 pb-2 border-b border-outline-variant">
+<div class="flex items-center justify-between">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Settings &amp; Runtime Configuration</h1>
+<div class="font-label-caps text-label-caps text-on-surface-variant">NODE CLUSTER: PROD-BLR-01</div>
+</div>
+<p class="font-editorial-quote text-editorial-quote text-on-surface-variant italic">
+          Global defaults, model provisioning, MCP endpoints, deterministic pipeline gates, and automated ISO schedule.
+        </p>
+</div>
+<!-- Bento Grid of Settings Panels -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+<!-- =================================================================== -->
+<!-- 1. APP: Ingestion & Filter Defaults (xl:col-span-6)                -->
+<!-- =================================================================== -->
+<section class="xl:col-span-6 bg-surface rounded-xl border border-outline-variant p-5 flex flex-col justify-between">
+<div>
+<!-- Section Title -->
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">tune</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Application &amp; Ingestion Defaults</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant">INGESTION GATE</span>
+</div>
+<!-- Fields Form -->
+<div class="space-y-4">
+<!-- package_id -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant">PACKAGE_ID</label>
+<span class="inline-flex items-center gap-1 font-tabular-sm text-tabular-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">lock</span> Read-only package anchor
+                  </span>
+</div>
+<div class="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant">
+<span class="font-tabular-md text-tabular-md text-on-surface">com.nextbillion.groww</span>
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant">GOOGLE PLAY</span>
+</div>
+</div>
+<!-- Window Weeks Segmented Toggle -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant">WINDOW DURATION (WEEKS)</label>
+<span class="font-tabular-sm text-tabular-sm text-on-surface-variant">Rolling review horizon</span>
+</div>
+<div class="grid grid-cols-3 gap-2 p-1 rounded-lg bg-surface-container-lowest border border-outline-variant">
+<button class="py-1.5 text-center font-tabular-md text-tabular-md text-on-surface-variant rounded hover:text-on-surface transition-colors" type="button">
+                    4 Weeks
+                  </button>
+<button class="py-1.5 text-center font-tabular-md text-tabular-md text-on-surface-variant rounded hover:text-on-surface transition-colors" type="button">
+                    8 Weeks
+                  </button>
+<button class="py-1.5 text-center font-tabular-md text-tabular-md bg-surface-container border border-primary/50 text-primary font-semibold rounded shadow-sm" type="button">
+                    12 Weeks
+                  </button>
+</div>
+</div>
+<!-- Minimum Words Threshold -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="font-label-caps text-label-caps text-on-surface-variant">MIN WORDS THRESHOLD</label>
+<span class="font-tabular-sm text-tabular-sm text-outline">Filters low-effort noise &amp; ratings-only</span>
+</div>
+<div class="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="font-tabular-lg text-tabular-lg text-on-surface font-semibold">8</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">minimum tokens per sample</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded border border-outline-variant bg-surface-container flex items-center justify-center text-on-surface hover:border-outline transition-colors text-tabular-sm font-semibold">−</button>
+<button class="w-7 h-7 rounded border border-outline-variant bg-surface-container flex items-center justify-center text-on-surface hover:border-outline transition-colors text-tabular-sm font-semibold">+</button>
+</div>
+</div>
+</div>
+<!-- English Only Switch -->
+<div class="pt-2">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low border border-outline-variant">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">English Language Normalization</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Filter non-English reviews at ingestion layer before embedding</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant flex items-center justify-between font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span>Ingestion Rate: ~2,420 records/run</span>
+<span class="text-primary font-medium">Status: Optimized</span>
+</div>
+</section>
+<!-- =================================================================== -->
+<!-- 2. MODELS: LLM Engine Configuration (xl:col-span-6)                -->
+<!-- =================================================================== -->
+<section class="xl:col-span-6 bg-surface rounded-xl border border-outline-variant p-5 flex flex-col justify-between">
+<div>
+<!-- Section Title -->
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">neurology</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">LLM Engine Configuration</h2>
+</div>
+<span class="font-label-caps text-label-caps text-primary bg-primary/10 border border-primary/30 px-2 py-0.5 rounded">
+                DETERMINISTIC PIPELINE
+              </span>
+</div>
+<!-- Model Cards Grid -->
+<div class="space-y-3.5">
+<!-- Groq Model Card -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest border border-outline-variant flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Groq Cluster</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant font-mono">openai/gpt-oss-120b</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+                  Purpose: <span class="text-on-surface">Theme clustering &amp; n-gram semantic labeling</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-outline-variant/50">
+<div class="flex items-center gap-2 font-tabular-sm text-tabular-sm">
+<span class="text-primary font-medium">● Key configured</span>
+<span class="text-outline">|</span>
+<span class="text-on-surface-variant font-mono">gsk_••••••••••••3f91</span>
+<span class="text-primary font-semibold text-[11px] px-1 bg-primary/10 rounded">Valid</span>
+</div>
+<button class="text-primary hover:underline font-body-sm text-body-sm font-medium" type="button">Rotate Key</button>
+</div>
+</div>
+<!-- Gemini Model Card -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest border border-outline-variant flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Gemini Engine</span>
+</div>
+<span class="font-tabular-sm text-tabular-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant font-mono">gemini-3.6-flash</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+                  Purpose: <span class="text-on-surface">Deterministic pulse executive note composition (≤250 words)</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-outline-variant/50">
+<div class="flex items-center gap-2 font-tabular-sm text-tabular-sm">
+<span class="text-primary font-medium">● Key configured</span>
+<span class="text-outline">|</span>
+<span class="text-on-surface-variant font-mono">AIza••••••••••••8812</span>
+<span class="text-primary font-semibold text-[11px] px-1 bg-primary/10 rounded">Valid</span>
+</div>
+<button class="text-primary hover:underline font-body-sm text-body-sm font-medium" type="button">Rotate Key</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Deterministic seed telemetry callout -->
+<div class="mt-4 pt-3 border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2 font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">lock_reset</span>
+<span>Deterministic seed locked (1 attempt zero-retry policy)</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">TEMP = 0.0</span>
+</div>
+</section>
+<!-- =================================================================== -->
+<!-- 3. MCP: Model Context Protocol Connector (xl:col-span-7)           -->
+<!-- =================================================================== -->
+<section class="xl:col-span-7 bg-surface rounded-xl border border-outline-variant p-5 flex flex-col justify-between">
+<div>
+<!-- Section Title -->
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">hub</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">MCP Connector (Model Context Protocol)</h2>
+</div>
+<span class="inline-flex items-center gap-1.5 font-label-caps text-label-caps text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/30">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                ACTIVE (42ms PING)
+              </span>
+</div>
+<!-- Detail Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Server URL -->
+<div class="md:col-span-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">RAILWAY HOSTED ENDPOINT</label>
+<div class="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant">
+<div class="flex items-center gap-2 font-tabular-md text-tabular-md text-on-surface font-mono">
+<span class="text-outline">wss://</span>
+<span>mcp-workspace.railway.app:8443</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary bg-surface-container px-2 py-0.5 rounded border border-outline-variant">TLS 1.3</span>
+</div>
+</div>
+<!-- Document ID -->
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">TARGET GOOGLE DOC ID</label>
+<div class="px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface font-mono flex items-center justify-between">
+<span>1gR0ww••••••••••••••••pUlSe36</span>
+<span class="material-symbols-outlined text-[15px] text-outline">description</span>
+</div>
+</div>
+<!-- Recipient Alias -->
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">STAKEHOLDER DISPATCH TARGET</label>
+<div class="px-3 py-2 rounded-lg bg-surface-container-lowest border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface font-mono flex items-center justify-between">
+<span>manojkr6637@gmail.com</span>
+<span class="material-symbols-outlined text-[15px] text-primary">verified</span>
+</div>
+</div>
+<!-- Registered Tools List -->
+<div class="md:col-span-2 pt-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-2">REGISTERED MCP TOOLS (EXECUTION DISPATCH)</label>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-surface-container-lowest border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-mono">append_to_google_doc</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-surface-container-lowest border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-mono">draft_email</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-surface-container-lowest border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-mono">send_email</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant flex items-center justify-between text-on-surface-variant font-tabular-sm text-tabular-sm">
+<span>Protocol: Anthropic MCP Spec v2024-11</span>
+<span class="text-on-surface">Auth: Mutual Bearer Token</span>
+</div>
+</section>
+<!-- =================================================================== -->
+<!-- 4. SCHEDULE: Automated Execution Cron (xl:col-span-5)              -->
+<!-- =================================================================== -->
+<section class="xl:col-span-5 bg-surface rounded-xl border border-outline-variant p-5 flex flex-col justify-between">
+<div>
+<!-- Section Title -->
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">schedule</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Automated Execution Cron</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant">SCHEDULED</span>
+</div>
+<!-- Fields -->
+<div class="space-y-3.5">
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-lowest border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">WEEKLY CADENCE</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">Monday 09:00</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">TIMEZONE</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">Asia/Kolkata (IST)</div>
+</div>
+</div>
+<!-- Automated Action Toggle -->
+<div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-between">
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-medium">send_email: true</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Live dispatch triggered upon pipeline completion</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Next Scheduled Run Card -->
+<div class="p-3 rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-between">
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">NEXT SCHEDULED RUN</div>
+<div class="font-tabular-md text-tabular-md text-primary font-medium mt-0.5">Monday, Sep 8, 2026 at 09:00 IST</div>
+</div>
+<span class="material-symbols-outlined text-outline">event_upcoming</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant font-tabular-sm text-tabular-sm text-on-surface-variant flex items-center justify-between">
+<span>Safety: Dry-run manual override armed</span>
+<span class="text-outline">cron: 0 9 * * 1</span>
+</div>
+</section>
+<!-- =================================================================== -->
+<!-- 5. APPEARANCE: Interface Theme (xl:col-span-12)                    -->
+<!-- =================================================================== -->
+<section class="xl:col-span-12 bg-surface rounded-xl border border-outline-variant p-5">
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">palette</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Interface Appearance</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">FINTECH WORKSPACE PROFILE</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Dark Mode Active Card -->
+<div class="relative p-4 rounded-xl border-2 border-primary bg-surface-container-low flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">dark_mode</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold">Dark Mode</div>
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-primary-container text-on-primary font-semibold">ACTIVE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Default Fintech Console substrate (#0c0e11 / #111417) optimized for prolonged quantitative inspection and low optical fatigue.
+                </p>
+<div class="flex items-center gap-2 mt-3 font-tabular-sm text-tabular-sm text-primary">
+<span class="material-symbols-outlined text-[14px]">check</span> Strict contrast ratios enforced (WCAG AAA compliant)
+                </div>
+</div>
+</div>
+<!-- Light Mode Disabled Card -->
+<div class="relative p-4 rounded-xl border border-outline-variant/60 bg-surface-container-lowest/50 opacity-60 flex items-start gap-4 cursor-not-allowed">
+<div class="w-12 h-12 rounded-lg bg-surface-container border border-outline-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[24px]">light_mode</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<div class="font-headline-sm text-headline-sm text-outline font-semibold">Light Mode</div>
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant">COMING LATER</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-1">
+                  High-key daylight variant reserved for executive presentation decks and printed PDF summary rendering.
+                </p>
+<div class="flex items-center gap-2 mt-3 font-tabular-sm text-tabular-sm text-outline">
+<span class="material-symbols-outlined text-[14px]">block</span> Light — disabled (Under audit)
+                </div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ===================================================================== -->
+<!-- SECURITY & AUDIT FOOTER CALLOUT                                       -->
+<!-- ===================================================================== -->
+<footer class="mt-2 p-4 rounded-xl bg-surface-container-low border border-outline-variant flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container border border-outline-variant flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div>
+<div class="font-body-md text-body-md text-on-surface font-medium">KMS Envelope Cryptographic Guard</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+              Secrets &amp; API keys are encrypted at rest using envelope encryption (KMS). Raw secret values are never echoed to the client.
+            </div>
+</div>
+</div>
+<div class="flex items-center gap-2 font-tabular-sm text-tabular-sm text-on-surface-variant self-end md:self-auto border-t md:border-t-0 pt-2 md:pt-0 border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span>Last modified by operator <strong class="text-on-surface font-semibold">MK</strong> on 04 Sep 2026, 16:04 IST</span>
+<span class="text-outline">·</span>
+<span class="font-mono text-primary">Revision #cfg-8921</span>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

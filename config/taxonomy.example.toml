@@ -1,0 +1,84 @@
+# Copy to config/taxonomy.toml for keyword-based clustering fallback (Phase 2, task 2.9).
+#
+# Buckets and anchor terms were measured on the real 1,260-review corpus in
+# data/exports/play_store.csv — see implementation-plan.md §4.5. The percentages
+# in each comment are multi-label coverage of that corpus.
+#
+# Assignment is SINGLE-LABEL: buckets are tried in ascending `priority` order and
+# the first match wins, so specific/severe buckets are listed before generic ones
+# (330 reviews matched 2+ buckets when labels were allowed to overlap).
+# Reviews matching nothing land in the `other` bucket (~35% of the corpus).
+#
+# `keywords` are matched as case-insensitive substrings.
+# `patterns` are case-insensitive regular expressions (TOML literal strings, so
+# backslashes need no escaping).
+
+[[themes]]
+id = "support_escalation"
+label = "Customer support responsiveness"
+priority = 1  # 134 reviews (10.6%), mean rating 1.31, 91.8% negative — most severe bucket
+keywords = ["customer care", "customer support", "customer service", "helpline", "support team", "toll free"]
+patterns = ['no (response|reply)', 'rais(e|ed) (a )?ticket', 'call ?back', 'chat support']
+
+[[themes]]
+id = "funds_withdrawal"
+label = "Withdrawals and fund movement"
+priority = 2  # 94 reviews (7.5%), mean rating 1.71, 79.8% negative
+keywords = ["withdraw", "payout", "refund", "not credited", "settlement", "bank transfer"]
+patterns = ['my money', 'amount (is )?(stuck|blocked|on hold|debited|not credited)', 'balance (not|missing)', '\bupi\b', 'deduct(ed)?']
+
+[[themes]]
+id = "update_regression"
+label = "Regressions after app update"
+priority = 3  # 48 reviews (3.8%), mean rating 1.83, 70.8% negative — spiked in ISO weeks 32 and 35
+keywords = ["scalper", "reinstall", "previous version", "old version", "new version", "revert"]
+patterns = ['(after|since) (the )?(recent |new |latest )?update', 'update.*(bad|worst|ruin|hectic|irritating)']
+
+[[themes]]
+id = "kyc_login_access"
+label = "KYC, login and account access"
+priority = 4  # 46 reviews (3.7%), mean rating 1.96, 73.9% negative
+keywords = ["kyc", "account opening", "verification", "nominee", "aadhaar", "aadhar"]
+patterns = ['\botp\b', 'log ?in', 'log ?out', 'sign ?in', 'account (is )?(blocked|frozen|freeze)', 'verif(y|ication)']
+
+[[themes]]
+id = "execution_data"
+label = "Order execution and data accuracy"
+priority = 5  # 34 reviews (2.7%), mean rating 2.24, 61.8% negative
+keywords = ["square off", "stop loss", "slippage", "margin"]
+patterns = ['order (fail|reject|not execut|stuck)', '\bsl\b', '\bltp\b', 'price (feed|wrong|not updat)', 'showing wrong', 'wrong (figure|value|price|p&l|pnl)', 'portfolio (wrong|not correct)']
+
+[[themes]]
+id = "charges_brokerage"
+label = "Charges and brokerage"
+priority = 6  # 147 reviews (11.7%), mean rating 2.18, 66.7% negative
+keywords = ["brokerage", "dp charge", "amc", "expensive", "costly", "commission", "transaction fee"]
+patterns = ['charge[sd]?', 'hidden (fee|charge)', '(charges|brokerage|fees) .{0,20}(too )?high', 'too high']
+
+[[themes]]
+id = "feature_gap_competitor"
+label = "Feature gaps versus competitors"
+priority = 7  # 114 reviews (9.0%), mean rating 2.66, 52.6% negative
+keywords = ["zerodha", "angel one", "angelone", "upstox", "dhan", "us stock", "not available", "missing feature"]
+patterns = ['other (app|platform|broker)s?', 'please add', 'provide (this )?(option|feature)']
+
+[[themes]]
+id = "mutual_funds_sip"
+label = "Mutual funds and SIPs"
+priority = 8  # 130 reviews (10.3%), mean rating 3.38, 34.6% negative
+keywords = ["mutual fund", "folio", "elss", "redemption", "redeem"]
+patterns = ['\bsip\b', '\bswp\b', '\bstp\b', '\bnav\b', '\bnfo\b']
+
+[[themes]]
+id = "charts_trading_ux"
+label = "Charts and trading interface"
+priority = 9  # 304 reviews (24.1%), mean rating 3.15, 39.8% negative — largest but most mixed
+keywords = ["chart", "indicator", "watchlist", "option chain", "f&o", "interface", "layout", "dark mode", "button"]
+patterns = ['\bui\b', 'order (window|placement)', 'clutter', 'confus(ing|ed)']
+
+[[themes]]
+id = "ease_of_use_praise"
+label = "Ease of use for beginners"
+priority = 10  # 195 reviews (15.5%), mean rating 4.62, only 6.7% negative — lowest actionability
+keywords = ["easy to use", "user friendly", "user-friendly", "beginner", "simple to", "simple and"]
+patterns = ['easy .{0,12}(use|understand|navigate)']

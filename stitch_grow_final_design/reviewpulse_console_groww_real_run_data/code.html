@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewPulse Console · Groww Stocks, Mutual Fund, IPO</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary": "#003827",
+            "on-secondary-container": "#006348",
+            "inverse-surface": "#e2e2e7",
+            "surface-tint": "#2fe0aa",
+            "on-primary": "#003828",
+            "on-tertiary-container": "#5d4500",
+            "primary-fixed-dim": "#2fe0aa",
+            "secondary-fixed-dim": "#00e1a8",
+            "on-surface": "#e2e2e7",
+            "surface-container-high": "#282a2e",
+            "surface-variant": "#333538",
+            "on-primary-container": "#00533c",
+            "surface": "#111417",
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-primary": "#006c4f",
+            "tertiary": "#fecc59",
+            "on-primary-fixed-variant": "#00513b",
+            "tertiary-fixed": "#ffdf9d",
+            "on-secondary-fixed": "#002116",
+            "surface-container-lowest": "#0c0e11",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#e0b140",
+            "on-tertiary": "#3f2e00",
+            "secondary-container": "#07e7ad",
+            "on-background": "#e2e2e7",
+            "surface-container": "#1e2023",
+            "on-primary-fixed": "#002116",
+            "secondary": "#82ffce",
+            "surface-dim": "#111417",
+            "surface-container-low": "#1a1c1f",
+            "primary-fixed": "#59fdc5",
+            "surface-container-highest": "#333538",
+            "surface-bright": "#37393d",
+            "on-tertiary-fixed": "#251a00",
+            "on-error": "#690005",
+            "tertiary-fixed-dim": "#f0c04d",
+            "on-secondary-fixed-variant": "#00513b",
+            "outline": "#85948c",
+            "outline-variant": "#3c4a43",
+            "inverse-on-surface": "#2e3034",
+            "error-container": "#93000a",
+            "primary": "#44edb7",
+            "secondary-fixed": "#42ffc3",
+            "error": "#ffb4ab",
+            "primary-container": "#00d09c",
+            "background": "#111417",
+            "on-surface-variant": "#bacac1"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "grid-gutter-desktop": "1rem",
+            "container-pad": "1.25rem",
+            "grid-gutter-mobile": "0.75rem",
+            "density-compact": "0.25rem",
+            "density-cozy": "0.5rem",
+            "grid-margin-mobile": "1rem",
+            "grid-margin-desktop": "1.5rem",
+            "density-spacious": "1rem"
+          },
+          "fontFamily": {
+            "tabular-sm": ["JetBrains Mono"],
+            "editorial-title": ["Newsreader"],
+            "body-md": ["Geist"],
+            "label-caps": ["JetBrains Mono"],
+            "tabular-lg": ["JetBrains Mono"],
+            "tabular-md": ["JetBrains Mono"],
+            "editorial-quote": ["Newsreader"],
+            "headline-md": ["Geist"],
+            "headline-sm": ["Geist"],
+            "body-lg": ["Geist"],
+            "headline-lg": ["Geist"],
+            "body-sm": ["Geist"],
+            "editorial-display": ["Newsreader"]
+          },
+          "fontSize": {
+            "tabular-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "editorial-title": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "tabular-lg": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "tabular-md": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "editorial-quote": ["1.125rem", { "lineHeight": "1.75rem", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "editorial-display": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+    .bg-grid-subtle {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(60, 74, 67, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(60, 74, 67, 0.12) 1px, transparent 1px);
+    }
+    .nums {
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+  </style>
+</head>
+<body class="bg-[#07090C] text-[#F4F7FA] font-body-md text-body-md antialiased min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-surface-container-lowest">
+<!-- ======================= SIDEBAR (240px Shell) ======================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 flex flex-col justify-between p-4 bg-surface-container-lowest border-r border-[#243041] z-40">
+<!-- Header / Brand -->
+<div class="space-y-6">
+<div class="flex items-center justify-between pb-4 border-b border-[#243041]">
+<div class="flex items-center gap-2.5">
+<div class="relative flex items-center justify-center w-6 h-6 rounded bg-[#161C25] border border-[#243041]">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="absolute w-3.5 h-3.5 rounded-full bg-primary animate-ping opacity-40"></span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">ReviewPulse</div>
+<div class="font-label-caps text-[10px] text-outline truncate max-w-[130px]" title="Groww Stocks, Mutual Fund, IPO">Groww Stocks, Mutual...</div>
+</div>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#161C25] text-primary border border-outline-variant">LIVE</span>
+</div>
+<!-- Main Navigation -->
+<nav class="space-y-1">
+<!-- Weekly Pulse (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary border-l-2 border-primary font-body-md text-body-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined fill text-primary" data-icon="pulse">switch_account</span>
+<span class="font-medium text-primary">Weekly Pulse</span>
+</a>
+<!-- Themes -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="category">category</span>
+<span>Themes</span>
+</a>
+<!-- Reviews -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="rate_review">rate_review</span>
+<span>Reviews</span>
+</a>
+<!-- Pipeline -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="account_tree">account_tree</span>
+<span>Pipeline</span>
+</a>
+<!-- Runs -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="history">history</span>
+<span>Runs</span>
+</a>
+<!-- Publish -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="publish">publish</span>
+<span>Publish</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined text-outline" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Telemetry Footer -->
+<div class="pt-4 border-t border-[#243041] space-y-2">
+<div class="p-2.5 rounded bg-[#10151C] border border-[#243041] space-y-1.5">
+<div class="flex items-center justify-between font-label-caps text-label-caps text-[#6B7A8D]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="calendar_today">calendar_today</span>
+          CYCLE
+        </span>
+<span class="font-tabular-sm text-tabular-sm text-[#F4F7FA]">ISO 2026-W36</span>
+</div>
+<div class="flex flex-col gap-0.5 pt-1 border-t border-[#243041]/60">
+<span class="font-label-caps text-[10px] text-[#6B7A8D]">RUN ID</span>
+<span class="font-tabular-sm text-[10px] text-primary truncate" title="20260904T110430Z-5380d4e5">20260904T110430Z-5380d4e5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-[#6B7A8D] px-1">
+<span class="truncate max-w-[130px]">Groww Stocks, MF, IPO</span>
+<span class="flex items-center gap-1 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+        STABLE
+      </span>
+</div>
+</div>
+</aside>
+<!-- ======================= TOP BAR ======================= -->
+<header class="sticky top-0 right-0 z-30 ml-60 flex justify-between items-center px-6 py-3 w-[calc(100%-15rem)] border-b border-[#243041] bg-[#0B0F14]/95 backdrop-blur-md">
+<!-- Left Headline & Meta Badges -->
+<div class="flex items-center gap-3">
+<div>
+<h1 class="font-headline-md text-headline-md font-semibold text-on-surface tracking-tight">Weekly Pulse</h1>
+<div class="text-[11px] text-[#9AA8B8]">Groww Stocks, Mutual Fund, IPO</div>
+</div>
+<!-- Window Badge -->
+<div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#10151C] border border-[#243041] text-[#9AA8B8]">
+<span class="material-symbols-outlined text-[15px] text-[#6B7A8D]" data-icon="date_range">date_range</span>
+<span class="font-tabular-sm text-tabular-sm text-[#9AA8B8]">12 weeks · 12 Jun 2026 → 4 Sep 2026</span>
+</div>
+<!-- Idempotency Badge -->
+<div class="hidden xl:flex items-center gap-1 px-2.5 py-1 rounded bg-[#10151C] border border-[#243041] text-[#9AA8B8]">
+<span class="material-symbols-outlined text-[14px] text-[#6B7A8D]" data-icon="fingerprint">fingerprint</span>
+<span class="font-tabular-sm text-tabular-sm text-[#9AA8B8]">groww:2026-W36</span>
+</div>
+<!-- MCP Status Chip -->
+<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-[#10151C] border border-[#243041]">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-caps text-label-caps text-primary tracking-wide">MCP CONNECTED</span>
+</div>
+</div>
+<!-- Right Global Operational Triggers -->
+<div class="flex items-center gap-2.5">
+<!-- Secondary Trigger: Publish (Dry-run) -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#161C25] border border-[#243041] text-[#F4F7FA] font-body-md text-body-sm font-medium hover:bg-surface-container-high hover:border-[#9AA8B8] transition-all duration-150 active:scale-98">
+<span class="material-symbols-outlined text-[16px] text-[#9AA8B8]" data-icon="drafts">drafts</span>
+<span>Publish (Dry-run)</span>
+</button>
+<!-- Primary Action: Run Pipeline -->
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#00D09C] text-[#07090C] font-body-md text-body-sm font-semibold hover:bg-[#00E6AC] transition-all duration-150 active:scale-98 shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="play_arrow">play_arrow</span>
+<span>Run Pipeline</span>
+</button>
+<!-- User Avatar Pill -->
+<div class="w-8 h-8 rounded bg-[#161C25] border border-[#243041] text-primary flex items-center justify-center font-tabular-sm text-tabular-sm font-bold tracking-tight select-none" title="Operator MK (Product Lead)">
+      MK
+    </div>
+</div>
+</header>
+<!-- ======================= MAIN CANVAS ======================= -->
+<main class="ml-60 p-6 space-y-6 max-w-[1440px] bg-grid-subtle">
+<!-- 1. EXECUTIVE INTELLIGENCE BANNER (Editorial Pulse Note) -->
+<section class="rounded-xl bg-[#10151C] border border-[#243041] p-5 shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-96 h-full bg-gradient-to-l from-primary-container/5 via-transparent to-transparent pointer-events-none"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[#243041]">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-label-caps tracking-wider font-semibold">
+          EXECUTIVE PULSE NOTE · W36
+        </span>
+<span class="text-[#6B7A8D] text-xs font-tabular-sm">|</span>
+<span class="text-[#9AA8B8] font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="model_training">model_training</span>
+          Gemini 3.6 Flash (1 attempt)
+        </span>
+<span class="text-[#6B7A8D] text-xs font-tabular-sm">|</span>
+<span class="text-[#9AA8B8] font-label-caps text-label-caps">
+          Length: 208 / 250 words
+        </span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#00D09C]/10 border border-[#00D09C]/30 text-primary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+<span>All 7 Validation Gates Passed</span>
+</div>
+</div>
+<!-- Editorial Synthesis Quote -->
+<div class="my-4 pl-4 border-l-2 border-primary-container bg-[#161C25]/70 py-3 pr-4 rounded-r">
+<p class="font-editorial-quote text-editorial-quote text-[#F4F7FA] leading-relaxed italic">
+        “App reviews across the 12-week review window averaged an acute <span class="font-medium text-[#F5C451] not-italic font-tabular-md">2.13★</span> across <span class="text-[#F4F7FA] font-medium not-italic font-tabular-md">1,225 analysed reviews</span> (with 653 dropped as low-signal praise). Sentiment is overwhelmingly depressed by the top issue cluster: <span class="text-[#FF5A6A] font-medium not-italic font-tabular-md">App crashes after update</span> commanding <span class="text-[#FF5A6A] font-medium not-italic font-tabular-md">40%</span> of volume at a critical <span class="text-[#FF5A6A] font-medium not-italic font-tabular-md">1.67★</span> rating. Two adjacent friction clusters exacerbate dissatisfaction: <span class="text-[#F5B942] font-medium not-italic font-tabular-md">Missing market data and critical stock features</span> capturing <span class="text-[#F4F7FA] font-medium not-italic font-tabular-md">21%</span> volume (<span class="text-[#F5B942] font-medium not-italic font-tabular-md">2.26★</span>), and <span class="text-[#F5B942] font-medium not-italic font-tabular-md">High brokerage charges with fund blocking</span> capturing <span class="text-[#F4F7FA] font-medium not-italic font-tabular-md">19%</span> volume (<span class="text-[#F5B942] font-medium not-italic font-tabular-md">2.51★</span>).”
+      </p>
+</div>
+<!-- Status & Actions Below Note -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-label-caps text-[#6B7A8D] uppercase tracking-wider">Operator Validation:</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#00D09C]/10 border border-[#00D09C]/30 text-primary font-label-caps text-xs font-semibold">
+<span class="material-symbols-outlined text-[13px]" data-icon="verified">verified</span>
+          7/7 Gates Verified
+        </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#161C25] border border-[#243041] text-xs font-tabular-sm text-[#9AA8B8]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#F5B942]"></span>
+          Dry-run: Google Doc + Gmail draft (Email not sent)
+        </span>
+</div>
+<div class="flex items-center gap-2 text-xs text-[#9AA8B8] font-tabular-sm">
+<span>Model Gate: <strong class="text-primary">Strict Pass</strong></span>
+<span>·</span>
+<span>Analysed Scope: <strong class="text-[#F4F7FA]">1,225 rows</strong></span>
+</div>
+</div>
+</section>
+<!-- 2. KEY METRICS GRID (4 Columns) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Average Play Store Rating -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Average Play Store Rating</span>
+<span class="material-symbols-outlined text-[#F5C451]" data-icon="star">star</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-3xl font-bold tracking-tight text-[#F5C451] nums">2.13★</span>
+<div class="flex items-center text-[#F5C451]">
+<span class="material-symbols-outlined text-[15px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] text-[#243041]" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] text-[#243041]" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[15px] text-[#243041]" data-icon="star">star</span>
+</div>
+</div>
+<p class="text-xs text-[#9AA8B8] mt-2 font-tabular-sm">Across 1,225 analysed reviews in 12-week window</p>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span>Period: 12 Jun → 4 Sep 2026</span>
+<span class="text-[#FF5A6A]">High Severity</span>
+</div>
+</div>
+<!-- Card 2: Review Ingestion & Processing -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Review Ingestion &amp; Processing</span>
+<span class="material-symbols-outlined text-primary" data-icon="dataset">dataset</span>
+</div>
+<div class="my-2 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-2xl font-bold tracking-tight text-[#F4F7FA] nums">13,192</span>
+<span class="text-xs font-tabular-sm text-[#6B7A8D]">Total Downloaded</span>
+</div>
+<div class="flex flex-wrap gap-1 text-[10px] font-tabular-sm">
+<span class="px-1.5 py-0.5 rounded bg-[#161C25] border border-[#243041] text-primary">425 new stored this run</span>
+<span class="px-1.5 py-0.5 rounded bg-[#161C25] border border-[#243041] text-[#9AA8B8]">1,444 already present</span>
+</div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span class="text-[#00D09C]">1,225 analysed/clustered</span>
+<span class="text-[#6B7A8D]">653 dropped low-signal</span>
+</div>
+</div>
+<!-- Card 3: Synthesis & Model Telemetry -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Synthesis &amp; Model Telemetry</span>
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</div>
+<div class="my-2 space-y-1.5">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-sm text-base font-bold tracking-tight text-primary">Gemini 3.6 Flash</span>
+<span class="text-xs font-tabular-sm text-[#6B7A8D]">(1 attempt)</span>
+</div>
+<div class="text-xs font-tabular-sm text-[#F4F7FA]">
+          Word Count: <strong class="text-primary font-semibold">208</strong> / 250 words
+        </div>
+<div class="text-[11px] text-[#9AA8B8] font-tabular-sm">
+          Execution latency: 840ms
+        </div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm">
+<span class="text-[#00D09C] flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="check">check</span>
+          All gates passed
+        </span>
+<span class="text-[#6B7A8D]">Deterministic</span>
+</div>
+</div>
+<!-- Card 4: Run & Dispatch State -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] p-4 flex flex-col justify-between hover:border-[#3c4a43] transition-colors">
+<div class="flex items-center justify-between text-[#6B7A8D]">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Run &amp; Dispatch State</span>
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+</div>
+<div class="my-2 space-y-1">
+<div class="font-tabular-sm text-[11px] text-[#9AA8B8] truncate" title="20260904T110430Z-5380d4e5">
+          Run: <span class="text-[#F4F7FA] font-medium">20260904T110430Z-5380d4e5</span>
+</div>
+<div class="font-tabular-sm text-[11px] text-[#9AA8B8]">
+          Idempotency: <span class="text-primary font-medium">groww:2026-W36</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#F5B942]/10 border border-[#F5B942]/30 text-[#F5B942] font-label-caps text-[10px] font-semibold">
+          MODE: Dry-run (Doc + Gmail draft)
+        </div>
+</div>
+<div class="pt-2 border-t border-[#243041]/70 flex items-center justify-between text-[11px] font-tabular-sm text-[#9AA8B8]">
+<span>Email not sent (preview only)</span>
+<span class="text-primary">Ready</span>
+</div>
+</div>
+</section>
+<!-- 3. SPLIT INTELLIGENCE GRID (Themes on Left, Gates + Live Telemetry on Right) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT COLUMN: THEMES & ISSUE CLUSTERS (7 Cols) -->
+<section class="lg:col-span-7 space-y-4">
+<div class="rounded-xl bg-[#10151C] border border-[#243041] overflow-hidden">
+<div class="px-5 py-3.5 border-b border-[#243041] flex items-center justify-between bg-[#0B0F14]/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="bubble_chart">bubble_chart</span>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">Themes &amp; Issue Clusters</h2>
+</div>
+<div class="flex items-center gap-2 font-label-caps text-label-caps text-[#6B7A8D]">
+<span>5 CLUSTERS EXTRACTED</span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#00D09C]"></span>
+</div>
+</div>
+<div class="divide-y divide-[#243041]">
+<!-- Theme 1: Top / Critical -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#FF5A6A]/10 border border-[#FF5A6A]/50 text-[#FF5A6A]">
+                  CRITICAL · 40% SHARE
+                </span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-primary/10 border border-primary/30 text-primary">
+                  In Weekly Note
+                </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                  App crashes after update
+                </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">491 reviews</strong></span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#FF5A6A]/10 text-[#FF5A6A] font-bold">1.67★</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-xs text-[#6B7A8D] font-tabular-sm">
+<span>Sentiment: <strong class="text-[#FF5A6A]">79% negative</strong></span>
+<span>•</span>
+<span>Trend: <strong class="text-[#F4F7FA]">0.79</strong></span>
+<span>•</span>
+<span>Category: Stability &amp; Support</span>
+</div>
+<div class="text-xs text-[#bacac1] bg-[#07090C]/60 p-2.5 rounded border border-[#243041] flex items-start gap-2">
+<span class="material-symbols-outlined text-[15px] text-primary shrink-0 mt-0.5" data-icon="task_alt">task_alt</span>
+<div>
+<span class="font-label-caps text-[10px] text-primary block uppercase">Grounded Action 1</span>
+<span class="text-[#F4F7FA]">Fix post-update crash causes and streamline automated customer support workflows</span>
+</div>
+</div>
+</div>
+<!-- Theme 2: Missing Market Data -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#F5B942]/10 border border-[#F5B942]/50 text-[#F5B942]">
+                  HIGH · 21% SHARE
+                </span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-primary/10 border border-primary/30 text-primary">
+                  In Weekly Note
+                </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                  Missing market data and features
+                </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">253 reviews</strong></span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#F5B942]/10 text-[#F5B942] font-bold">2.26★</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-xs text-[#6B7A8D] font-tabular-sm">
+<span>Sentiment: <strong class="text-[#F5B942]">61% negative</strong></span>
+<span>•</span>
+<span>Trend: <strong class="text-[#F4F7FA]">0.50</strong></span>
+<span>•</span>
+<span>Category: Stock Trading Features</span>
+</div>
+<div class="text-xs text-[#bacac1] bg-[#07090C]/60 p-2.5 rounded border border-[#243041] flex items-start gap-2">
+<span class="material-symbols-outlined text-[15px] text-primary shrink-0 mt-0.5" data-icon="task_alt">task_alt</span>
+<div>
+<span class="font-label-caps text-[10px] text-primary block uppercase">Grounded Action 2</span>
+<span class="text-[#F4F7FA]">Restore missing market data and review brokerage charge structures for stock transactions</span>
+</div>
+</div>
+</div>
+<!-- Theme 3: High Brokerage & Fund Blocking -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#F5B942]/10 border border-[#F5B942]/50 text-[#F5B942]">
+                  HIGH · 19% SHARE
+                </span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps bg-primary/10 border border-primary/30 text-primary">
+                  In Weekly Note
+                </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                  High brokerage charges and fund blocking
+                </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">237 reviews</strong></span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#F5B942]/10 text-[#F5B942] font-bold">2.51★</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-xs text-[#6B7A8D] font-tabular-sm">
+<span>Sentiment: <strong class="text-[#F5B942]">58% negative</strong></span>
+<span>•</span>
+<span>Trend: <strong class="text-[#F4F7FA]">0.51</strong></span>
+<span>•</span>
+<span>Category: Funds &amp; Ledger</span>
+</div>
+<div class="text-xs text-[#bacac1] bg-[#07090C]/60 p-2.5 rounded border border-[#243041] flex items-start gap-2">
+<span class="material-symbols-outlined text-[15px] text-primary shrink-0 mt-0.5" data-icon="task_alt">task_alt</span>
+<div>
+<span class="font-label-caps text-[10px] text-primary block uppercase">Grounded Action 3</span>
+<span class="text-[#F4F7FA]">Resolve fund blocking errors and refine the mutual fund investment interface options</span>
+</div>
+</div>
+</div>
+<!-- Theme 4: High stock trading charges -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#161C25] border border-[#243041] text-[#9AA8B8]">
+                  MEDIUM THEME
+                </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                  High stock trading charges
+                </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">186 reviews</strong></span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#F5B942]/10 text-[#F5B942] font-bold">2.74★</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-xs text-[#6B7A8D] font-tabular-sm">
+<span>Sentiment: <strong class="text-[#F5B942]">53% negative</strong></span>
+<span>•</span>
+<span>Trend: <strong class="text-[#F4F7FA]">0.54</strong></span>
+<span>•</span>
+<span>Pricing sensitivity in retail equity delivery</span>
+</div>
+</div>
+<!-- Theme 5: Chart loading and navigation issues -->
+<div class="p-4 hover:bg-[#161C25]/80 transition-colors space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#F5B942]/15 border border-[#F5B942]/40 text-[#F5B942]">
+                  Status: Emerging
+                </span>
+<span class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">
+                  Chart loading and navigation issues
+                </span>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-tabular-sm">
+<span class="text-xs text-[#9AA8B8]">Vol: <strong class="text-[#F4F7FA] nums">58 reviews</strong></span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-[#FF5A6A]/10 text-[#FF5A6A] font-bold">1.91★</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-xs text-[#6B7A8D] font-tabular-sm">
+<span>Sentiment: <strong class="text-[#FF5A6A]">69% negative</strong></span>
+<span>•</span>
+<span>Trend: <strong class="text-[#FF5A6A] font-semibold">1.23 (Rapid Spike)</strong></span>
+<span>•</span>
+<span>TradingView charting runtime lag</span>
+</div>
+</div>
+</div>
+<div class="px-5 py-2.5 border-t border-[#243041] bg-[#0B0F14]/50 flex items-center justify-between text-xs text-[#6B7A8D] font-tabular-sm">
+<span>All 5 clusters grounded directly from 1,225 analysed reviews</span>
+<span class="text-[#00D09C]">Grounded in Pipeline</span>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: 7 VALIDATION GATES + EXACT VERBATIM QUOTES (5 Cols) -->
+<section class="lg:col-span-5 space-y-4">
+<!-- 7 VALIDATION GATES CARD -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] overflow-hidden">
+<div class="px-4 py-3 border-b border-[#243041] bg-[#0B0F14]/50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="fact_check">fact_check</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">7 Synthesis Validation Gates</h3>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps bg-primary/10 border border-primary/30 text-primary font-semibold">
+            7 / 7 PASSED
+          </span>
+</div>
+<div class="p-4 space-y-2 font-tabular-sm">
+<!-- Gate 1 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<span class="text-[#F4F7FA]">1. themes_capped</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">PASSED</span>
+</div>
+<!-- Gate 2 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<span class="text-[#F4F7FA]">2. quotes_verbatim</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">PASSED</span>
+</div>
+<!-- Gate 3 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<span class="text-[#F4F7FA]">3. quotes_count</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">PASSED</span>
+</div>
+<!-- Gate 4 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<span class="text-[#F4F7FA]">4. actions_grounded</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">PASSED</span>
+</div>
+<!-- Gate 5 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<div class="flex items-center gap-1.5">
+<span class="text-[#F4F7FA]">5. word_count</span>
+<span class="text-[10px] text-[#9AA8B8]">(208 / 250 words)</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">PASSED</span>
+</div>
+<!-- Gate 6 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<span class="text-[#F4F7FA]">6. no_pii</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">PASSED</span>
+</div>
+<!-- Gate 7 -->
+<div class="flex items-center justify-between p-2 rounded bg-[#161C25] border border-[#243041] text-xs">
+<div class="flex items-center gap-1.5 truncate mr-2">
+<span class="text-[#F4F7FA]">7. window_declared</span>
+<span class="text-[10px] text-[#9AA8B8] truncate">(12 Jun 2026 → 4 Sep 2026)</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-semibold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30 shrink-0">PASSED</span>
+</div>
+</div>
+<div class="px-4 py-2.5 bg-[#0B0F14]/60 border-t border-[#243041] flex items-center justify-between text-xs font-tabular-sm">
+<span class="text-[#00D09C] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="done_all">done_all</span>
+            All 7 Gates Passed · Ready for operator sign-off
+          </span>
+<span class="text-[#6B7A8D]">Strict Mode</span>
+</div>
+</div>
+<!-- EXACT VERBATIM CUSTOMER QUOTES FEED -->
+<div class="rounded-xl bg-[#10151C] border border-[#243041] overflow-hidden">
+<div class="px-4 py-3 border-b border-[#243041] bg-[#0B0F14]/50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#F5C451]" data-icon="format_quote">format_quote</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-[#F4F7FA]">Verbatim Customer Quotes</h3>
+</div>
+<span class="font-label-caps text-label-caps text-primary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            EXACT TEXT
+          </span>
+</div>
+<div class="divide-y divide-[#243041] text-xs">
+<!-- Quote 1: 1 Star -->
+<div class="p-3.5 space-y-1.5 hover:bg-[#161C25]/60 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps font-bold bg-[#FF5A6A]/10 text-[#FF5A6A] border border-[#FF5A6A]/30">1★ Review</span>
+<span class="text-[11px] text-[#6B7A8D] font-tabular-sm">Customer Support / IPO</span>
+</div>
+<div class="flex text-[#FF5A6A]">
+<span class="material-symbols-outlined text-[13px] fill" data-icon="star">star</span>
+</div>
+</div>
+<p class="text-[#F4F7FA] font-editorial-quote italic text-sm leading-relaxed bg-[#07090C]/50 p-2.5 rounded border border-[#243041]">
+              "The customer care service is very poor i have asked for a status update on the IPO I had no reply and all is automated."
+            </p>
+</div>
+<!-- Quote 2: 2 Star -->
+<div class="p-3.5 space-y-1.5 hover:bg-[#161C25]/60 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps font-bold bg-[#F5B942]/10 text-[#F5B942] border border-[#F5B942]/30">2★ Review</span>
+<span class="text-[11px] text-[#6B7A8D] font-tabular-sm">Brokerage Charges</span>
+</div>
+<div class="flex text-[#F5B942]">
+<span class="material-symbols-outlined text-[13px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[13px] fill" data-icon="star">star</span>
+</div>
+</div>
+<p class="text-[#F4F7FA] font-editorial-quote italic text-sm leading-relaxed bg-[#07090C]/50 p-2.5 rounded border border-[#243041]">
+              "brokerage charges are high as 5 rupees if we are buying a single ITC stock also."
+            </p>
+</div>
+<!-- Quote 3: 3 Star -->
+<div class="p-3.5 space-y-1.5 hover:bg-[#161C25]/60 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-label-caps font-bold bg-[#00D09C]/10 text-primary border border-[#00D09C]/30">3★ Review</span>
+<span class="text-[11px] text-[#6B7A8D] font-tabular-sm">UI &amp; Experience</span>
+</div>
+<div class="flex text-[#F5C451]">
+<span class="material-symbols-outlined text-[13px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[13px] fill" data-icon="star">star</span>
+<span class="material-symbols-outlined text-[13px] fill" data-icon="star">star</span>
+</div>
+</div>
+<p class="text-[#F4F7FA] font-editorial-quote italic text-sm leading-relaxed bg-[#07090C]/50 p-2.5 rounded border border-[#243041]">
+              "I really love using the Groww app. The interface is simple, smooth, and one of the best investing platforms I've used."
+            </p>
+</div>
+</div>
+<div class="px-4 py-2 border-t border-[#243041] bg-[#0B0F14]/40 flex items-center justify-between text-[11px] text-[#6B7A8D] font-tabular-sm">
+<span>Character-for-character verbatim check: PASS</span>
+<span class="text-primary font-medium">No PII Detected</span>
+</div>
+</div>
+</section>
+</div>
+<!-- 4. SYSTEM TELEMETRY STRIP -->
+<section class="p-3 rounded-lg bg-[#0B0F14] border border-[#243041] flex flex-wrap items-center justify-between gap-4 text-xs font-tabular-sm text-[#6B7A8D]">
+<div class="flex flex-wrap items-center gap-4">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+        Ingestion Gateway: 100% Healthy
+      </span>
+<span>·</span>
+<span>Pipeline Model: <strong class="text-[#F4F7FA]">Gemini 3.6 Flash</strong></span>
+<span>·</span>
+<span>App ID: <strong class="text-[#9AA8B8]">com.nextbillion.groww</strong></span>
+</div>
+<div class="flex items-center gap-3">
+<span>Cycle: <strong class="text-[#F4F7FA]">groww:2026-W36</strong></span>
+<span>Dispatch: <strong class="text-[#F5B942]">Dry-run Preview</strong></span>
+<span class="px-2 py-0.5 rounded bg-[#161C25] border border-[#243041] text-[#9AA8B8]">ReviewPulse v4.28</span>
+</div>
+</section>
+</main>
+</body></html>

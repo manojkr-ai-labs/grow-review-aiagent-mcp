@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReviewPulse Console — Reviews</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim from Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed-variant": "#5b4300",
+            "inverse-primary": "#006c4f",
+            "surface-bright": "#37393d",
+            "secondary-fixed-dim": "#00e1a8",
+            "on-secondary-fixed": "#002116",
+            "error": "#ffb4ab",
+            "secondary": "#82ffce",
+            "secondary-fixed": "#42ffc3",
+            "outline-variant": "#3c4a43",
+            "on-primary-fixed-variant": "#00513b",
+            "outline": "#85948c",
+            "surface-dim": "#111417",
+            "on-surface": "#e2e2e7",
+            "surface-variant": "#333538",
+            "on-tertiary-container": "#5d4500",
+            "surface-container-low": "#1a1c1f",
+            "primary": "#44edb7",
+            "on-background": "#e2e2e7",
+            "on-error-container": "#ffdad6",
+            "on-error": "#690005",
+            "surface-container-high": "#282a2e",
+            "on-primary-container": "#00533c",
+            "on-secondary-container": "#006348",
+            "on-secondary-fixed-variant": "#00513b",
+            "inverse-on-surface": "#2e3034",
+            "secondary-container": "#07e7ad",
+            "background": "#111417",
+            "tertiary-container": "#e0b140",
+            "surface-tint": "#2fe0aa",
+            "on-secondary": "#003827",
+            "on-tertiary-fixed": "#251a00",
+            "surface": "#111417",
+            "primary-fixed-dim": "#2fe0aa",
+            "primary-fixed": "#59fdc5",
+            "surface-container": "#1e2023",
+            "tertiary": "#fecc59",
+            "error-container": "#93000a",
+            "surface-container-highest": "#333538",
+            "on-tertiary": "#3f2e00",
+            "inverse-surface": "#e2e2e7",
+            "surface-container-lowest": "#0c0e11",
+            "on-surface-variant": "#bacac1",
+            "on-primary-fixed": "#002116",
+            "tertiary-fixed": "#ffdf9d",
+            "primary-container": "#00d09c",
+            "on-primary": "#003828",
+            "tertiary-fixed-dim": "#f0c04d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "density-compact": "0.25rem",
+            "grid-gutter-mobile": "0.75rem",
+            "density-cozy": "0.5rem",
+            "container-pad": "1.25rem",
+            "grid-gutter-desktop": "1rem",
+            "grid-margin-desktop": "1.5rem",
+            "density-spacious": "1rem",
+            "grid-margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Geist", "sans-serif"],
+            "tabular-sm": ["JetBrains Mono", "monospace"],
+            "editorial-quote": ["Newsreader", "serif"],
+            "editorial-title": ["Newsreader", "serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "headline-lg": ["Geist", "sans-serif"],
+            "editorial-display": ["Newsreader", "serif"],
+            "tabular-lg": ["JetBrains Mono", "monospace"],
+            "body-sm": ["Geist", "sans-serif"],
+            "headline-md": ["Geist", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "tabular-md": ["JetBrains Mono", "monospace"],
+            "label-caps": ["JetBrains Mono", "monospace"]
+          },
+          "fontSize": {
+            "headline-sm": [
+              "1rem",
+              {
+                "lineHeight": "1.5rem",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "600"
+              }
+            ],
+            "tabular-sm": [
+              "0.75rem",
+              {
+                "lineHeight": "1rem",
+                "letterSpacing": "0em",
+                "fontWeight": "400"
+              }
+            ],
+            "editorial-quote": [
+              "1.125rem",
+              {
+                "lineHeight": "1.75rem",
+                "letterSpacing": "0em",
+                "fontWeight": "400"
+              }
+            ],
+            "editorial-title": [
+              "1.5rem",
+              {
+                "lineHeight": "2rem",
+                "letterSpacing": "-0.015em",
+                "fontWeight": "400"
+              }
+            ],
+            "body-md": [
+              "0.875rem",
+              {
+                "lineHeight": "1.375rem",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-lg": [
+              "1.75rem",
+              {
+                "lineHeight": "2.25rem",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "600"
+              }
+            ],
+            "editorial-display": [
+              "2.25rem",
+              {
+                "lineHeight": "2.75rem",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "400"
+              }
+            ],
+            "tabular-lg": [
+              "1.25rem",
+              {
+                "lineHeight": "1.5rem",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "500"
+              }
+            ],
+            "body-sm": [
+              "0.75rem",
+              {
+                "lineHeight": "1.125rem",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-md": [
+              "1.25rem",
+              {
+                "lineHeight": "1.75rem",
+                "letterSpacing": "-0.015em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-lg": [
+              "1rem",
+              {
+                "lineHeight": "1.5rem",
+                "fontWeight": "400"
+              }
+            ],
+            "tabular-md": [
+              "0.875rem",
+              {
+                "lineHeight": "1.25rem",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "500"
+              }
+            ],
+            "label-caps": [
+              "0.6875rem",
+              {
+                "lineHeight": "0.875rem",
+                "letterSpacing": "0.06em",
+                "fontWeight": "600"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Custom scrollbar for analytical tables */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0c0e11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #282a2e;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3c4a43;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex selection:bg-primary selection:text-on-primary font-body-md text-body-md">
+<!-- ========================================================================= -->
+<!-- 1. APPLICATION SHELL: FIXED LEFT SIDENAV (from Shared Components JSON)   -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-60 flex flex-col justify-between p-4 bg-surface-container-lowest border-r border-outline-variant z-40">
+<!-- Brand / Tenant Header -->
+<div>
+<div class="flex items-center gap-3 px-2 py-2 mb-6">
+<div class="w-8 h-8 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center text-primary relative">
+<span class="material-symbols-outlined text-primary">switch_account</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface-container-lowest animate-pulse"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">ReviewPulse</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Groww · Play Store</span>
+</div>
+</div>
+<!-- Main App Navigation Tabs -->
+<nav class="flex flex-col space-y-1">
+<!-- Weekly Pulse -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined">switch_account</span>
+<span class="font-body-md text-body-md">Weekly Pulse</span>
+</a>
+<!-- Themes -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-body-md text-body-md">Themes</span>
+</a>
+<!-- Reviews (ACTIVE TAB: Matched from intent & highlighted per specification) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-low text-primary border-l-2 border-primary font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">rate_review</span>
+<span class="font-body-md text-body-md font-semibold text-primary">Reviews</span>
+<span class="ml-auto font-tabular-sm text-tabular-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">1,878</span>
+</a>
+<!-- Pipeline -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-body-md text-body-md">Pipeline</span>
+</a>
+<!-- Runs -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md text-body-md">Runs</span>
+</a>
+<!-- Publish -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined">publish</span>
+<span class="font-body-md text-body-md">Publish</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar Telemetry Footer -->
+<div class="pt-4 border-t border-outline-variant space-y-2">
+<div class="flex items-center gap-2 px-3 py-1.5 text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[15px]">calendar_today</span>
+<span>ISO 2026-W36</span>
+</div>
+<div class="flex items-center justify-between px-3 py-1.5 text-on-surface-variant font-label-caps text-label-caps bg-surface-container-low rounded">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Last Run: Just now</span>
+</div>
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- 2. PRIMARY VIEWPORT & TOPBAR SHELL                                        -->
+<!-- ========================================================================= -->
+<div class="ml-60 flex-1 flex flex-col min-h-screen bg-surface">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-30 flex justify-between items-center px-6 py-3 border-b border-outline-variant bg-surface-container-lowest">
+<!-- Left side of top bar: Breadcrumb & Workspace context -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-semibold text-on-surface">Reviews</span>
+<span class="text-outline-variant font-body-sm text-body-sm">/</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Review Explorer - Scrubbed Ingestion Feed</span>
+</div>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<!-- App context chip -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-on-surface">Groww Stocks, MF, IPO</span>
+</div>
+<!-- Window Pill -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant font-tabular-sm text-tabular-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">date_range</span>
+<span>12 weeks · 12 Jun → 4 Sep 2026</span>
+</div>
+</div>
+<!-- Right side top bar: Health telemetry & primary actions -->
+<div class="flex items-center gap-3">
+<!-- MCP Status -->
+<div class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-primary">MCP: Connected</span>
+</div>
+<!-- Secondary Action: Export CSV -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high border border-outline-variant text-on-surface font-body-sm text-body-sm font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Export CSV</span>
+</button>
+<!-- Primary Action: Run Pipeline -->
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-primary-container text-on-primary-container hover:bg-primary font-body-sm text-body-sm font-semibold transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Run Pipeline</span>
+</button>
+<!-- System Notifications & Avatar -->
+<div class="h-5 w-px bg-outline-variant mx-1"></div>
+<button class="w-8 h-8 rounded border border-outline-variant bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant" type="button">
+<span class="material-symbols-outlined text-[18px]">notifications</span>
+</button>
+<div class="w-8 h-8 rounded border border-outline-variant bg-surface-container-high flex items-center justify-center font-tabular-sm text-tabular-sm text-primary font-semibold">
+          MK
+        </div>
+</div>
+</header>
+<!-- ======================================================================= -->
+<!-- 3. MAIN DASHBOARD CONTENT AREA                                          -->
+<!-- ======================================================================= -->
+<main class="p-6 space-y-6 flex-1 max-w-[1440px] mx-auto w-full">
+<!-- ===================================================================== -->
+<!-- TELEMETRY & AUDIT STATS ROW                                            -->
+<!-- ===================================================================== -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<!-- Card 1: Total Reviews In Window -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Total in Window</span>
+<span class="material-symbols-outlined text-[16px] text-outline">database</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg text-2xl font-bold text-on-surface">1,878</span>
+<span class="font-tabular-sm text-tabular-sm text-on-surface-variant">in ingestion window</span>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/40 flex items-center gap-1.5 text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-primary text-[14px]">check_circle</span>
+<span>All 12 weeks synchronized</span>
+</div>
+</div>
+<!-- Card 2: Clustered / Kept High Signal -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col justify-between border-l-2 border-l-primary">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">Clustered / Kept</span>
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary">65.2%</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg text-2xl font-bold text-primary">1,225</span>
+<span class="font-tabular-sm text-tabular-sm text-on-surface-variant">high-signal friction</span>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/40 text-on-surface-variant font-label-caps text-label-caps">
+            Clustered into 5 strategic themes
+          </div>
+</div>
+<!-- Card 3: Dropped Praise & Low-Signal -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-tertiary">Dropped Praise</span>
+<span class="font-label-caps text-label-caps px-1.5 py-0.5 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary">34.8%</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-tabular-lg text-tabular-lg text-2xl font-bold text-on-surface">653</span>
+<span class="font-tabular-sm text-tabular-sm text-on-surface-variant">reviews excluded</span>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/40 flex items-center gap-1.5 font-label-caps text-label-caps text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant text-[10px] text-tertiary">"super app nice" short praise</span>
+<span class="truncate">filtered out</span>
+</div>
+</div>
+<!-- Card 4: Redaction & Compliance Rigor -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-secondary">Compliance Shield</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-medium leading-snug">
+              Strict PII Scrubbed
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Zero Names, Emails or Phone Numbers Retained
+            </p>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/40 flex items-center justify-between font-label-caps text-label-caps text-secondary">
+<span>SOC2 / ISO 27001</span>
+<span class="font-tabular-sm text-tabular-sm">100% Sanitized</span>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- TOOLBAR & MULTI-FILTER CONTROLS BAR                                   -->
+<!-- ===================================================================== -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+<!-- Left: Search Box -->
+<div class="flex items-center gap-2 flex-1 min-w-[340px]">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-[18px]">search</span>
+<input class="w-full bg-surface-dim border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-md pl-9 pr-4 py-1.5 text-on-surface placeholder:text-outline text-body-sm font-body-sm transition-all outline-none" placeholder="Search review text, sanitized ID, hardware signature, or redacted token..." type="text"/>
+</div>
+</div>
+<!-- Right: Segmented Filters Cluster -->
+<div class="flex flex-wrap items-center gap-2">
+<!-- Star Rating Controls -->
+<div class="flex items-center bg-surface-dim border border-outline-variant rounded-md p-0.5">
+<button class="px-2.5 py-1 text-xs font-medium rounded bg-surface-container text-on-surface" type="button">All</button>
+<button class="px-2 py-1 text-xs font-tabular-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-0.5" type="button">1<span class="text-tertiary">★</span></button>
+<button class="px-2 py-1 text-xs font-tabular-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-0.5" type="button">2<span class="text-tertiary">★</span></button>
+<button class="px-2 py-1 text-xs font-tabular-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-0.5" type="button">3<span class="text-tertiary">★</span></button>
+<button class="px-2 py-1 text-xs font-tabular-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-0.5" type="button">4<span class="text-tertiary">★</span></button>
+<button class="px-2 py-1 text-xs font-tabular-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-0.5" type="button">5<span class="text-tertiary">★</span></button>
+</div>
+<!-- Window Toggle (8w vs 12w) -->
+<div class="flex items-center bg-surface-dim border border-outline-variant rounded-md p-0.5 font-label-caps text-label-caps">
+<button class="px-2 py-1 rounded text-on-surface-variant hover:text-on-surface" type="button">8 weeks</button>
+<button class="px-2.5 py-1 rounded bg-surface-container text-primary font-medium border border-outline-variant/60" type="button">12 weeks</button>
+</div>
+<!-- Language Selector -->
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 bg-surface-dim border border-outline-variant rounded-md font-label-caps text-label-caps text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">lock</span>
+<span>English only</span>
+</div>
+<!-- Signal Toggle (All / Kept / Dropped) -->
+<div class="flex items-center bg-surface-dim border border-outline-variant rounded-md p-0.5 font-label-caps text-label-caps">
+<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface" type="button">All (1,878)</button>
+<button class="px-2 py-1 bg-surface-container text-primary rounded border border-outline-variant/50" type="button">Kept (1,225)</button>
+<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface" type="button">Dropped (653)</button>
+</div>
+<!-- Export CSV Pill Button -->
+<button class="flex items-center gap-1 px-2.5 py-1.5 bg-surface-container-high hover:bg-surface-variant border border-outline-variant rounded-md text-on-surface font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">file_download</span>
+<span>Export CSV</span>
+</button>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- DATA GRID / SCRUBBED REVIEW STREAM                                    -->
+<!-- ===================================================================== -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<!-- Table Header -->
+<thead>
+<tr class="border-b border-outline-variant bg-surface-dim text-outline font-label-caps text-label-caps uppercase tracking-wider">
+<th class="py-3 px-4 w-[160px]">Date</th>
+<th class="py-3 px-3 w-[90px]">Stars</th>
+<th class="py-3 px-4 min-w-[420px]">Review Text (Sanitized Feed)</th>
+<th class="py-3 px-4 w-[260px]">Assigned Theme</th>
+<th class="py-3 px-3 w-[150px]">Signal</th>
+<th class="py-3 px-4 w-[130px] text-right">PII / Audit</th>
+</tr>
+</thead>
+<!-- Table Rows (12 Authentic Ingestion Rows) -->
+<tbody class="divide-y divide-outline-variant font-body-sm text-body-sm">
+<!-- ROW 1 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  04 Sep 2026 <span class="text-outline">14:22</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>1</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "The customer care service is very poor i have asked for a status update on the IPO I had no reply and all is automated."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface font-medium text-xs">App crashes after update</span>
+<span class="font-label-caps text-[10px] text-error">P0 Critical</span>
+</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant">
+                    Verbatim Match
+                  </span>
+</td>
+</tr>
+<!-- ROW 2 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  04 Sep 2026 <span class="text-outline">11:08</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>1</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "App keeps shutting down immediately when I tap on F&amp;O positions. Lost money on options trade today because it crashed 4 times in a row!"
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">App crashes after update</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Verified Pass</span>
+</td>
+</tr>
+<!-- ROW 3 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-dim/30 opacity-80">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  04 Sep 2026 <span class="text-outline">09:41</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>5</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface-variant italic line-clamp-2 leading-relaxed">
+                    "Super app nice interface very good for mutual funds keep it up team"
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-outline font-tabular-sm text-xs">None (Unclustered)</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary font-label-caps text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                    Dropped · Low-signal praise
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Sanitized Clean</span>
+</td>
+</tr>
+<!-- ROW 4 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  03 Sep 2026 <span class="text-outline">21:45</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>2</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "brokerage charges are high as 5 rupees if we are buying a single ITC stock also."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">High brokerage charges and fund blocking</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Verified Pass</span>
+</td>
+</tr>
+<!-- ROW 5 (Redacted Example) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/30">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  03 Sep 2026 <span class="text-outline">17:30</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>1</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "Terrible customer support bot loop. Raised query regarding order timeout during Bajaj Housing IPO bid and contact details <span class="inline-block px-1.5 py-0.2 rounded bg-error-container/40 text-error border border-error/30 font-label-caps text-[10px] align-baseline font-mono">[redacted]</span> were ignored."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">App crashes after update</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-error px-2 py-0.5 rounded bg-error-container/20 border border-error/40 font-semibold inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">security</span>
+                    Redacted
+                  </span>
+</td>
+</tr>
+<!-- ROW 6 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-dim/30 opacity-80">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  03 Sep 2026 <span class="text-outline">14:15</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>5</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface-variant italic line-clamp-2 leading-relaxed">
+                    "nice app love it"
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-outline font-tabular-sm text-xs">None (Unclustered)</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-label-caps text-[10px]">
+                    Dropped
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Sanitized Clean</span>
+</td>
+</tr>
+<!-- ROW 7 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  02 Sep 2026 <span class="text-outline">19:40</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>3</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "I really love using the Groww app. The interface is simple, smooth, and one of the best investing platforms I've used."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-on-surface font-medium text-xs">High brokerage charges and fund blocking</span>
+<span class="font-label-caps text-[9px] text-on-surface-variant">Praise retention baseline</span>
+</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Verified Pass</span>
+</td>
+</tr>
+<!-- ROW 8 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  02 Sep 2026 <span class="text-outline">15:15</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>2</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "Glitch on order execution page. Market order rejected stating 'timeout' yet wallet balance got deducted! Automated care gave no real answer."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">Missing market data and features</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Verified Pass</span>
+</td>
+</tr>
+<!-- ROW 9 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  01 Sep 2026 <span class="text-outline">18:04</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>1</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "Whenever I navigate to IPO allotment result screen, the entire app freezes and crashes out to android home screen."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">App crashes after update</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Verified Pass</span>
+</td>
+</tr>
+<!-- ROW 10 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-dim/30 opacity-80">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  01 Sep 2026 <span class="text-outline">12:20</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>4</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface-variant italic line-clamp-2 leading-relaxed">
+                    "very good experience overall super smooth"
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-outline font-tabular-sm text-xs">None (Unclustered)</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-label-caps text-[10px]">
+                    Dropped
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Sanitized Clean</span>
+</td>
+</tr>
+<!-- ROW 11 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  31 Aug 2026 <span class="text-outline">10:49</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>2</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "Chart refresh latency has drastically worsened. Now with recent update, placing stoploss triggers sudden crash. Needs emergency hotfix."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">Chart loading and navigation issues</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-outline">Verified Pass</span>
+</td>
+</tr>
+<!-- ROW 12 (Redacted Example) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/30">
+<td class="py-3 px-4 font-tabular-sm text-tabular-sm text-on-surface-variant whitespace-nowrap">
+                  30 Aug 2026 <span class="text-outline">16:30</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-0.5 text-tertiary font-tabular-sm text-tabular-sm">
+<span>1</span>
+<span class="material-symbols-outlined text-[14px] fill-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<p class="text-on-surface line-clamp-2 leading-relaxed">
+                    "Customer support email <span class="inline-block px-1.5 py-0.2 rounded bg-error-container/40 text-error border border-error/30 font-label-caps text-[10px] align-baseline font-mono">[redacted]</span> not answering for blocked fund reversal after mandate failure."
+                  </p>
+</td>
+<td class="py-3 px-4">
+<span class="text-on-surface font-medium text-xs">High brokerage charges and fund blocking</span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 border border-primary/40 text-primary font-label-caps text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    Kept
+                  </span>
+</td>
+<td class="py-3 px-4 text-right whitespace-nowrap">
+<span class="font-label-caps text-[10px] text-error px-2 py-0.5 rounded bg-error-container/20 border border-error/40 font-semibold inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">security</span>
+                    Redacted
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination Controls -->
+<div class="py-3 px-4 border-t border-outline-variant bg-surface-dim flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant font-tabular-sm text-tabular-sm">
+<span>Showing <span class="text-on-surface font-medium">1–12</span> of <span class="text-on-surface font-medium">1,878</span> scrubbed reviews</span>
+<span class="text-outline">·</span>
+<span class="text-outline">Latency: 42ms ingestion snapshot</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant text-outline cursor-not-allowed font-label-caps text-label-caps" disabled="" type="button">
+              Previous
+            </button>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-tabular-sm text-tabular-sm font-semibold" type="button">
+              1
+            </button>
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-tabular-sm text-tabular-sm" type="button">
+              2
+            </button>
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-tabular-sm text-tabular-sm" type="button">
+              3
+            </button>
+<span class="text-outline font-tabular-sm px-1">...</span>
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-tabular-sm text-tabular-sm" type="button">
+              157
+            </button>
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-label-caps text-label-caps" type="button">
+              Next
+            </button>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- EMPTY STATE / PREVIEW TAB (Clean, technical, zero cartoon aesthetics)  -->
+<!-- ===================================================================== -->
+<section class="border border-dashed border-outline-variant rounded-xl p-8 bg-surface-container-lowest/40 flex flex-col items-center justify-center text-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center text-outline mb-3">
+<span class="material-symbols-outlined text-[20px]">filter_alt_off</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-1">
+          Zero-Noise Query Inspection Mode
+        </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+          No reviews found matching current filter query. Try adjusting stars, search terms, or signal criteria to expand ingestion scope.
+        </p>
+<div class="mt-4 flex items-center gap-3">
+<button class="px-3 py-1.5 rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface font-label-caps text-label-caps transition-colors" type="button">
+            Reset Active Filters
+          </button>
+<span class="text-outline font-label-caps text-[11px]">Strict Scrub Rules Remain Enforced</span>
+</div>
+</section>
+</main>
+</div>
+</body></html>

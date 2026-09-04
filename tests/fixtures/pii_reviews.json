@@ -1,0 +1,44 @@
+[
+  {
+    "id": "email",
+    "text": "Contact me at user@example.com for a refund",
+    "expected_text": "Contact me at [email] for a refund",
+    "expected_flags": ["email"]
+  },
+  {
+    "id": "phone",
+    "text": "Call me on +91 98765 43210 if needed",
+    "expected_text": "Call me on [phone] if needed",
+    "expected_flags": ["phone"]
+  },
+  {
+    "id": "account_number",
+    "text": "My account 123456789012345 failed verification",
+    "expected_text": "My account [number] failed verification",
+    "expected_flags": ["number"]
+  },
+  {
+    "id": "handle",
+    "text": "Hey @username please fix this bug",
+    "expected_text": "Hey [handle] please fix this bug",
+    "expected_flags": ["handle"]
+  },
+  {
+    "id": "clean",
+    "text": "Great app for SIP investments. Love the UI.",
+    "expected_text": "Great app for SIP investments. Love the UI.",
+    "expected_flags": []
+  },
+  {
+    "id": "brand_handle_preserved",
+    "text": "Thanks @groww for the fast support",
+    "expected_text": "Thanks @groww for the fast support",
+    "expected_flags": []
+  },
+  {
+    "id": "rating_not_redacted",
+    "text": "5 star app for beginners",
+    "expected_text": "5 star app for beginners",
+    "expected_flags": []
+  }
+]
