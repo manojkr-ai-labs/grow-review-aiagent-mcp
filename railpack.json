@@ -1,0 +1,8 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "provider": "python",
+  "deploy": {
+    "startCommand": "sh scripts/railway-api-start.sh",
+    "aptPackages": ["libgomp1", "curl"]
+  }
+}

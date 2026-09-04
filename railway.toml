@@ -1,0 +1,12 @@
+# Default service config for reviewpulse-api (`railway up` from repo root).
+[build]
+builder = "RAILPACK"
+watchPatterns = ["src/**", "pyproject.toml", "config/**", "main.py", "requirements.txt", "scripts/railway-api-start.sh"]
+
+[deploy]
+startCommand = "sh scripts/railway-api-start.sh"
+healthcheckPath = "/api/v1/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+numReplicas = 1

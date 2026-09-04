@@ -1,3 +1,6 @@
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+torch==2.14.0+cpu
 mcp
 langchain-core
 langchain-groq
@@ -9,4 +12,7 @@ numpy
 sentence-transformers
 google-play-scraper>=1.2
 PyYAML
-pytest>=8
+tzdata
+fastapi>=0.115
+uvicorn[standard]>=0.32
+httpx>=0.27
