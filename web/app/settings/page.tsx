@@ -166,12 +166,14 @@ export default function SettingsPage() {
         <Section title="MCP / Docs / Gmail" icon="cloud" />
         <Row label="MCP URL" value={data.mcp_url || "unset"} />
         <div className="flex flex-wrap gap-2">
-          <Chip tone={data.mcp_configured ? "accent" : "critical"}>{data.mcp_configured ? "MCP configured" : "MCP missing"}</Chip>
+          <Chip tone={data.mcp_configured ? "accent" : "warn"}>
+            {data.mcp_configured ? "Publish ready" : data.document_id ? "MCP incomplete" : "Doc id required"}
+          </Chip>
           <Chip tone={data.mcp_token_configured ? "accent" : "warn"}>
             {data.mcp_token_configured ? "Token present" : "Token unset"}
           </Chip>
         </div>
-        <Field label="Google Doc id">
+        <Field label="Google Doc id" hint="Required. Paste the id from docs.google.com/document/d/{id}/">
           <input
             className="w-full rounded-control border border-line bg-canvas px-3 py-2 font-mono text-xs"
             value={form.document_id}

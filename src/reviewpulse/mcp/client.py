@@ -229,6 +229,61 @@ def _content_text(result) -> str:
     return "\n".join(parts).strip()
 
 
+def _result_is_error(result) -> bool:
+    return bool(getattr(result, "isError", None) or getattr(result, "is_error", None))
+
+
+def _tool_input_schema(item) -> dict[str, Any]:
+    schema = getattr(item, "inputSchema", None)
+    if schema is None:
+        schema = getattr(item, "input_schema", None)
+    if isinstance(schema, dict):
+        return dict(schema)
+    dump = getattr(schema, "model_dump", None)
+    if callable(dump):
+        dumped = dump()
+        return dict(dumped) if isinstance(dumped, dict) else {}
+    return {}
+
+
+def _bearer_token(settings: McpSettings) -> str:
+    token = (settings.auth_token or "").strip()
+    if token.lower().startswith("bearer "):
+        token = token[7:].strip()
+    if token:
+        return token
+    header = (settings.gdocs.headers.get("Authorization") or "").strip()
+    if header.lower().startswith("bearer "):
+        return header[7:].strip()
+    return header
+
+
+def _token_looks_set(token: str) -> bool:
+    value = (token or "").strip()
+    return bool(value) and "<" not in value and "MCP_AUTH" not in value and not value.startswith("${")
+
+
+def hosted_health_url(mcp_url: str) -> str:
+    raw = (mcp_url or "").strip().rstrip("/")
+    if raw.endswith("/mcp"):
+        raw = raw[:-4]
+    return f"{raw.rstrip('/')}/health"
+
+
+def hosted_server_http_up(mcp_url: str) -> bool:
+    """Unauthenticated GET /health on the hosted MCP origin (no Google call)."""
+    url = hosted_health_url(mcp_url)
+    if not url.startswith("http"):
+        return False
+    try:
+        import httpx
+
+        response = httpx.get(url, timeout=8.0, follow_redirects=True)
+        return response.status_code == 200
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def _parse_json_value(text: str) -> Any:
     if not text:
         return None
@@ -277,7 +332,7 @@ def unwrap_tool_result(result) -> dict[str, Any]:
     """Turn a CallToolResult into a dict, or raise a typed MCP error."""
     text = _content_text(result)
     parsed = _parse_json_value(text)
-    if getattr(result, "isError", False):
+    if _result_is_error(result):
         payload = parsed if isinstance(parsed, dict) else {"text": text}
         _raise_tool_failure(payload, text or "MCP tool returned an error")
     structured = getattr(result, "structuredContent", None)
@@ -410,7 +465,7 @@ class MCPClient:
         raise last_error or MCPError(f"{name} failed")
 
     async def _call_once(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
-        refuse_send_tool(name)
+        refuse_send_tool(name, allow_send=self.allow_send)
         try:
             async with self._session() as session:
                 tools = await self._load_tools(session)
@@ -437,7 +492,7 @@ class MCPClient:
     async def _load_tools(self, session) -> list[ToolInfo]:
         listed = await session.list_tools()
         tools = [
-            ToolInfo(name=item.name, schema=dict(item.inputSchema or {}))
+            ToolInfo(name=item.name, schema=_tool_input_schema(item))
             for item in listed.tools
         ]
         self._schemas = {tool.name: tool.schema for tool in tools}
@@ -474,16 +529,13 @@ class MCPClient:
         from contextlib import asynccontextmanager
 
         from mcp import ClientSession
-        from mcp.client.streamable_http import streamablehttp_client
 
         url = self.settings.url.strip()
         headers = dict(self.settings.headers)
 
         @asynccontextmanager
         async def _opened():
-            async with streamablehttp_client(
-                url, headers=headers, timeout=HTTP_TIMEOUT_SECONDS
-            ) as (read, write, _session_id):
+            async with _streamable_http_streams(url, headers) as (read, write):
                 async with ClientSession(read, write) as session:
                     await session.initialize()
                     yield session
@@ -516,25 +568,58 @@ def _config_error_message() -> str:
     )
 
 
-def verify_publish_servers(settings: McpSettings, *, allow_send: bool = False) -> None:
-    """Fail before any LLM or ingest spend on a live publish run."""
-    if not settings.configured:
+def _require_endpoint(settings: McpSettings) -> None:
+    """URL + bearer (HTTP) or spawn command (stdio). Notebook id is not required to ping."""
+    if settings.transport == "http":
+        url = (settings.url or settings.gdocs.url or settings.gmail.url).strip()
+        if not url.startswith("http") or "<" in url:
+            raise MCPConfigError(_config_error_message())
+        if not _token_looks_set(_bearer_token(settings)):
+            raise MCPConfigError(
+                "MCP_AUTH_TOKEN is not set on this API service. Use the same "
+                "bearer value as the MCP Railway service (not a Google token)."
+            )
+        token = _bearer_token(settings)
+        bearer = {"Authorization": f"Bearer {token}"}
+        if "Authorization" not in settings.gdocs.headers:
+            settings.gdocs.headers = {**bearer, **settings.gdocs.headers}
+        if "Authorization" not in settings.gmail.headers:
+            settings.gmail.headers = {**bearer, **settings.gmail.headers}
+        if not settings.gdocs.url.strip():
+            settings.gdocs.url = url
+        if not settings.gmail.url.strip():
+            settings.gmail.url = url
+        return
+    if not settings.gdocs.configured or not settings.gmail.configured:
         raise MCPConfigError(_config_error_message())
+
+
+def _assert_tool_config(settings: McpSettings) -> None:
     forbidden = settings.gdocs.tools.forbidden() + settings.gmail.tools.forbidden()
     if forbidden:
         raise MCPConfigError(
             f"refusing send tool(s) {forbidden}; set tools.create_draft = "
             f"{HOSTED_DRAFT_TOOL!r} and map send to tools.send, not create_draft"
         )
+
+
+def _require_notebook(settings: McpSettings) -> None:
+    if settings.transport == "http" and not settings.gdocs.document_id.strip():
+        raise MCPConfigError(
+            "mcp.gdocs.document_id is required: the hosted server can only "
+            "append to an existing Google Doc (it cannot create one). "
+            "Create a blank Doc and paste the ID from "
+            "/document/d/{id}/ in the URL."
+        )
+
+
+def verify_publish_servers(settings: McpSettings, *, allow_send: bool = False) -> None:
+    """Fail before any LLM or ingest spend on a live publish run."""
+    _require_endpoint(settings)
+    _assert_tool_config(settings)
+    _require_notebook(settings)
     send_tool = settings.gmail.tools.send or HOSTED_SEND_TOOL
     if settings.transport == "http":
-        if not settings.gdocs.document_id:
-            raise MCPConfigError(
-                "mcp.gdocs.document_id is required: the hosted server can only "
-                "append to an existing Google Doc (it cannot create one). "
-                "Create a blank Doc and paste the ID from "
-                "/document/d/{id}/ in the URL."
-            )
         shared = make_mcp_client(settings.gdocs, name="gmail-docs", allow_send=allow_send)
         required = settings.gdocs.tools.required_docs() + settings.gmail.tools.required_gmail()
         if allow_send:
@@ -551,17 +636,20 @@ def verify_publish_servers(settings: McpSettings, *, allow_send: bool = False) -
 
 
 def inspect_publish_servers(settings: McpSettings) -> dict[str, Any]:
-    """Verify config and return the tools the live server actually lists."""
-    verify_publish_servers(settings)
+    """Ping the live server and list tools. Notebook id is reported, not required."""
+    _require_endpoint(settings)
+    _assert_tool_config(settings)
     if settings.transport == "http":
         client = make_mcp_client(settings.gdocs, name="gmail-docs")
-        tools = client.list_tools()
+        required = settings.gdocs.tools.required_docs() + settings.gmail.tools.required_gmail()
+        tools = client.verify(required)
         names = [tool.name for tool in tools]
         return {
             "transport": "http",
             "url": settings.url or settings.gdocs.url,
             "document_id": settings.gdocs.document_id,
             "tools": names,
+            "publish_ready": bool(settings.gdocs.document_id.strip()),
             "send_email_present": any(name in FORBIDDEN_SEND_TOOLS for name in names),
             "draft_tool": settings.gmail.tools.create_draft,
             "send_tool": settings.gmail.tools.send or HOSTED_SEND_TOOL,
@@ -574,4 +662,113 @@ def inspect_publish_servers(settings: McpSettings) -> dict[str, Any]:
         "gdocs_tools": [tool.name for tool in docs.list_tools()],
         "gmail_tools": [tool.name for tool in mail.list_tools()],
         "send_email_present": False,
+        "publish_ready": True,
     }
+
+
+def mcp_probe_status(settings: McpSettings) -> dict[str, Any]:
+    """Console chip payload: CONNECTED means tools/list succeeded, not that publish is ready."""
+    url = (settings.url or settings.gdocs.url or settings.gmail.url or "").strip() or None
+    document_id = settings.gdocs.document_id.strip() or None
+    try:
+        info = inspect_publish_servers(settings)
+        detail = None
+        if info.get("transport") == "http" and not info.get("document_id"):
+            detail = (
+                "MCP tools reachable. Set Google Doc id in Settings to publish "
+                "(the server can only append to an existing Doc)."
+            )
+        return {
+            "ok": True,
+            "label": "CONNECTED",
+            "detail": detail,
+            "url": info.get("url") or url,
+            "document_id": info.get("document_id") or document_id,
+        }
+    except MCPAuthError as exc:
+        return {
+            "ok": False,
+            "label": "AUTH",
+            "detail": str(exc),
+            "url": url,
+            "document_id": document_id,
+        }
+    except MCPConfigError as exc:
+        return {
+            "ok": False,
+            "label": "NOT_CONFIGURED",
+            "detail": str(exc),
+            "url": url,
+            "document_id": document_id,
+        }
+    except MCPToolMismatchError as exc:
+        return {
+            "ok": False,
+            "label": "MISMATCH",
+            "detail": str(exc),
+            "url": url,
+            "document_id": document_id,
+        }
+    except MCPError as exc:
+        detail = str(exc)
+        if url and hosted_server_http_up(url):
+            detail = f"{detail} Hosted /health is up; the MCP session failed."
+        return {
+            "ok": False,
+            "label": "UNREACHABLE",
+            "detail": detail,
+            "url": url,
+            "document_id": document_id,
+        }
+    except Exception as exc:  # noqa: BLE001
+        detail = str(exc)
+        if url and hosted_server_http_up(url):
+            detail = f"{detail} Hosted /health is up; the MCP session failed."
+        return {
+            "ok": False,
+            "label": "UNREACHABLE",
+            "detail": detail,
+            "url": url,
+            "document_id": document_id,
+        }
+
+
+def _streamable_http_streams(url: str, headers: dict[str, str]):
+    """Open Streamable HTTP read/write streams for mcp v1 or v2."""
+    from contextlib import asynccontextmanager
+
+    @asynccontextmanager
+    async def _opened():
+        v2 = None
+        v1 = None
+        try:
+            from mcp.client.streamable_http import streamable_http_client as v2
+        except ImportError:
+            v2 = None
+        try:
+            from mcp.client.streamable_http import streamablehttp_client as v1
+        except ImportError:
+            v1 = None
+        if v2 is not None:
+            try:
+                import httpx as httpx_mod
+            except ImportError:
+                import httpx2 as httpx_mod
+            timeout = httpx_mod.Timeout(30.0, read=HTTP_TIMEOUT_SECONDS)
+            async with httpx_mod.AsyncClient(
+                headers=headers,
+                timeout=timeout,
+                follow_redirects=True,
+            ) as http_client:
+                async with v2(url, http_client=http_client) as streams:
+                    yield streams[0], streams[1]
+            return
+        if v1 is None:
+            raise MCPTransportError(
+                "mcp package has no Streamable HTTP client "
+                "(need streamable_http_client or streamablehttp_client)"
+            )
+        async with v1(url, headers=headers, timeout=HTTP_TIMEOUT_SECONDS) as streams:
+            yield streams[0], streams[1]
+
+    return _opened()

@@ -7,7 +7,13 @@ import os
 import sys
 from pathlib import Path
 
-from mcp.server.fastmcp import FastMCP
+try:
+    from mcp.server.fastmcp import FastMCP
+except ImportError:  # mcp v2 renamed FastMCP → MCPServer
+    try:
+        from mcp.server.mcpserver import MCPServer as FastMCP
+    except ImportError:
+        from mcp import MCPServer as FastMCP
 
 KIND = sys.argv[1] if len(sys.argv) > 1 else "docs"
 STATE_PATH = Path(os.environ.get("FAKE_MCP_STATE", "fake-mcp-state.json"))

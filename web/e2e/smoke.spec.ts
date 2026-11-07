@@ -34,3 +34,17 @@ test("reviews explorer has no author column", async ({ page }) => {
     await expect(page.getByRole("columnheader", { name: "Text" })).toBeVisible();
   }
 });
+
+test("runs history is a real route, not a 404", async ({ page }) => {
+  await page.goto("/runs");
+  await expect(page.getByRole("heading", { name: "Runs / Job Execution History" })).toBeVisible();
+  await expect(page.getByText("This page could not be found.")).toHaveCount(0);
+  const body = await page.locator("main").innerText();
+  expect(
+    body.includes("No runs yet") ||
+      body.includes("Run ID") ||
+      body.includes("Could not load run history") ||
+      body.includes("Console API unreachable"),
+  ).toBeTruthy();
+});
+

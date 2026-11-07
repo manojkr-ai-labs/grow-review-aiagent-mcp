@@ -26,6 +26,7 @@ const TITLES: Record<string, string> = {
   "/reviews": "Reviews",
   "/pipeline": "Pipeline",
   "/runs": "Runs / Job Execution History",
+  "/history": "Runs / Job Execution History",
   "/publish": "Publish",
   "/settings": "Settings & Runtime Configuration",
 };
@@ -73,6 +74,15 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const data = status.data;
   const mcpOk = data?.mcp.ok ?? false;
+  const mcpLabel = data?.mcp.label || "UNKNOWN";
+  const mcpTone = mcpOk ? "accent" : mcpLabel === "NOT_CONFIGURED" ? "warn" : "critical";
+  const mcpSidebar = mcpOk
+    ? "STABLE"
+    : mcpLabel === "NOT_CONFIGURED"
+      ? "MCP SETUP"
+      : mcpLabel === "AUTH"
+        ? "MCP AUTH"
+        : "MCP DOWN";
   const running = data?.pipeline?.status === "running" || data?.pipeline?.status === "queued" || run.isPending;
   const title =
     TITLES[pathname] ||
@@ -99,7 +109,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
             <nav aria-label="Console" className="space-y-1">
               {NAV.map((item) => {
-                const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                const active =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(item.href) || (item.href === "/runs" && pathname.startsWith("/history"));
                 return (
                   <Link
                     key={item.href}
@@ -123,7 +136,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <Icon name="calendar_today" size={14} />
                 {data?.iso_week || "ISO —"}
               </span>
-              <Chip tone={mcpOk ? "accent" : "critical"}>{mcpOk ? "STABLE" : "MCP DOWN"}</Chip>
+              <Chip tone={mcpTone} title={data?.mcp.detail || undefined}>
+                {mcpSidebar}
+              </Chip>
             </div>
             <div className="flex items-center gap-1.5 px-1">
               <Icon name="schedule" size={14} />
@@ -142,9 +157,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                   {formatWindow(data.window.weeks, data.window.actual_start, data.window.actual_end)}
                 </Chip>
               ) : null}
-              <Chip tone={mcpOk ? "accent" : "critical"}>
-                <span className={`h-1.5 w-1.5 rounded-full ${mcpOk ? "bg-accent animate-pulse" : "bg-critical"}`} />
-                MCP: {data?.mcp.label || "UNKNOWN"}
+              <Chip tone={mcpTone} title={data?.mcp.detail || undefined}>
+                <span className={`h-1.5 w-1.5 rounded-full ${mcpOk ? "bg-accent animate-pulse" : mcpTone === "warn" ? "bg-warn" : "bg-critical"}`} />
+                MCP: {mcpLabel}
               </Chip>
             </div>
           </div>
@@ -182,7 +197,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           className="fixed inset-x-0 bottom-0 z-40 flex border-t border-line bg-rail md:hidden"
         >
           {NAV.filter((item) => item.mobile).map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href) || (item.href === "/runs" && pathname.startsWith("/history"));
             return (
               <Link
                 key={item.href}

@@ -16,7 +16,9 @@ build
 !.env.example
 config/settings.toml
 data
-runs
+# Pipeline artifacts at the repo root only. An unanchored `runs` rule also
+# dropped web/app/runs (the Next.js Job History route) from the web image.
+/runs
 web
 docs
 tests

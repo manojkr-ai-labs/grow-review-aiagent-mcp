@@ -425,6 +425,12 @@ def _parse_clustering(data: dict) -> ClusteringSettings:
 def _parse_pulse(data: dict) -> PulseSettings:
     block = data.get("pulse", {})
     defaults = PulseSettings()
+    recipient = str(data.get("gmail", {}).get("recipient_alias", defaults.recipient_alias))
+    env_recipient = (
+        os.environ.get("GMAIL_RECIPIENT") or os.environ.get("REVIEWPULSE_RECIPIENT") or ""
+    ).strip()
+    if env_recipient:
+        recipient = env_recipient
     return PulseSettings(
         max_words=int(block.get("max_words", defaults.max_words)),
         top_themes=int(block.get("top_themes", defaults.top_themes)),
@@ -432,9 +438,7 @@ def _parse_pulse(data: dict) -> PulseSettings:
         quote_min_words=int(block.get("quote_min_words", defaults.quote_min_words)),
         quote_max_words=int(block.get("quote_max_words", defaults.quote_max_words)),
         compose_llm=bool(block.get("compose_llm", defaults.compose_llm)),
-        recipient_alias=validate_email(
-            data.get("gmail", {}).get("recipient_alias", defaults.recipient_alias)
-        ),
+        recipient_alias=validate_email(recipient),
         llm=_parse_llm_block(block.get("llm", {}), gemini_defaults()),
     )
 
@@ -530,6 +534,11 @@ def _parse_mcp(data: dict) -> McpSettings:
     if shared_headers:
         gdocs.headers = {**shared_headers, **gdocs.headers}
         gmail.headers = {**shared_headers, **gmail.headers}
+    env_doc = (
+        os.environ.get("MCP_DOCUMENT_ID") or os.environ.get("REVIEWPULSE_DOCUMENT_ID") or ""
+    ).strip()
+    if env_doc:
+        gdocs.document_id = normalize_document_id(env_doc)
     return McpSettings(
         url=url or gdocs.url or gmail.url,
         auth_token=auth_token,

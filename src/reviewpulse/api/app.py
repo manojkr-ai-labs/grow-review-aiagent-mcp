@@ -52,7 +52,7 @@ from reviewpulse.api.cors import cors_origins
 from reviewpulse.api.jobs import JOBS, LockHeldError
 from reviewpulse.api.settings import apply_settings_patch, settings_dto
 from reviewpulse.config import google_doc_url
-from reviewpulse.mcp.client import MCPError, inspect_publish_servers
+from reviewpulse.mcp.client import MCPError, mcp_probe_status
 from reviewpulse.publish.base import DocRef
 from reviewpulse.publish.mcp import build_mcp_publisher
 from reviewpulse.publish.state import load_state, record_for
@@ -89,24 +89,16 @@ def _job_dto(job) -> JobDTO:
 
 def _probe_mcp(ctx: ApiContext) -> McpStatusDTO:
     global _mcp_cache, _mcp_inflight
-    settings = ctx.settings.mcp
     try:
-        if not settings.url and not settings.gdocs.configured and not settings.gmail.configured:
-            result = McpStatusDTO(ok=False, label="UNREACHABLE", detail="MCP not configured")
-        else:
-            try:
-                info = inspect_publish_servers(settings)
-                result = McpStatusDTO(
-                    ok=True,
-                    label="CONNECTED",
-                    url=info.get("url") or settings.url,
-                    document_id=info.get("document_id") or settings.gdocs.document_id,
-                    cached=False,
-                )
-            except MCPError as exc:
-                result = McpStatusDTO(ok=False, label="UNREACHABLE", detail=str(exc))
-            except Exception as exc:
-                result = McpStatusDTO(ok=False, label="UNREACHABLE", detail=str(exc))
+        payload = mcp_probe_status(ctx.settings.mcp)
+        result = McpStatusDTO(
+            ok=bool(payload.get("ok")),
+            label=str(payload.get("label") or "UNKNOWN"),
+            detail=payload.get("detail"),
+            url=payload.get("url"),
+            document_id=payload.get("document_id"),
+            cached=False,
+        )
         _mcp_cache = (time.monotonic(), result)
         return result
     finally:

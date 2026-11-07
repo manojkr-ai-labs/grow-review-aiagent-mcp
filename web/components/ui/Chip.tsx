@@ -14,13 +14,16 @@ export function Chip({
   tone = "neutral",
   children,
   className = "",
+  title,
 }: {
   tone?: Tone;
   children: ReactNode;
   className?: string;
+  title?: string;
 }) {
   return (
     <span
+      title={title}
       className={`inline-flex items-center gap-1.5 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider ${tones[tone]} ${className}`}
     >
       {children}

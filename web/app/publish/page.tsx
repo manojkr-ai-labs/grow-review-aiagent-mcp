@@ -25,10 +25,11 @@ export default function PublishPage() {
   const settings = useQuery({ queryKey: ["settings"], queryFn: api.settings });
 
   const mcpOk = status.data?.mcp.ok ?? false;
+  const docReady = Boolean(settings.data?.document_id);
   const gatesOk = pulse.data?.all_gates_passed ?? false;
   const rejected = pulse.data?.rejected ?? false;
   const dry = pulse.data?.publish.mode === "dry-run" || publish.data?.mode === "dry-run";
-  const blocked = !mcpOk || !gatesOk || rejected;
+  const blocked = !mcpOk || !docReady || !gatesOk || rejected;
 
   const action = useMutation({
     mutationFn: (kind: "append" | "draft" | "send") => {
@@ -75,7 +76,15 @@ export default function PublishPage() {
       </div>
 
       {!mcpOk ? (
-        <ErrorState message="MCP unreachable — append, draft, and send are disabled until Test MCP succeeds." />
+        <ErrorState
+          message={
+            status.data?.mcp.detail ||
+            `MCP ${status.data?.mcp.label || "unreachable"} — append, draft, and send stay disabled until Test MCP succeeds.`
+          }
+        />
+      ) : null}
+      {mcpOk && !docReady ? (
+        <ErrorState message="Set the Google Doc id in Settings. The MCP server can only append to an existing document." />
       ) : null}
       {rejected || !gatesOk ? (
         <ErrorState message="Gates failed on this run. Open the rejected note from Weekly Pulse; publish stays locked." />

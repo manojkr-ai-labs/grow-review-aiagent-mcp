@@ -40,9 +40,9 @@ url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
 auth_token = "${MCP_AUTH_TOKEN}"
 
 [mcp.gdocs]
-# Required: the server cannot create a Doc. Paste the ID from
-# https://docs.google.com/document/d/{id}/edit (the authorized Google account
-# must be able to edit it). A full URL is accepted.
+# Create a blank Doc with the Google account that authorized the MCP server
+# and paste the ID from https://docs.google.com/document/d/{id}/edit
+# (a full URL is accepted). Railway can also set MCP_DOCUMENT_ID.
 document_id = ""
 tools.append = "append_to_google_doc"
 

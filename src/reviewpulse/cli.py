@@ -558,6 +558,11 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  url:      {info['url']}")
         if info.get("document_id"):
             print(f"  notebook: {info['document_id']}")
+        elif info.get("transport") == "http":
+            print(
+                "  notebook: (unset — append will fail until mcp.gdocs.document_id "
+                "or MCP_DOCUMENT_ID is set)"
+            )
         tools = info.get("tools") or []
         if tools:
             print(f"  tools:    {', '.join(tools)}")

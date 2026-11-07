@@ -71,10 +71,13 @@ def _settings(tmp_path) -> Settings:
     return settings
 
 
-def test_example_mcp_config_is_not_runnable() -> None:
+def test_example_mcp_config_is_not_runnable(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("MCP_AUTH_TOKEN", raising=False)
+    monkeypatch.delenv("MCP_DOCUMENT_ID", raising=False)
+    monkeypatch.delenv("GMAIL_RECIPIENT", raising=False)
     settings = load_settings(EXAMPLE_SETTINGS_PATH)
     assert settings.mcp.configured is False
-    with pytest.raises(MCPConfigError, match="not configured"):
+    with pytest.raises(MCPConfigError, match="MCP_AUTH_TOKEN|not configured|document_id"):
         verify_publish_servers(settings.mcp)
 
 

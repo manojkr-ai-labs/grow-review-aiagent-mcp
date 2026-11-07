@@ -13,14 +13,15 @@ venv/
 .env
 config/settings.toml
 
-# Runtime data
+# Runtime data (repo-root pipeline artifacts only — never `runs/`, which
+# would also ignore the Next.js console route at web/app/runs).
 data/raw/*
 !data/raw/.gitkeep
 data/exports/
 data/reviews.db
 data/cache/
 data/publish-state.json
-runs/
+/runs/
 data/schedule.lock
 
 # Node / Next.js console
