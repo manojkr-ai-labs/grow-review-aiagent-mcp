@@ -1,0 +1,10 @@
+{
+  "serviceId": "7c8a42ab-f7dd-4438-90cd-40ca7f543b46",
+  "environmentId": "8d9d646e-4101-4e6c-8ec0-a5b42e9dc92d",
+  "input": {
+    "startCommand": "python main.py",
+    "overlapSeconds": 0,
+    "restartPolicyType": "ON_FAILURE",
+    "healthcheckTimeout": 300
+  }
+}

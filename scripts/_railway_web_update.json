@@ -1,0 +1,15 @@
+{
+  "serviceId": "f14a0b99-a502-4a19-8ba8-92249eb3384e",
+  "environmentId": "d24741ba-0af1-4e92-8ded-850eb009414d",
+  "input": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "Dockerfile",
+    "rootDirectory": "/",
+    "startCommand": "node scripts/start.mjs",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 60,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 5,
+    "numReplicas": 1
+  }
+}

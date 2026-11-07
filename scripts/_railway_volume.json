@@ -1,0 +1,8 @@
+{
+  "input": {
+    "projectId": "f9b59f8f-2475-400b-94b1-e59e907363e1",
+    "environmentId": "d24741ba-0af1-4e92-8ded-850eb009414d",
+    "serviceId": "5d0d060b-b0fb-4d48-89dc-d8e171d9b8e9",
+    "mountPath": "/persistent"
+  }
+}

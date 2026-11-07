@@ -1,0 +1,3 @@
+mutation Stop($id: String!) {
+  deploymentStop(id: $id)
+}

@@ -1,0 +1,6 @@
+mutation Redeploy($id: String!, $usePreviousImageTag: Boolean) {
+  deploymentRedeploy(id: $id, usePreviousImageTag: $usePreviousImageTag) {
+    id
+    status
+  }
+}

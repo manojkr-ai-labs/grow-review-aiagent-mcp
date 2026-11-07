@@ -1,0 +1,7 @@
+mutation VolumeCreate($input: VolumeCreateInput!) {
+  volumeCreate(input: $input) {
+    id
+    name
+    createdAt
+  }
+}
