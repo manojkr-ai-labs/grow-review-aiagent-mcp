@@ -214,7 +214,7 @@ def _hosted_settings() -> Settings:
 
     settings = load_settings(EXAMPLE_SETTINGS_PATH)
     settings.pulse.recipient_alias = "pm@example.com"
-    url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
+    url = "https://gmail-docs-mcp-production.up.railway.app/mcp"
     settings.mcp = McpSettings(
         url=url,
         auth_token="test-token",

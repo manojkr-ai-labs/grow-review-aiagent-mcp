@@ -332,7 +332,7 @@ Do not commit production `settings.toml`. Treat `document_id` and recipient as s
 | Groq API | theme labels (`GROQ_API_KEY`) |
 | Google Generative Language API | pulse compose (`GEMINI_API_KEY`) |
 | Hugging Face | first MiniLM download (then volume cache) |
-| `https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp` | Docs + Gmail |
+| `https://gmail-docs-mcp-production.up.railway.app/mcp` | Docs + Gmail |
 
 No Google OAuth in this repo. MCP bearer is `MCP_AUTH_TOKEN` (same token the MCP service
 already expects).

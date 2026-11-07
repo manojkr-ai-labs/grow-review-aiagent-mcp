@@ -11,6 +11,13 @@ if [ -d "$PERSIST" ] || mkdir -p "$PERSIST" 2>/dev/null; then
   if [ ! -f "$PERSIST/config/settings.toml" ] && [ -f "$ROOT/config/settings.example.toml" ]; then
     cp "$ROOT/config/settings.example.toml" "$PERSIST/config/settings.toml"
   fi
+  # Volume copies are not refreshed on deploy. Point an older hostname at the
+  # current gmail-docs-mcp service.
+  if [ -f "$PERSIST/config/settings.toml" ]; then
+    tmp="$(mktemp)"
+    sed 's|https://mcp-gmail-google-docs-connect-production.up.railway.app|https://gmail-docs-mcp-production.up.railway.app|g' "$PERSIST/config/settings.toml" > "$tmp"
+    mv "$tmp" "$PERSIST/config/settings.toml"
+  fi
   export REVIEWPULSE_DATA_DIR="${REVIEWPULSE_DATA_DIR:-$PERSIST/data}"
   export REVIEWPULSE_RUNS_DIR="${REVIEWPULSE_RUNS_DIR:-$PERSIST/runs}"
   export REVIEWPULSE_SETTINGS="${REVIEWPULSE_SETTINGS:-$PERSIST/config/settings.toml}"

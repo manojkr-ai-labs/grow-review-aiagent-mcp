@@ -539,7 +539,7 @@ fresh clone can reproduce it.
 
 **Maps to:** architecture §8 and §10–12; problem statement §5 and §9. The live server is
 [`mcp-gmail-google-docs-connect`](https://github.com/manojkr-ai-labs/mcp-gmail-google-docs-connect)
-at `https://mcp-gmail-google-docs-connect-production.up.railway.app/` (container `PORT=8080`;
+at `https://gmail-docs-mcp-production.up.railway.app/` (container `PORT=8080`;
 clients use HTTPS `/mcp`, not `:8080`).
 
 > **Revised after inspecting the live server.** Phase 4 assumed two stdio processes with
@@ -609,7 +609,7 @@ validate(note)
 
 ```toml
 [mcp]
-url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
+url = "https://gmail-docs-mcp-production.up.railway.app/mcp"
 auth_token = "${MCP_AUTH_TOKEN}"
 
 [mcp.gdocs]

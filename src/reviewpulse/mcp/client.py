@@ -359,6 +359,29 @@ def refuse_send_tool(name: str, *, allow_send: bool = False) -> None:
         )
 
 
+def unwrap_exception(exc: BaseException) -> BaseException:
+    """Return the error hidden inside an anyio TaskGroup ExceptionGroup.
+
+    Streamable HTTP runs the session in a task group. A tool error raised while
+    that group is closing (or an HTTP 401 inside it) surfaces as
+    "unhandled errors in a TaskGroup (1 sub-exception)" and hides the cause.
+    """
+    current = exc
+    seen: set[int] = set()
+    while id(current) not in seen:
+        seen.add(id(current))
+        nested = getattr(current, "exceptions", None)
+        if nested:
+            mcp_error = next((item for item in nested if isinstance(item, MCPError)), None)
+            current = mcp_error or nested[0]
+            continue
+        cause = current.__cause__
+        if cause is None or isinstance(current, MCPError):
+            break
+        current = cause
+    return current
+
+
 def _is_unauthorized(exc: BaseException) -> bool:
     status = getattr(getattr(exc, "response", None), "status_code", None)
     if status in {401, 403}:
@@ -428,16 +451,27 @@ class MCPClient:
             return asyncio.run(coro)
         except MCPError:
             raise
+        except BaseExceptionGroup as exc:
+            self._reraise_session_error(exc, tool=None)
         except Exception as exc:  # noqa: BLE001 - spawn failures are the point
-            if _is_unauthorized(exc):
-                raise MCPAuthError(
-                    f"{self.name} MCP endpoint rejected the bearer token "
-                    f"({self._endpoint_display()!r}). Set MCP_AUTH_TOKEN in .env."
-                ) from exc
-            raise MCPTransportError(
-                f"failed to start {self.name} MCP server "
-                f"({self._endpoint_display()!r}): {exc}"
+            self._reraise_session_error(exc, tool=None)
+
+    def _reraise_session_error(self, exc: BaseException, *, tool: str | None) -> None:
+        root = unwrap_exception(exc)
+        if isinstance(root, MCPError):
+            raise root from exc
+        if _is_unauthorized(root):
+            target = f" tool {tool!r}" if tool else " endpoint"
+            raise MCPAuthError(
+                f"{self.name} MCP{target} rejected the bearer token "
+                f"({self._endpoint_display()!r}). Set MCP_AUTH_TOKEN in .env."
             ) from exc
+        if tool:
+            raise MCPTransportError(f"{self.name} tool {tool!r} failed: {root}") from exc
+        raise MCPTransportError(
+            f"failed to start {self.name} MCP server "
+            f"({self._endpoint_display()!r}): {root}"
+        ) from exc
 
     async def _list_tools(self) -> list[ToolInfo]:
         async with self._session() as session:
@@ -477,17 +511,15 @@ class MCPClient:
                     )
                 payload = bind_arguments(by_name[name].schema, arguments)
                 result = await session.call_tool(name, payload)
-                return unwrap_tool_result(result)
         except MCPError:
             raise
+        except BaseExceptionGroup as exc:
+            self._reraise_session_error(exc, tool=name)
         except Exception as exc:  # noqa: BLE001
-            if _is_unauthorized(exc):
-                raise MCPAuthError(
-                    f"{self.name} tool {name!r} unauthorized: {exc}"
-                ) from exc
-            raise MCPTransportError(
-                f"{self.name} tool {name!r} failed: {exc}"
-            ) from exc
+            self._reraise_session_error(exc, tool=name)
+        # Classify tool failures after the session closes. Raising inside the
+        # Streamable HTTP task group replaces the real error with ExceptionGroup.
+        return unwrap_tool_result(result)
 
     async def _load_tools(self, session) -> list[ToolInfo]:
         listed = await session.list_tools()

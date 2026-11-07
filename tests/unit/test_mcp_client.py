@@ -7,6 +7,7 @@ import pytest
 from reviewpulse.config import EXAMPLE_SETTINGS_PATH, McpSettings, normalize_document_id, load_settings
 from reviewpulse.mcp.client import (
     MCPAuthError,
+    MCPClient,
     MCPConfigError,
     flatten_tool_payload,
     hosted_health_url,
@@ -15,6 +16,7 @@ from reviewpulse.mcp.client import (
     is_retryable,
     mcp_probe_status,
     refuse_send_tool,
+    unwrap_exception,
     unwrap_tool_result,
     verify_publish_servers,
 )
@@ -70,6 +72,90 @@ def test_hosted_success_envelope_flattens_ids() -> None:
     assert unwrapped["documentId"] == "doc-9"
 
 
+def test_unwrap_exception_prefers_nested_mcp_error() -> None:
+    auth = MCPAuthError(
+        "Google authorization has expired or is invalid. Run npm run auth to re-authorize."
+    )
+    group = ExceptionGroup(
+        "unhandled errors in a TaskGroup (1 sub-exception)",
+        [ExceptionGroup("unhandled errors in a TaskGroup (1 sub-exception)", [auth])],
+    )
+    assert unwrap_exception(group) is auth
+
+
+def test_draft_auth_failure_is_not_hidden_in_task_group() -> None:
+    from reviewpulse.config import McpServerSettings
+
+    auth = MCPAuthError(
+        "Google authorization has expired or is invalid. Run npm run auth to re-authorize."
+    )
+
+    class _Session:
+        async def __aenter__(self):
+            raise ExceptionGroup(
+                "unhandled errors in a TaskGroup (1 sub-exception)",
+                [ExceptionGroup("unhandled errors in a TaskGroup (1 sub-exception)", [auth])],
+            )
+
+        async def __aexit__(self, *_args):
+            return False
+
+    client = MCPClient(McpServerSettings(url="https://example.test/mcp"), name="gmail-docs")
+    client._session = lambda: _Session()  # type: ignore[method-assign]
+    with pytest.raises(MCPAuthError, match="re-authorize"):
+        client.call_tool(
+            "draft_email",
+            {"to": "pm@example.com", "subject": "pulse", "body": "hello"},
+        )
+
+
+def test_tool_error_is_classified_after_the_session_closes() -> None:
+    from reviewpulse.config import McpServerSettings
+
+    class _Content:
+        text = "Google authorization has expired or is invalid. Run npm run auth to re-authorize."
+
+    class _Result:
+        isError = True
+        structuredContent = None
+        content = [_Content()]
+
+    class _Tool:
+        name = "draft_email"
+        inputSchema = {
+            "type": "object",
+            "properties": {
+                "to": {"type": "array", "items": {"type": "string"}},
+                "subject": {"type": "string"},
+                "body": {"type": "string"},
+            },
+        }
+
+    class _Listed:
+        tools = [_Tool()]
+
+    class _Session:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return False
+
+        async def list_tools(self):
+            return _Listed()
+
+        async def call_tool(self, _name, _payload):
+            return _Result()
+
+    client = MCPClient(McpServerSettings(url="https://example.test/mcp"), name="gmail-docs")
+    client._session = lambda: _Session()  # type: ignore[method-assign]
+    with pytest.raises(MCPAuthError, match="re-authorize"):
+        client.call_tool(
+            "draft_email",
+            {"to": "pm@example.com", "subject": "pulse", "body": "hello"},
+        )
+
+
 def test_refuse_send_email() -> None:
     with pytest.raises(MCPConfigError, match="drafts only"):
         refuse_send_tool("send_email")
@@ -109,8 +195,8 @@ def test_normalize_document_id_accepts_url_or_bare_id() -> None:
 
 def test_hosted_health_url_strips_mcp_path() -> None:
     assert (
-        hosted_health_url("https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp")
-        == "https://mcp-gmail-google-docs-connect-production.up.railway.app/health"
+        hosted_health_url("https://gmail-docs-mcp-production.up.railway.app/mcp")
+        == "https://gmail-docs-mcp-production.up.railway.app/health"
     )
 
 
@@ -124,7 +210,7 @@ def test_inspect_http_does_not_require_document_id(monkeypatch: pytest.MonkeyPat
     from reviewpulse.config import McpServerSettings, McpToolNames
     from reviewpulse.mcp.client import ToolInfo
 
-    url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
+    url = "https://gmail-docs-mcp-production.up.railway.app/mcp"
     settings = McpSettings(
         url=url,
         auth_token="test-token",

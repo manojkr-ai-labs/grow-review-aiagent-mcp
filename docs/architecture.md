@@ -551,7 +551,7 @@ names are not standardized across them:
 
 ```toml
 [mcp]
-url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
+url = "https://gmail-docs-mcp-production.up.railway.app/mcp"
 auth_token = "${MCP_AUTH_TOKEN}"
 
 [mcp.gdocs]

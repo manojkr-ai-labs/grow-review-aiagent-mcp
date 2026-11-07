@@ -36,7 +36,7 @@ recipient_alias = "you@example.com"
 # Interactive `reviewpulse run` calls draft_email + append_to_google_doc.
 # `reviewpulse run --send` and `reviewpulse schedule` also call send_email.
 [mcp]
-url = "https://mcp-gmail-google-docs-connect-production.up.railway.app/mcp"
+url = "https://gmail-docs-mcp-production.up.railway.app/mcp"
 auth_token = "${MCP_AUTH_TOKEN}"
 
 [mcp.gdocs]
