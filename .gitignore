@@ -21,6 +21,7 @@ data/exports/
 data/reviews.db
 data/cache/
 data/publish-state.json
+data/supportdesk-publish-state.json
 /runs/
 data/schedule.lock
 

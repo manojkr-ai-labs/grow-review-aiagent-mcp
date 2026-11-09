@@ -15,6 +15,7 @@ const NAV = [
   { href: "/themes", label: "Themes", icon: "category", mobile: true },
   { href: "/reviews", label: "Reviews", icon: "rate_review", mobile: true },
   { href: "/pipeline", label: "Pipeline", icon: "account_tree", mobile: true },
+  { href: "/agents", label: "Agents", icon: "smart_toy", mobile: false },
   { href: "/runs", label: "Runs", icon: "history", mobile: true },
   { href: "/publish", label: "Publish", icon: "publish", mobile: false },
   { href: "/settings", label: "Settings", icon: "settings", mobile: false },
@@ -25,6 +26,7 @@ const TITLES: Record<string, string> = {
   "/themes": "Themes & Issue Clusters",
   "/reviews": "Reviews",
   "/pipeline": "Pipeline",
+  "/agents": "Agents",
   "/runs": "Runs / Job Execution History",
   "/history": "Runs / Job Execution History",
   "/publish": "Publish",
@@ -226,6 +228,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
         {more ? (
           <div className="fixed inset-x-0 bottom-14 z-40 border-t border-line bg-card p-3 md:hidden">
+            <Link href="/agents" className="block px-3 py-2 text-sm text-ink" onClick={() => setMore(false)}>
+              Agents
+            </Link>
             <Link href="/publish" className="block px-3 py-2 text-sm text-ink" onClick={() => setMore(false)}>
               Publish
             </Link>

@@ -268,7 +268,7 @@ The production server is the hosted
 
 | | |
 | --- | --- |
-| Base URL | `https://mcp-gmail-google-docs-connect-production.up.railway.app/` |
+| Base URL | `https://gmail-docs-mcp-production.up.railway.app/` |
 | MCP endpoint | `POST /mcp` (Streamable HTTP). Railway's container port is 8080; clients use the HTTPS URL, not `:8080`. |
 | Health | `GET /health` (no auth) |
 | Auth | `Authorization: Bearer <MCP_AUTH_TOKEN>` — same value as the Railway variable, **not** a Google token |
@@ -399,3 +399,63 @@ See `docs/architecture.md` and `docs/implementation-plan.md`.
 ```bash
 pytest
 ```
+
+## Project 3 — Multi-agent support desk
+
+A separate package, `src/supportdesk/`, answers one customer message with three agents, a three-sentence reply, and an internal routing note. Facts uses the Project 1 retrieval checkout (`mutual-fund-faq-assistant`, or `SUPPORTDESK_PROJECT1_ROOT`). Pattern uses `data/exports/play_store.csv` and the latest `runs/<run_id>/clusters.json` from this repo. Compliance redacts PAN, Aadhaar, account numbers, Indian mobiles, email, and OTP before those agents run.
+
+The desk appends an existing Google Doc and creates a Gmail draft after a person approves one exact reply hash. It calls `append_to_google_doc` and `draft_email` with `allow_send` false. Weekly pulse publish, `data/publish-state.json`, and `reviewpulse schedule` stay on their own path. Support publish state is `data/supportdesk-publish-state.json`.
+
+There is no `supportdesk` CLI. From the repo root, with the package installed (`pip install -e .`) and the sibling Project 1 checkout present:
+
+```python
+import asyncio
+
+from supportdesk.compliance import ComplianceSession
+from supportdesk.orchestrate import orchestrate
+
+covered = asyncio.run(
+    orchestrate(
+        "What is the expense ratio of HDFC Large Cap Fund?",
+        session=ComplianceSession(),
+    )
+)
+print(covered.run.state.value)
+print(covered.result.reply.text)
+
+refused = asyncio.run(
+    orchestrate(
+        "Should I buy this scheme?",
+        session=ComplianceSession(),
+    )
+)
+print(refused.result.compliance.decision.value)
+print(refused.result.reply.text)
+```
+
+The first prompt is a catalog question. The second is an advice request: the decision is `refuse`, and the reply has no citation URL. A full approve-and-draft path, including a partial MCP failure, is `tests/supportdesk/test_scenarios.py` using `tests/contract/fake_mcp.py`. Do not point that demo at `send_email`.
+
+### Demo script (about three minutes)
+
+A recording was not made in this repo. This is the live script.
+
+1. Run the two prompts above. Show the drafted state and the `https://groww.in/` source line, then the refusal.
+2. Say that Facts, Pattern, and Compliance start together. The routing note holds team, priority, and the pattern signal even when the reply cites a fact.
+3. Open `docs/project-3/architecture.md` and trace pending approval → approved → MCP. Rejection and a second reviewer failure have no MCP edge.
+4. Run `python -m pytest tests/supportdesk/test_scenarios.py tests/supportdesk/test_adversarial.py -q` and point at the partial-failure test: the draft is retried, the append is not repeated, and `send_email` is absent.
+5. Close on the limits in `docs/project-3/eval.md`: 19 of 20 real support reviews were `not_covered` because the approved corpus is the five HDFC scheme pages.
+
+### Tests and docs
+
+```bash
+python -m pytest tests/supportdesk -q
+```
+
+| Doc | Contents |
+| --- | --- |
+| `docs/project-3/architecture.md` | Agents, state diagram, MCP boundary |
+| `docs/project-3/edge-cases.md` | Sanitization, advice, rework, partial publish |
+| `docs/project-3/eval.md` | 20-review counts and adversarial list |
+| `docs/project-3/implementation-plan.md` | Phase log |
+
+Limits: the desk does not create a Google Doc, does not send mail, and does not re-cluster reviews. A timeout on append or draft stays `uncertain` and is not retried. A definite draft failure can create a second draft, because the hosted server has no update-draft tool. Ruff and mypy are not configured.
