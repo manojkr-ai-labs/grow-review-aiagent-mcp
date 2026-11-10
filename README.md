@@ -1,7 +1,48 @@
 # Groww Review Intelligence Agent
 
-Turns Google Play Store reviews for Groww into a weekly pulse: themes, verbatim quotes, and
-action ideas — published to Google Docs and Gmail via MCP.
+Weekly pulse from public Groww Play Store reviews — themes, verbatim quotes, and actions — published to Google Docs and Gmail through MCP. A support desk in the same repository drafts customer replies and blocks investment advice until a person approves the exact text.
+
+**[Manoj Kumar Sah](https://github.com/Manojkr6637)** · [Profile](https://github.com/Manojkr6637) · [LinkedIn](https://www.linkedin.com/in/manoj-kumar-sah/) · [Medium](https://medium.com/@manojkumarsah)
+
+| | |
+| --- | --- |
+| Production | [reviewpulse-web-production-836a.up.railway.app](https://reviewpulse-web-production-836a.up.railway.app) |
+| Source | [manojkr-ai-labs/grow-review-aiagent-mcp](https://github.com/manojkr-ai-labs/grow-review-aiagent-mcp) |
+
+Screenshots are from the same console running locally.
+
+| Window | Reviews clustered | Validation | Support-desk tests |
+| --- | --- | --- | --- |
+| 17 Aug – 8 Nov | 1,203 | 7/7 gates | 138 passed |
+
+## Product
+
+![Weekly pulse](docs/images/console-pulse.png)
+
+![Theme ranking](docs/images/console-themes.png)
+
+![Publish: Google Doc and Gmail through MCP](docs/images/console-publish.png)
+
+Support-desk walkthrough: `docs/project-3/multi-agent-support-desk-demo.mp4`
+
+## Architecture
+
+```mermaid
+flowchart LR
+  reviews["Play reviews"] --> pipeline["Ingest, cluster, compose"]
+  pipeline --> gates["Validation gates"]
+  gates --> console["Operator console"]
+  console --> mcp["MCP server"]
+  mcp --> doc["Google Doc"]
+  mcp --> mail["Gmail"]
+
+  message["Customer message"] --> desk["Support desk"]
+  desk --> agents["Facts, Pattern, Compliance"]
+  agents --> approval["Human approval"]
+  approval --> mcp
+```
+
+Google credentials stay in [mcp-gmail-google-docs-connect](https://github.com/manojkr-ai-labs/mcp-gmail-google-docs-connect). This repository calls MCP only. Pulse design: `docs/architecture.md`. Support desk: `docs/project-3/architecture.md`.
 
 ## Status
 
