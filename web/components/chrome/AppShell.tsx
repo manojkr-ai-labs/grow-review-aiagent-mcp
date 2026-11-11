@@ -12,6 +12,7 @@ import { Chip } from "@/components/ui/Chip";
 
 const NAV = [
   { href: "/", label: "Weekly Pulse", icon: "monitoring", mobile: true },
+  { href: "/queue", label: "Queue", icon: "inbox", mobile: true },
   { href: "/themes", label: "Themes", icon: "category", mobile: true },
   { href: "/reviews", label: "Reviews", icon: "rate_review", mobile: true },
   { href: "/pipeline", label: "Pipeline", icon: "account_tree", mobile: true },
@@ -23,6 +24,7 @@ const NAV = [
 
 const TITLES: Record<string, string> = {
   "/": "Weekly Review Pulse",
+  "/queue": "Support queue",
   "/themes": "Themes & Issue Clusters",
   "/reviews": "Reviews",
   "/pipeline": "Pipeline",

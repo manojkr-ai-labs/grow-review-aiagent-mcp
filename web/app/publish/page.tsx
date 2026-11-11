@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import Link from "next/link";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ApiError, api } from "@/lib/api";
+import { ApiError, api, PACKAGE_FILES } from "@/lib/api";
 import { useRunId } from "@/lib/useRunId";
 import { useStatus } from "@/components/chrome/AppShell";
 import { Button } from "@/components/ui/Button";
@@ -23,6 +23,38 @@ export default function PublishPage() {
   const pulse = useQuery({ queryKey: ["pulse", runId], queryFn: () => api.pulse(runId) });
   const publish = useQuery({ queryKey: ["publish", runId], queryFn: () => api.publish(runId) });
   const settings = useQuery({ queryKey: ["settings"], queryFn: api.settings });
+  const packageRunId = runId || pulse.data?.run_id || null;
+  const weekly = useQuery({
+    queryKey: ["capstone-package", packageRunId],
+    queryFn: () => api.capstonePackage(packageRunId as string),
+    enabled: Boolean(packageRunId),
+    retry: false,
+  });
+  const packagePublish = useMutation({
+    mutationFn: () => {
+      const hash = weekly.data?.package_hash;
+      if (!packageRunId || !hash) throw new Error("package hash is not on screen");
+      return api.capstonePublish(packageRunId, { package_hash: hash, action: "draft" });
+    },
+    onSuccess: (result) => {
+      setFlash(result.action ? `Package publish ${result.action}` : "Package publish accepted");
+      queryClient.invalidateQueries({ queryKey: ["capstone-package"] });
+    },
+  });
+  const packageDecision = useMutation({
+    mutationFn: (choice: "approve" | "reject") => {
+      const hash = weekly.data?.package_hash;
+      if (!packageRunId || !hash) throw new Error("package hash is not on screen");
+      return api.capstoneDecision(packageRunId, {
+        decision: choice,
+        approver_ref: "operator.1",
+        action: "draft",
+      });
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["capstone-package"] });
+    },
+  });
 
   const mcpOk = status.data?.mcp.ok ?? false;
   const docReady = Boolean(settings.data?.document_id);
@@ -164,6 +196,79 @@ export default function PublishPage() {
           </div>
         </Card>
       </div>
+
+      <Card className="flex flex-col gap-4 p-5">
+        <div className="flex items-start gap-3 border-b border-line pb-4">
+          <span className="flex h-10 w-10 items-center justify-center rounded-control border border-line text-accent">
+            <Icon name="inventory_2" size={22} />
+          </span>
+          <div>
+            <h2 className="text-base font-semibold">Weekly package</h2>
+            <p className="text-sm text-muted">Publish posts this hash to the package route. The hash is shown before the write.</p>
+          </div>
+        </div>
+        <Row label="Package hash" value={weekly.data?.package_hash || "not assembled"} />
+        <Row
+          label="Approval"
+          value={
+            weekly.data?.approval?.matches
+              ? `approved · ${weekly.data.approval.action}`
+              : weekly.data?.approval
+                ? "stored approval does not match this hash"
+                : "not approved"
+          }
+        />
+        {PACKAGE_FILES.map((name) => (
+          <Row key={name} label="Artifact" value={name} />
+        ))}
+        <p className="text-sm text-muted">
+          Approve the hash on this screen before a package write. A later change to the note, explainer, or signals clears that approval.
+        </p>
+        {packageDecision.error || packagePublish.error ? (
+          <ErrorState
+            message={
+              (packageDecision.error instanceof ApiError
+                ? packageDecision.error.detail
+                : packageDecision.error instanceof Error
+                  ? packageDecision.error.message
+                  : null) ||
+              (packagePublish.error instanceof ApiError
+                ? packagePublish.error.detail
+                : packagePublish.error instanceof Error
+                  ? packagePublish.error.message
+                  : "Package action failed")
+            }
+          />
+        ) : null}
+        <div className="flex flex-wrap gap-2 pt-2">
+          <Button
+            variant="primary"
+            disabled={!weekly.data?.package_hash || !packageRunId || packageDecision.isPending}
+            onClick={() => packageDecision.mutate("approve")}
+          >
+            Approve package
+          </Button>
+          <Button
+            variant="danger"
+            disabled={!weekly.data?.package_hash || !packageRunId || packageDecision.isPending}
+            onClick={() => packageDecision.mutate("reject")}
+          >
+            Reject package
+          </Button>
+          <Button
+            variant="secondary"
+            disabled={
+              !weekly.data?.approval?.matches ||
+              weekly.data.approval.content_hash !== weekly.data.package_hash ||
+              !packageRunId ||
+              packagePublish.isPending
+            }
+            onClick={() => packagePublish.mutate()}
+          >
+            Publish package
+          </Button>
+        </div>
+      </Card>
 
       <ConfirmModal
         open={confirmSend}

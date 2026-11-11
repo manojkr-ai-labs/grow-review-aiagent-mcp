@@ -18,6 +18,14 @@ const nextConfig = {
           source: "/api/v1/:path*",
           destination: `${apiOrigin}/api/v1/:path*`,
         },
+        {
+          source: "/api/desk/:path*",
+          destination: `${apiOrigin}/api/desk/:path*`,
+        },
+        {
+          source: "/api/capstone/:path*",
+          destination: `${apiOrigin}/api/capstone/:path*`,
+        },
       ],
     };
   },

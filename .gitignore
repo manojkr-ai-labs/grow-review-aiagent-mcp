@@ -19,6 +19,7 @@ data/raw/*
 !data/raw/.gitkeep
 data/exports/
 data/reviews.db
+data/capstone.db
 data/cache/
 data/publish-state.json
 data/supportdesk-publish-state.json

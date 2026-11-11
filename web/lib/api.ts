@@ -114,4 +114,144 @@ export const api = {
       run_id: runId ?? null,
       confirm: true,
     }),
+  deskQueue: () => apiGet<DeskQueueRow[]>("/api/desk/queue"),
+  deskQuestion: (text: string) =>
+    apiSend<Record<string, unknown>>("/api/desk/questions", "POST", { text }),
+  deskCase: (caseId: string) =>
+    apiGet<DeskCaseDetail>(`/api/desk/cases/${encodeURIComponent(caseId)}`),
+  deskDecision: (caseId: string, body: { decision: "approve" | "reject"; approver_ref: string }) =>
+    apiSend<{ run?: { state?: string; content_hash?: string | null } }>(
+      `/api/desk/cases/${encodeURIComponent(caseId)}/decision`,
+      "POST",
+      body,
+    ),
+  deskRefine: (caseId: string, body: { instruction: string; reply: string }) =>
+    apiSend<DeskRefineResult>(
+      `/api/desk/cases/${encodeURIComponent(caseId)}/refine`,
+      "POST",
+      body,
+    ),
+  deskPublish: (caseId: string) =>
+    apiSend<Record<string, unknown>>(`/api/desk/cases/${encodeURIComponent(caseId)}/publish`, "POST", {}),
+  capstonePackage: (runId: string) =>
+    apiGet<WeeklyPackage>(`/api/capstone/runs/${encodeURIComponent(runId)}/package`),
+  capstoneDecision: (
+    runId: string,
+    body: { decision: "approve" | "reject"; approver_ref: string; action: "append" | "draft" | "send" },
+  ) =>
+    apiSend<{ decision?: string; content_hash?: string }>(
+      `/api/capstone/runs/${encodeURIComponent(runId)}/decision`,
+      "POST",
+      body,
+    ),
+  capstonePublish: (runId: string, body: { package_hash: string; action: "append" | "draft" | "send" }) =>
+    apiSend<{ ok?: boolean; package_hash?: string; action?: string }>(
+      `/api/capstone/runs/${encodeURIComponent(runId)}/publish`,
+      "POST",
+      body,
+    ),
 };
+
+export type DeskQueueRow = {
+  case_id: string;
+  sanitized_text: string;
+  draft: string | null;
+  not_covered: boolean;
+  citation: string[];
+  reviewer_flag: string | null;
+  state: string;
+  coverage: string;
+  pattern_signal: string | null;
+  matching_count: number | null;
+  window_start: string | null;
+  window_end: string | null;
+  theme_id: string | null;
+  compliance_decision: string | null;
+  pii_redacted: boolean;
+  redaction_blocked: boolean;
+};
+
+export type DeskClaim = {
+  claim: string;
+  source_url: string;
+  source_title: string;
+  last_checked: string | null;
+};
+
+export type DeskCaseDetail = {
+  case_id: string;
+  draft: { text: string; sentence_count: number } | null;
+  routing_note: {
+    team: string;
+    priority: string;
+    reason: string;
+    pattern_signal: string;
+    matching_count: number;
+    facts_coverage: string;
+    citation_refs: string[];
+    next_action: string;
+    disagreement: string | null;
+    limitations: string[];
+    analysis_window?: { start: string | null; end: string | null } | null;
+  } | null;
+  agent_timings: Array<{
+    agent: string;
+    started_at: string | null;
+    ended_at: string | null;
+  }>;
+  claims: DeskClaim[];
+  searched_urls: string[];
+  reviewer_findings: Array<{ code?: string; message?: string }>;
+  state?: string | null;
+  content_hash?: string | null;
+  document_id?: string | null;
+  recipient?: string | null;
+};
+
+export type PackageBullet = {
+  text: string;
+  url?: string | null;
+  last_checked?: string | null;
+};
+
+export type PackageSignal = {
+  week_id: string;
+  question_key: string;
+  count: number;
+  evidence_type: string;
+};
+
+export type WeeklyPackage = {
+  note: string;
+  explainer: {
+    week_id?: string;
+    fee_theme: string | null;
+    bullets: PackageBullet[];
+  };
+  signals: PackageSignal[];
+  package_hash: string;
+  fee_theme: string | null;
+  ledger: unknown[];
+  approval?: PackageApproval | null;
+};
+
+export type PackageApproval = {
+  decision: string | null;
+  content_hash: string | null;
+  action: string;
+  matches: boolean;
+};
+
+export type DeskRefineResult = {
+  result?: { reply?: { text?: string } };
+  run?: { state?: string; content_hash?: string | null };
+  refinements?: Array<{ accepted?: boolean }>;
+};
+
+export const PACKAGE_FILES = ["note.md", "explainer.json", "support_signals.json"] as const;
+
+export const EMPTY_LEDGER_SENTENCE = "No queued question in this week was outside the corpus.";
+
+export function queueSignalLine(signal: PackageSignal): string {
+  return `Support was asked "${signal.question_key}" ${signal.count} times in ${signal.week_id}. This line is the question log, not review volume.`;
+}

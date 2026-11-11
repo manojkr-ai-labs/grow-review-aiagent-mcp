@@ -13,6 +13,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, StreamingResponse
 
 from reviewpulse import __version__
+from capstone.api.desk import router as desk_router
+from capstone.api.package import router as package_router
 from reviewpulse.api.catalog import (
     key_for_run,
     list_run_dirs,
@@ -70,6 +72,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(desk_router)
+app.include_router(package_router)
 
 
 def _job_dto(job) -> JobDTO:

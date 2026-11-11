@@ -147,6 +147,10 @@ class JobStore:
             job.status = "succeeded" if ok else "failed"
             if not ok:
                 job.error = job.error or "gates_failed"
+            elif job.run_id:
+                from capstone.pipeline_hook import assemble_after_pulse
+
+                assemble_after_pulse(job, runs_dir=ctx.runs_dir)
         except Exception as exc:
             job.status = "failed"
             job.error = str(exc)

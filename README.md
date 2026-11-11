@@ -147,3 +147,31 @@ python -m pytest tests/supportdesk -q
 | `docs/`            | Architecture and support-desk design           |
 
 Each run writes `runs/<run_id>/` with `clusters.json`, `note.md` or `note.rejected.md`, `publish.json`, and `manifest.json`. Support publish state is `data/supportdesk-publish-state.json`.
+
+## Capstone
+
+Architecture: `docs/capstone/architecture.md`.
+
+The weekly loop and the desk loop stay separate, then meet in the question log. A pulse run writes `note.md` and `clusters.json`. After the pulse gates pass, one job calls `capstone.assemble` and stops at `package.json`. That file holds the hash of `note.md`, `explainer.json`, and `support_signals.json`. A person approves that hash before a package publish. The desk takes one customer message through facts, pattern, and compliance, then waits for approval of the reply hash on screen. Five identical sanitized questions in the same week become one queue signal. Questions the corpus does not cover become the explainer's last bullet. A review theme is pattern evidence. It is not a fact about a fund.
+
+Sources:
+
+| Source | What it supplies |
+| --- | --- |
+| Play Store export and `clusters.json` | Theme labels, review ids, and pattern counts |
+| `SUPPORTDESK_PROJECT1_ROOT` | The Milestone 1 public Groww page index used for factual claims |
+| `data/capstone.db` | The question log and the not-covered ledger |
+
+`SUPPORTDESK_PROJECT1_ROOT` points at the sibling FAQ catalog. If that catalog is missing, facts stay not covered. The code does not invent a passage. `data/capstone.db` is gitignored.
+
+C1 checks a covered fact: at most three sentences, one allow-listed link, and a last-checked date or the word unavailable. C2 checks a question the corpus does not support: not covered, pages searched named, no guessed claim, and a ledger row. C3 asks one charge question five times against a fee theme and checks the routing note, the queue line, and the six-bullet ceiling. C4 checks that a phone number is absent from the response, the log, and the stored case. C5 refuses an advice question and the follow-up on the same session, and a draft that fails review twice is blocked with no Docs or Gmail call.
+
+Recorded results are in `docs/capstone/eval.md`. Run the checks with:
+
+```bash
+python -m pytest tests/capstone -q
+```
+
+E1, E2, and E3 are `tests/capstone/test_eval.py`. C1–C5 are `tests/capstone/test_scenarios.py`.
+
+Package publish records attempts in `data/publish-state.json`. Desk publish records attempts in `data/supportdesk-publish-state.json`. The desk path drafts mail and does not send it. The package path may send only when the approved action says send. The hosted MCP server is not exactly-once. This service does not claim exactly-once execution. The state files only stop this process from repeating a call it already recorded.

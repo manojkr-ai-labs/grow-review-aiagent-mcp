@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { api, EMPTY_LEDGER_SENTENCE, queueSignalLine } from "@/lib/api";
 import { formatNumber, formatPct, formatRating } from "@/lib/format";
 import { useRunId } from "@/lib/useRunId";
 import { useHeader } from "@/components/chrome/AppShell";
@@ -141,7 +141,7 @@ export default function PulsePage() {
                   </div>
                   <p className="text-sm text-muted">{theme.line || theme.summary}</p>
                   <div className="flex flex-wrap gap-3 font-mono text-xs text-faint">
-                    <span>{formatNumber(theme.size)} reviews</span>
+                    <span>pattern · {formatNumber(theme.size)} reviews</span>
                     <span>{formatRating(theme.mean_rating)}</span>
                     <span>{formatPct(theme.neg_share)} negative</span>
                   </div>
@@ -279,6 +279,81 @@ export default function PulsePage() {
           </Card>
         </div>
       </div>
+
+      <WeeklyPackageBlocks runId={data.run_id} />
+    </div>
+  );
+}
+
+const NO_FEE_THEME_SENTENCE = "No fee theme met the bar.";
+
+function WeeklyPackageBlocks({ runId }: { runId: string }) {
+  const weekly = useQuery({
+    queryKey: ["capstone-package", runId],
+    queryFn: () => api.capstonePackage(runId),
+    retry: false,
+  });
+
+  if (weekly.isLoading) {
+    return <div className="text-sm text-muted">Loading weekly package…</div>;
+  }
+  if (weekly.isError || !weekly.data) {
+    return (
+      <Card>
+        <CardHeader title="Weekly package" icon={<Icon name="description" className="text-accent" />} />
+        <p className="p-5 text-sm text-muted">This run has no assembled package yet.</p>
+      </Card>
+    );
+  }
+
+  const explainer = weekly.data.explainer;
+  const bullets = Array.isArray(explainer?.bullets) ? explainer.bullets : [];
+  const signals = Array.isArray(weekly.data.signals) ? weekly.data.signals : [];
+  const ledgerEmpty = Array.isArray(weekly.data.ledger) && weekly.data.ledger.length === 0;
+  const feeTheme = explainer?.fee_theme ?? weekly.data.fee_theme;
+  const showsEmptyLedger = bullets.some((bullet) => bullet.text === EMPTY_LEDGER_SENTENCE);
+
+  return (
+    <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+      <Card>
+        <CardHeader title="Explainer" icon={<Icon name="menu_book" className="text-accent" />} />
+        <div className="space-y-3 p-5 text-sm text-ink">
+          <p>{feeTheme ? `Fee theme ${feeTheme}` : NO_FEE_THEME_SENTENCE}</p>
+          <ul className="space-y-3">
+            {bullets.map((bullet, index) => (
+              <li key={`${bullet.text}-${index}`}>
+                <p>{bullet.text}</p>
+                {bullet.url ? (
+                  <a href={bullet.url} className="font-mono text-xs text-accent" target="_blank" rel="noreferrer">
+                    {bullet.url}
+                  </a>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+          {ledgerEmpty && !showsEmptyLedger ? <p>{EMPTY_LEDGER_SENTENCE}</p> : null}
+        </div>
+      </Card>
+
+      <Card>
+        <CardHeader
+          title="Support signals"
+          icon={<Icon name="inbox" className="text-accent" />}
+          action={<Chip>queue</Chip>}
+        />
+        <div className="space-y-3 p-5">
+          {signals.length === 0 ? (
+            <p className="text-sm text-muted">No five-times queue signal in this package.</p>
+          ) : (
+            signals.map((signal) => (
+              <div key={`${signal.week_id}-${signal.question_key}`} className="space-y-1">
+                <Chip>queue</Chip>
+                <p className="text-sm text-ink">{queueSignalLine(signal)}</p>
+              </div>
+            ))
+          )}
+        </div>
+      </Card>
     </div>
   );
 }
