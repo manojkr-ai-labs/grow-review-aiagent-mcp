@@ -159,14 +159,14 @@ Sources:
 | Source | What it supplies |
 | --- | --- |
 | Play Store export and `clusters.json` | Theme labels, review ids, and pattern counts |
-| `SUPPORTDESK_PROJECT1_ROOT` | The Milestone 1 public Groww page index used for factual claims |
+| `SUPPORTDESK_PROJECT1_ROOT` | The Milestone 1 public Groww page index used for factual claims. The ten official URLs are listed in `docs/source-manifest/README.md`. |
 | `data/capstone.db` | The question log and the not-covered ledger |
 
 `SUPPORTDESK_PROJECT1_ROOT` points at the sibling FAQ catalog. If that catalog is missing, facts stay not covered. The code does not invent a passage. `data/capstone.db` is gitignored.
 
 C1 checks a covered fact: at most three sentences, one allow-listed link, and a last-checked date or the word unavailable. C2 checks a question the corpus does not support: not covered, pages searched named, no guessed claim, and a ledger row. C3 asks one charge question five times against a fee theme and checks the routing note, the queue line, and the six-bullet ceiling. C4 checks that a phone number is absent from the response, the log, and the stored case. C5 refuses an advice question and the follow-up on the same session, and a draft that fails review twice is blocked with no Docs or Gmail call.
 
-Recorded results are in `docs/capstone/eval.md`. Run the checks with:
+Recorded results are in `docs/capstone/evals-report.md` (golden set, adversarial cases, and scores) and `docs/capstone/eval.md`. Run the checks with:
 
 ```bash
 python -m pytest tests/capstone -q
