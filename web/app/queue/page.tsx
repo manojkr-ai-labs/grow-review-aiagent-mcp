@@ -12,7 +12,7 @@ import { EmptyState, ErrorState } from "@/components/ui/EmptyState";
 
 const CHIP_ORDER = ["Personal data", "Advice", "Complaint", "Fact", "Not covered"] as const;
 
-export function queueChips(row: DeskQueueRow): Array<(typeof CHIP_ORDER)[number]> {
+function queueChips(row: DeskQueueRow): Array<(typeof CHIP_ORDER)[number]> {
   const present = new Set<string>();
   if (row.pii_redacted || row.redaction_blocked) present.add("Personal data");
   if (row.compliance_decision === "refuse") present.add("Advice");
